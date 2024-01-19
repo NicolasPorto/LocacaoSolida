@@ -5,5 +5,6 @@ namespace Solid.Domain.Interfaces.Repositories
 {
     public interface ICorretorRepository : IBaseRepository<Corretor, Guid>
     {
+        List<Corretor> BuscarTodosOsCorretores();
     }
 }

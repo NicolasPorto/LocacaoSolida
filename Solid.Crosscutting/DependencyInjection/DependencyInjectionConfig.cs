@@ -11,10 +11,8 @@ namespace Solid.Crosscutting.DependencyInjection
     {
         public static void ConfigureDependencies(this IServiceCollection services)
         {
-            services.AddDbContext<ConnectDbContext>();
-
-            services.AddScoped<ICorretorRepository, CorretorRepository>();
-            services.AddScoped<ICorretorApplicationService, CorretorApplicationService>();
+            services.AddTransient<ICorretorRepository, CorretorRepository>();
+            services.AddTransient<ICorretorApplicationService, CorretorApplicationService>();
         }
     }
 }

@@ -1,32 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Solid.Domain.Interfaces.Data;
+using Solid.Domain.Entities;
 
 namespace Solid.Data.Context
 {
-    public class ConnectDbContext : DbContext, IDbProvider
+    public class ConnectDbContext : DbContext
     {
-        private readonly IConfiguration _configuration;
+        public DbSet<Corretor> Corretor { get; set; }
 
-        public ConnectDbContext(IConfiguration configuration, DbContextOptions options) : base(options)
+        public ConnectDbContext(DbContextOptions<ConnectDbContext> options) : base(options)
         {
-            _configuration = configuration;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var typeDatabase = _configuration["TypeDatabase"];
-            var connectionString = _configuration.GetConnectionString(typeDatabase ?? "SqlServer");
+            modelBuilder.Entity<Corretor>().HasKey(c => c.Id);
 
-            if (typeDatabase == "SqlServer")
-            {
-                optionsBuilder.UseSqlServer(connectionString);
-            }
-        }
-
-        public DbContext GetDbContext()
-        {
-            return this;
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

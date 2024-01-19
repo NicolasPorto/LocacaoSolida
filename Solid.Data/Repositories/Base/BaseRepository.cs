@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Solid.Domain.Interfaces.Data;
+using Solid.Data.Context;
 using Solid.Domain.Interfaces.Repositories.Base;
 
 namespace Solid.Data.Repositories.Base
@@ -8,9 +8,9 @@ namespace Solid.Data.Repositories.Base
     {
         private readonly DbContext _dbContext;
 
-        protected BaseRepository(IDbProvider dbProvider)
+        protected BaseRepository(DbContextOptions<ConnectDbContext> options)
         {
-            _dbContext = dbProvider.GetDbContext();
+            _dbContext = new ConnectDbContext(options);
         }
 
         public IQueryable<TResult> SqlQuery<TResult>(string sqlQuery, params object[] parameters) where TResult : class
