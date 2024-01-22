@@ -18,5 +18,42 @@ namespace Solid.Data.Repositories
 
             return SqlQuery<Corretor>(sql).ToList();
         }
+
+        public Corretor? ObterCorretorPorCodigo(Guid codigo)
+        {
+            const string sql = @"DECLARE @codigoCorretor UNIQUEIDENTIFIER = @p0
+
+                                 SELECT * FROM cad.Corretor
+                                 WHERE Codigo = @codigoCorretor";
+
+            return SqlQuery<Corretor>(sql, codigo)?.FirstOrDefault();
+        }
+
+        public void AtualizarCorretor(Corretor corretor)
+        {
+            const string sql = @"DECLARE @codigoCorretor UNIQUEIDENTIFIER = @p0
+
+                                 UPDATE cad.Corretor
+                                 SET (Nome,
+                                      TipoPessoa,
+                                      Situacao,
+                                      NumeroCelular,
+                                      Empresa,
+                                      TipoCorretor)
+                                  VALUES (@p1,
+                                          @p2,
+                                          @p3,
+                                          @p4,
+                                          @p5,
+                                          @p6)";
+
+            SqlQuery<Corretor>(sql, corretor.Codigo, 
+                                    corretor.Nome, 
+                                    corretor.TipoPessoa, 
+                                    corretor.Situacao,
+                                    corretor.NumeroCelular,
+                                    corretor.Empresa,
+                                    corretor.TipoCorretor)?.FirstOrDefault();
+        }
     }
 }

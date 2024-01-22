@@ -19,7 +19,7 @@ namespace Solid.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet("BuscarTodos")]
+        [HttpGet]
         public ActionResult<List<CorretorResponse>> BuscarCorretores()
         {
             try
@@ -27,6 +27,50 @@ namespace Solid.API.Controllers
                 var response = _corretorApplicationService.BuscarCorretores();
 
                 if (response.Any())
+                    return Ok(response);
+
+                return BadRequest(response);
+            }
+            catch (SolidException ex)
+            {
+                return BadRequest(ResponseBase.ErrorHandled(ex));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
+            }
+        }
+
+        [HttpPost]
+        public ActionResult<CorretorResponse> InserirCorretor(CorretorRequest request)
+        {
+            try
+            {
+                var response = _corretorApplicationService.InserirCorretor(request);
+
+                if (response.Success)
+                    return Ok(response);
+
+                return BadRequest(response);
+            }
+            catch (SolidException ex)
+            {
+                return BadRequest(ResponseBase.ErrorHandled(ex));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
+            }
+        }
+
+        [HttpPut]
+        public ActionResult<CorretorResponse> AtualizarCorretor(CorretorRequest request)
+        {
+            try
+            {
+                var response = _corretorApplicationService.AtualizarCorretor(request);
+
+                if (response.Success)
                     return Ok(response);
 
                 return BadRequest(response);

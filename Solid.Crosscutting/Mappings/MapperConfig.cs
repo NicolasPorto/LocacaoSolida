@@ -11,6 +11,7 @@ namespace Solid.Crosscutting.Mappings
         private void MapperConfigure() 
         {
             CreateMap<Corretor, CorretorResponse>();
+            CreateMap<Corretor, CorretorRequest>();
         }
     }
 }

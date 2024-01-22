@@ -17,5 +17,19 @@ namespace Solid.Data.Repositories.Base
         {
             return _dbContext.Set<TResult>().FromSqlRaw(sqlQuery, parameters).AsNoTracking().AsQueryable();
         }
+
+        public void Insert(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Add(entity);
+            _dbContext.SaveChanges();
+        }
+
+        public void Update(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Update(entity);
+            _dbContext.SaveChanges();
+        }
+
+
     }
 }

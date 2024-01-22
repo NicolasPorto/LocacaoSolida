@@ -3,5 +3,7 @@
     public interface IBaseRepository<TEntity, TIdType> where TEntity : class
     {
         IQueryable<TResult> SqlQuery<TResult>(string sqlQuery, params object[] parameters) where TResult : class;
+        void Insert(TEntity entity);
+        void Update(TEntity entity);
     }
 }

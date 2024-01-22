@@ -4,7 +4,6 @@ using Microsoft.OpenApi.Models;
 using Solid.Crosscutting.DependencyInjection;
 using Solid.Crosscutting.Mappings;
 using Solid.Data.Context;
-using System.Globalization;
 
 namespace Solid.API
 {
@@ -23,6 +22,7 @@ namespace Solid.API
             services.AddEndpointsApiExplorer();
             services.ConfigureDependencies();
             services.AddAutoMapper(typeof(MapperConfig));
+            services.AddFluentValidationConfig();
 
             services.AddDbContext<ConnectDbContext>(options =>
             {
