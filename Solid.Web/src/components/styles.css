@@ -1,0 +1,35 @@
+.containerError {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    height: 70%;
+    width: 40%;
+}
+
+.btn-back {
+    color: #db4648;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.btn-back:hover {
+    color: #3f3d56;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+@media (max-width: 574px) {
+    .containerError {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 40%;
+        width: 100%;
+    }
+}

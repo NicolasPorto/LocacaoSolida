@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Messaging.Base;
 using Solid.Domain.Messaging.Corretor;
@@ -6,6 +7,7 @@ using Solid.Infra.Exceptions;
 
 namespace Solid.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class CorretorController : ControllerBase
@@ -35,8 +37,9 @@ namespace Solid.API.Controllers
             {
                 return BadRequest(ResponseBase.ErrorHandled(ex));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
             }
         }
@@ -57,8 +60,9 @@ namespace Solid.API.Controllers
             {
                 return BadRequest(ResponseBase.ErrorHandled(ex));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
             }
         }
@@ -79,8 +83,9 @@ namespace Solid.API.Controllers
             {
                 return BadRequest(ResponseBase.ErrorHandled(ex));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
             }
         }

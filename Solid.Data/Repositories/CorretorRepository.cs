@@ -55,5 +55,13 @@ namespace Solid.Data.Repositories
                                     corretor.Empresa,
                                     corretor.TipoCorretor)?.FirstOrDefault();
         }
+
+        public Corretor? ObterCorretorPorEmail(string email)
+        {
+            const string sql = @"SELECT * FROM cad.Corretor
+                                 WHERE Email = @p0";
+
+            return SqlQuery<Corretor>(sql, email)?.FirstOrDefault();
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace Solid.Domain.Interfaces.Repositories
         List<Corretor> BuscarTodosOsCorretores();
         Corretor? ObterCorretorPorCodigo(Guid codigo);
         void AtualizarCorretor(Corretor corretor);
+        Corretor? ObterCorretorPorEmail(string email);
     }
 }
