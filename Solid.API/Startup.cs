@@ -20,6 +20,15 @@ namespace Solid.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
 
             services.AddAuthentication(x =>
             {
@@ -89,6 +98,7 @@ namespace Solid.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

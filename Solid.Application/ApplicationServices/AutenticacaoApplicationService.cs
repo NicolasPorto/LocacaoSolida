@@ -46,7 +46,9 @@ namespace Solid.Application.ApplicationServices
             { 
                 new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new("codigo-corretor", corretor.Codigo.ToString()),
-                new("email", corretor.Email)
+                new("email", corretor.Email),
+                new("nome", corretor.Nome),
+                new("tipo", corretor.TipoCorretor.ToString())
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
