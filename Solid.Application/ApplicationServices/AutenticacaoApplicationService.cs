@@ -5,6 +5,7 @@ using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Interfaces.Repositories;
 using Solid.Domain.Messaging.Autenticacao;
 using Solid.Infra.Exceptions;
+using Solid.Infra.Extensions;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -30,6 +31,9 @@ namespace Solid.Application.ApplicationServices
             if (corretor.Senha != request.Senha)
                 throw new SolidException("E-mail ou senha inválidos.");
 
+            if (corretor.Situacao == Infra.Enums.Situacao.Inativo)
+                throw new SolidException("Não foi possível realizar o login.");
+
             return new AutenticacaoResponse()
             {
                 Token = GenerarToken(corretor),
@@ -43,21 +47,21 @@ namespace Solid.Application.ApplicationServices
             var key = Encoding.UTF8.GetBytes(_configuration.GetSection("JwtConfig:Key").Value!);
 
             var claims = new List<Claim>
-            { 
+            {
                 new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new("codigo-corretor", corretor.Codigo.ToString()),
                 new("email", corretor.Email),
                 new("nome", corretor.Nome),
-                new("tipo", corretor.TipoCorretor.ToString())
+                new("tipo", corretor.TipoCorretor.GetValueAsString())
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-               Subject = new ClaimsIdentity(claims),
-               Expires = DateTime.UtcNow.Add(TokenLifetime),
-               Issuer = "https://id.nickchapsas.com",
-               Audience = "https://movies.niuckchapsas.com",
-               SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.Add(TokenLifetime),
+                Issuer = "https://id.nickchapsas.com",
+                Audience = "https://movies.niuckchapsas.com",
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);

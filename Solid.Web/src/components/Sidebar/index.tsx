@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import Logo from '../../images/logo/logo-white.svg';
+import { AuthContext } from '../../context/AuthContext';
+import { TipoCorretor } from '../../constants/enums.ts'
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -14,13 +16,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
-
+  const { user } = useContext(AuthContext)
+  
   const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
   );
 
-  // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!sidebar.current || !trigger.current) return;
@@ -36,7 +38,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     return () => document.removeEventListener('click', clickHandler);
   });
 
-  // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
       if (!sidebarOpen || keyCode !== 27) return;
@@ -58,9 +59,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}
+      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
     >
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <NavLink to="/">
@@ -91,7 +91,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       </div>
 
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
-        {/* <!-- Sidebar Menu --> */}
         <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
           <div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
@@ -138,83 +137,86 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Dashboard --> */}
 
               {/* <!-- Admin --> */}
-              <SidebarLinkGroup
-                activeCondition={
-                  pathname === "/admin" || pathname.includes("admin")
-                }
-              >
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <NavLink
-                        to="#"
-                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === "/admin" ||
-                          pathname.includes("admin")) &&
-                          "bg-graydark dark:bg-meta-4"
-                          }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
-                        }}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                          <path 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round" d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33" />
-                        </svg>
-                        Admin
-                        <svg
-                          className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
+              {user !== undefined && user.tipo === TipoCorretor.Administrador &&
+                <SidebarLinkGroup
+                  activeCondition={
+                    pathname === "/admin" || pathname.includes("admin")
+                  }
+                >
+                  {(handleClick, open) => {
+                    return (
+                      <React.Fragment>
+                        <NavLink
+                          to="#"
+                          className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === "/admin" ||
+                            pathname.includes("admin")) &&
+                            "bg-graydark dark:bg-meta-4"
                             }`}
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            sidebarExpanded
+                              ? handleClick()
+                              : setSidebarExpanded(true);
+                          }}
                         >
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
-                            fill=""
-                          />
-                        </svg>
-                      </NavLink>
-                      {/* <!-- Dropdown Menu Start --> */}
-                      <div
-                        className={`translate transform overflow-hidden ${!open && "hidden"
-                          }`}
-                      >
-                        <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
-                          <li>
-                            <NavLink
-                              to="/admin/corretores"
-                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/admin/corretores" &&
-                                "text-white"
-                                }`}
-                            >
-                              Corretores
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
-                      {/* <!-- Dropdown Menu End --> */}
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round" d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33" />
+                          </svg>
+                          Admin
+                          <svg
+                            className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
+                              }`}
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                              fill=""
+                            />
+                          </svg>
+                        </NavLink>
+
+                        {/* <!-- Dropdown Menu Start --> */}
+                        <div
+                          className={`translate transform overflow-hidden ${!open && "hidden"
+                            }`}
+                        >
+                          <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
+                            <li>
+                              <NavLink
+                                to="/admin/corretores"
+                                className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/admin/corretores" &&
+                                  "text-white"
+                                  }`}
+                              >
+                                Corretores
+                              </NavLink>
+                            </li>
+                          </ul>
+                        </div>
+                        {/* <!-- Dropdown Menu End --> */}
+                      </React.Fragment>
+                    );
+                  }}
+                </SidebarLinkGroup>
+              }
+
               {/* <!-- Admin --> */}
-           
+
               {/* <!-- Configurações --> */}
               <li>
                 <NavLink
                   to="/configuracoes"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('configuracoes') &&
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('configuracoes') &&
                     'bg-graydark dark:bg-meta-4'
-                  }`}
+                    }`}
                 >
                   <svg
                     className="fill-current"
@@ -252,7 +254,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </ul>
           </div>
         </nav>
-        {/* <!-- Sidebar Menu --> */}
       </div>
     </aside>
   );

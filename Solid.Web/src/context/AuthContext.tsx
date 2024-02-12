@@ -10,12 +10,13 @@ type AuthProviderProps = {
 type User = {
     nome: string
     email: string
-    tipo: string
+    tipo: number
 }
 
 type AuthContextType = {
     isAuthenticated: boolean
     user: User | undefined
+    error: string | undefined
     login: (data: SignInData) => Promise<void>
     logout: () => Promise<void>
 }
@@ -30,6 +31,7 @@ export const AuthContext = createContext({} as AuthContextType);
 export function AuthProvider({ children }: AuthProviderProps) {
     const navigate = useNavigate();
     const [user, setUser] = useState<User | undefined>(undefined);
+    const [error, setError] = useState<string | undefined>(undefined);
 
     useEffect(() => {
         const recoveredUser = localStorage.getItem("user");
@@ -48,7 +50,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 const user = {
                     nome: tokenInfo.nome,
                     email: tokenInfo.email,
-                    tipo: tokenInfo.tipo
+                    tipo: parseInt(tokenInfo.tipo)
                 }
 
                 localStorage.setItem("user", JSON.stringify(user));
@@ -58,8 +60,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 setUser(user);
                 navigate("/");
             }
-        } catch (err) {
-            alert(err)
+        } catch (err: any) {
+            setError(err);
         }
     }
 
@@ -81,7 +83,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, user, error, login, logout,  }}>
             {children}
         </AuthContext.Provider>
     )

@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useForm } from 'react-hook-form';
+import LogoIcon from '../../images/logo/logo-dark.svg'
 
 const Login: React.FC = () => {
   const { register, handleSubmit } = useForm()
-  const { login } = useContext(AuthContext)
+  const { login, error } = useContext(AuthContext)
 
   async function realizarLogin(data: any) {
     await login(data)
@@ -16,12 +17,13 @@ const Login: React.FC = () => {
         <div className="w-180 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="w-full border-stroke dark:border-strokedark">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <span className="mb-1.5 block font-medium">Login</span>
-              <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Entre na Locação Sólida
+              <span className="mb-1.5 block font-medium text-center">Login</span>
+              <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2 flex items-center">
+                <img src={LogoIcon} alt="" />
               </h2>
 
               <form onSubmit={handleSubmit(realizarLogin)}>
+                {error && <div className="text-red-500 text-center">{error}</div>}
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
