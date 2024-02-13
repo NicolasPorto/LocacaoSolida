@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-import { buscar, criar, api } from "../services/corretorApi"
+import { buscar, criar, editar, api } from "../services/corretorApi"
 import Cookies from 'js-cookie';
 
 type CorretorProviderProps = {
@@ -10,6 +10,7 @@ type CorretorContextType = {
     error: string | undefined
     buscarCorretores: () => Promise<any>
     inserirCorretor: (corretor: any) => Promise<any>
+    editarCorretor: (corretor: any) => Promise<any>
 }
 
 
@@ -34,7 +35,17 @@ export function CorretorProvider({ children }: CorretorProviderProps) {
             corretor.situacao = parseInt(corretor.situacao)
             return await criar(corretor);
         } catch (err: any) {
-            console.log(err)
+            setError(err);
+        }
+    }
+
+    async function editarCorretor(corretor: any) {
+        try {
+            corretor.tipoPessoa = parseInt(corretor.tipoPessoa)
+            corretor.tipoCorretor = parseInt(corretor.tipoCorretor)
+            corretor.situacao = parseInt(corretor.situacao)
+            return await editar(corretor);
+        } catch (err: any) {
             setError(err);
         }
     }
@@ -44,7 +55,7 @@ export function CorretorProvider({ children }: CorretorProviderProps) {
         api.defaults.headers.Authorization = `Bearer ${token}`;
     }
     return (
-        <CorretorContext.Provider value={{ error, buscarCorretores, inserirCorretor }}>
+        <CorretorContext.Provider value={{ error, buscarCorretores, inserirCorretor, editarCorretor }}>
             {children}
         </CorretorContext.Provider>
     )

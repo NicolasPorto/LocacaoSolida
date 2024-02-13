@@ -26,7 +26,7 @@ namespace Solid.Data.Repositories
                                  SELECT * FROM cad.Corretor
                                  WHERE Codigo = @codigoCorretor";
 
-            return SqlQuery<Corretor>(sql, codigo)?.FirstOrDefault();
+            return SqlQuery<Corretor>(sql, codigo).ToList().FirstOrDefault();
         }
 
         public void AtualizarCorretor(Corretor corretor)

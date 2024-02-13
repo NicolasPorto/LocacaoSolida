@@ -6,7 +6,8 @@ const DocumentoFederal = ({ register, className, id, name, value: parentValue, o
 
   useEffect(() => {
     if (parentValue) {
-      setDoc(cpfCnpjMask(parentValue));
+      const teste = cpfCnpjMask(parentValue)
+      setDoc(teste)
     }
   }, [parentValue]);
 
@@ -25,7 +26,7 @@ const DocumentoFederal = ({ register, className, id, name, value: parentValue, o
   return (
     <div>
       <input
-        {...register(name)}
+        {...register(name, { defaultValue: "21323" })}
         type="text"
         id={id}
         name={name}

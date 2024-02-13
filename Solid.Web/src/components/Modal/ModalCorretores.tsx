@@ -8,7 +8,7 @@ import DocumentoFederal from '../Forms/Input/DocumentoFederal';
 import Telefone from '../Forms/Input/Telefone';
 
 const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
-    const { inserirCorretor, error } = useContext(CorretorContext)
+    const { inserirCorretor, editarCorretor, error } = useContext(CorretorContext)
     const [show, setShowModal] = useState(false)
     const [errorBack, setErrorBack] = useState<string | undefined>(undefined)
     const [isEdit, setIsEdit] = useState(false)
@@ -38,6 +38,8 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
     useEffect(() => {
         if (corretor !== undefined) {
             setIsEdit(true);
+            setDocFederal(corretor.documentoFederal)
+            setTelefone(corretor.numeroCelular)
         } else {
             setIsEdit(false);
         }
@@ -50,7 +52,10 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                 handleCloseModal()
             }
         } else {
-            editarCorretor(data);
+            const response = await alterarCorretor(data);
+            if (response !== undefined) {
+                handleCloseModal()
+            }
         }
     }
 
@@ -58,8 +63,10 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
         await inserirCorretor(data)
     }
 
-    async function editarCorretor(data: any) {
-
+    async function alterarCorretor(data: any) {
+        data.documentoFederal = docFederal
+        data.telefoneCelular = telefone
+        await editarCorretor(data)
     }
 
     return (
@@ -89,10 +96,20 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                             </div>
                             <form className="p-4 md:p-5" onSubmit={handleSubmit(confirmarRegistro)} >
                                 <div className="grid gap-4 mb-4 grid-cols-2 pb-4">
+                                    <div className="hidden">
+                                        <input
+                                            {...register('codigo')}
+                                            defaultValue={corretor && corretor.codigo}
+                                            type="text"
+                                            name="codigo"
+                                            id="codigo"
+                                        />
+                                    </div>
                                     <div className="col-span-2">
                                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
                                         <input
                                             {...register('nome')}
+                                            defaultValue={corretor && corretor.nome}
                                             type="text"
                                             name="nome"
                                             id="nome"
@@ -105,6 +122,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                                         <input
                                             {...register('email')}
+                                            defaultValue={corretor && corretor.email}
                                             type="email"
                                             name="email"
                                             id="email"
@@ -141,7 +159,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                         <label htmlFor="tipoPessoa" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo Pessoa</label>
                                         <select
                                             {...register('tipoPessoa')}
-                                            defaultValue="0"
+                                            defaultValue={corretor !== undefined ? corretor.tipoPessoa : "0"}
                                             id="tipoPessoa"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         >
@@ -155,7 +173,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                         <label htmlFor="tipoCorretor" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo Corretor</label>
                                         <select
                                             {...register('tipoCorretor')}
-                                            defaultValue="0"
+                                            defaultValue={corretor !== undefined ? corretor.tipoCorretor : "0"}
                                             id="tipoCorretor"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         >
@@ -169,7 +187,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                         <label htmlFor="situacao" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Situação</label>
                                         <select
                                             {...register('situacao')}
-                                            defaultValue="0"
+                                            defaultValue={corretor !== undefined ? corretor.situacao : "0"}
                                             id="situacao"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         >
@@ -183,6 +201,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                         <label htmlFor="empresa" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Empresa</label>
                                         <input
                                             {...register('empresa')}
+                                            defaultValue={corretor && corretor.empresa}
                                             type="text"
                                             name="empresa"
                                             id="empresa"

@@ -12,6 +12,7 @@ namespace Solid.Crosscutting.Mappings
         {
             CreateMap<Corretor, CorretorResponse>();
             CreateMap<Corretor, CorretorRequest>();
+            CreateMap<CorretorRequest, Corretor>();
         }
     }
 }
