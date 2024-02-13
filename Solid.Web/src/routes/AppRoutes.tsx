@@ -6,7 +6,6 @@ import { AuthContext } from '../context/AuthContext';
 import PageTitle from '../components/PageTitle';
 import Corretores from '../pages/Admin/Corretores';
 import Login from '../pages/Authentication/Login';
-import SignUp from '../pages/Authentication/SignUp';
 import Dashboard from '../pages/Dashboard/dashboard';
 import Settings from '../pages/Settings';
 
@@ -31,15 +30,6 @@ const AppRoutes = () => {
                     <>
                         <PageTitle title="LocaçãoSólida | Login" />
                         <Login />
-                    </>
-                }
-            />
-            <Route
-                path="/signup"
-                element={
-                    <>
-                        <PageTitle title="LocaçãoSólida | SignUp" />
-                        <SignUp />
                     </>
                 }
             />

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Messaging.Autenticacao;
 using Solid.Domain.Messaging.Base;
@@ -25,6 +26,30 @@ namespace Solid.API.Controllers
             try
             {
                 var response = _autenticacaoApplicationService.Autenticar(request);
+
+                if (response.Success)
+                    return Ok(response);
+
+                return BadRequest(response);
+            }
+            catch (SolidException ex)
+            {
+                return BadRequest(ResponseBase.ErrorHandled(ex));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
+            }
+        }
+
+        [Authorize]
+        [HttpGet("RecuperarInfoUsuario")]
+        public ActionResult<RecuperarInfoUsuarioResponse> RecuperarInfoUsuario(string token)
+        {
+            try
+            {
+                var response = _autenticacaoApplicationService.RecuperarInfoUsuario(token);
 
                 if (response.Success)
                     return Ok(response);

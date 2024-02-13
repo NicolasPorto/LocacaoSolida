@@ -1,6 +1,7 @@
 ﻿using Solid.Domain.Messaging.Corretor;
 using Solid.Domain.Models;
 using Solid.Infra.Enums;
+using Solid.Infra.Extensions;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Solid.Domain.Entities
@@ -26,12 +27,12 @@ namespace Solid.Domain.Entities
             {
                 Codigo = Guid.NewGuid(),
                 Email = request.Email,
-                Senha = request.Senha,
-                DocumentoFederal = request.DocumentoFederal,
+                Senha = "12345678",
+                DocumentoFederal = request.DocumentoFederal.SomenteNumeros(),
                 Nome = request.Nome,
                 TipoPessoa = request.TipoPessoa,
                 Situacao = request.Situacao,
-                NumeroCelular = request.NumeroCelular,
+                NumeroCelular = request.NumeroCelular.SomenteNumeros(),
                 Empresa = request.Empresa,
                 TipoCorretor = request.TipoCorretor,
                 DtInclusao = DateTime.Now

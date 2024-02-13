@@ -137,7 +137,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Dashboard --> */}
 
               {/* <!-- Admin --> */}
-              {user !== undefined && user.tipo === TipoCorretor.Administrador &&
+              {user !== undefined && user.tipo == TipoCorretor.Administrador &&
                 <SidebarLinkGroup
                   activeCondition={
                     pathname === "/admin" || pathname.includes("admin")

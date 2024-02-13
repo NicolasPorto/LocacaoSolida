@@ -1,13 +1,15 @@
 import { createContext, ReactNode, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { autenticar, api } from "../services/authApi"
+import { autenticar, recuperarInfoUsuario, api } from "../services/authApi"
 import * as jose from 'jose';
+import Cookies from 'js-cookie';
 
 type AuthProviderProps = {
     children: ReactNode
 }
 
 type User = {
+    codigo: string
     nome: string
     email: string
     tipo: number
@@ -34,10 +36,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [error, setError] = useState<string | undefined>(undefined);
 
     useEffect(() => {
-        const recoveredUser = localStorage.getItem("user");
+        const token = Cookies.get('token');
 
-        if (recoveredUser) {
-            setUser(JSON.parse(recoveredUser));
+        if (token) {
+            recuperarInfoUsuario(token).then(response => {
+                setUser(response)
+            })
+            api.defaults.headers.Authorization = `Bearer ${token}`;
         }
     }, []);
 
@@ -48,13 +53,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
             if (tokenInfo) {
                 const user = {
+                    codigo: response.codigo,
                     nome: tokenInfo.nome,
                     email: tokenInfo.email,
                     tipo: parseInt(tokenInfo.tipo)
                 }
 
-                localStorage.setItem("user", JSON.stringify(user));
-                localStorage.setItem("token", JSON.stringify(response.token));
+                Cookies.set('token', response.token, { expires: 1 });
                 api.defaults.headers.Authorization = `Bearer ${response.token}`;
 
                 setUser(user);
@@ -66,11 +71,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     async function logout() {
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        localStorage.removeItem("notificado");
-        setUser(undefined);
+        Cookies.remove('token')
         api.defaults.headers.Authorization = null;
+        setUser(undefined);
         navigate("/login");
     };
 
@@ -83,7 +86,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, user, error, login, logout,  }}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, user, error, login, logout }}>
             {children}
         </AuthContext.Provider>
     )

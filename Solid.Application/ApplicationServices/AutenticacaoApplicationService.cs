@@ -6,9 +6,11 @@ using Solid.Domain.Interfaces.Repositories;
 using Solid.Domain.Messaging.Autenticacao;
 using Solid.Infra.Exceptions;
 using Solid.Infra.Extensions;
+using Solid.Infra.Helpers;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace Solid.Application.ApplicationServices
 {
@@ -41,6 +43,17 @@ namespace Solid.Application.ApplicationServices
             };
         }
 
+        public RecuperarInfoUsuarioResponse RecuperarInfoUsuario(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+                throw new SolidException("Não foi possível recuperar as informações do token.");
+
+            return TokenHelper.DecodificarToken<RecuperarInfoUsuarioResponse>(token,
+                _configuration.GetSection("JwtConfig:Key").Value!,
+                "https://id.nickchapsas.com",
+                "https://movies.niuckchapsas.com");
+        }
+
         private string GenerarToken(Corretor corretor)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -49,7 +62,7 @@ namespace Solid.Application.ApplicationServices
             var claims = new List<Claim>
             {
                 new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new("codigo-corretor", corretor.Codigo.ToString()),
+                new("codigocorretor", corretor.Codigo.ToString()),
                 new("email", corretor.Email),
                 new("nome", corretor.Nome),
                 new("tipo", corretor.TipoCorretor.GetValueAsString())

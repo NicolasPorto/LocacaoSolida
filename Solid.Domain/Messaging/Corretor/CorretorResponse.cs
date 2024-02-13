@@ -7,7 +7,6 @@ namespace Solid.Domain.Messaging.Corretor
     {
         public Guid Codigo { get; set; }
         public required string Email { get; set; }
-        public required string Senha { get; set; }
         public required string DocumentoFederal { get; set; }
         public required string Nome { get; set; }
         public TipoPessoa TipoPessoa { get; set; }

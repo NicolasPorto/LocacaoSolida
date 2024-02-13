@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using Solid.Domain.Messaging.Corretor;
 using Solid.Domain.Validations.Base;
 using Solid.Infra.Enums;
+using Solid.Infra.Extensions;
 
 namespace Solid.Domain.Validations
 {
@@ -17,23 +18,13 @@ namespace Solid.Domain.Validations
                 .EmailAddress(FluentValidation.Validators.EmailValidationMode.AspNetCoreCompatible)
                 .WithMessage("É obrigatório informar um e-mail válido.");
 
-            RuleFor(x => x.Senha)
+            RuleFor(x => x.DocumentoFederal.SomenteNumeros())
                 .NotEmpty()
+                .WithMessage("É obrigatório informar um documento federal válido.")
                 .NotNull()
-                .Length(8, 20)
-                .WithMessage("É obrigatório informar a senha.");
-
-            RuleFor(x => x.DocumentoFederal)
-                .NotEmpty()
-                .NotNull()
-                .MaximumLength(11)
+                .WithMessage("É obrigatório informar um documento federal válido.")
+                .MaximumLength(14)
                 .WithMessage("É obrigatório informar um documento federal válido.");
-
-            RuleFor(x => x.Nome)
-                .NotEmpty()
-                .NotNull()
-                .Length(3, 200)
-                .WithMessage("É obrigatório informar o nome do corretor.");
 
             RuleFor(x => x.Nome)
                 .NotEmpty()
@@ -49,7 +40,7 @@ namespace Solid.Domain.Validations
                 .Must(situacao => Enum.IsDefined(typeof(Situacao), situacao))
                     .WithMessage("A situação é inválida.");
 
-            RuleFor(x => x.NumeroCelular)
+            RuleFor(x => x.NumeroCelular.SomenteNumeros())
                 .MaximumLength(11)
                 .WithMessage("É obrigatório informar um numero celular válido.");
 
