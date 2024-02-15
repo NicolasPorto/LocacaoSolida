@@ -31,29 +31,7 @@ namespace Solid.Data.Repositories
 
         public void AtualizarCorretor(Corretor corretor)
         {
-            const string sql = @"DECLARE @codigoCorretor UNIQUEIDENTIFIER = @p0
-
-                                 UPDATE cad.Corretor
-                                 SET (Nome,
-                                      TipoPessoa,
-                                      Situacao,
-                                      NumeroCelular,
-                                      Empresa,
-                                      TipoCorretor)
-                                  VALUES (@p1,
-                                          @p2,
-                                          @p3,
-                                          @p4,
-                                          @p5,
-                                          @p6)";
-
-            SqlQuery<Corretor>(sql, corretor.Codigo, 
-                                    corretor.Nome, 
-                                    corretor.TipoPessoa, 
-                                    corretor.Situacao,
-                                    corretor.NumeroCelular,
-                                    corretor.Empresa,
-                                    corretor.TipoCorretor)?.FirstOrDefault();
+            Update(corretor);
         }
 
         public Corretor? ObterCorretorPorEmail(string email)

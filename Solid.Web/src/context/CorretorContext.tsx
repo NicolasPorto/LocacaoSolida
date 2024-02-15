@@ -30,6 +30,7 @@ export function CorretorProvider({ children }: CorretorProviderProps) {
 
     async function inserirCorretor(corretor: any) {
         try {
+            console.log(corretor)
             corretor.tipoPessoa = parseInt(corretor.tipoPessoa)
             corretor.tipoCorretor = parseInt(corretor.tipoCorretor)
             corretor.situacao = parseInt(corretor.situacao)

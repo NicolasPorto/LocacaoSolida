@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { cpfCnpjMask } from 'util-mask';
 
-const DocumentoFederal = ({ register, className, id, name, value: parentValue, onChange, placeholder }: any) => {
+const DocumentoFederal = ({ register, className, id, name, value: parentValue, onChange, placeholder, disabled }: any) => {
   const [doc, setDoc] = useState('');
 
   useEffect(() => {
@@ -35,6 +35,7 @@ const DocumentoFederal = ({ register, className, id, name, value: parentValue, o
         placeholder={placeholder}
         className={inputClass}
         maxLength={18}
+        disabled={disabled}
         required
       />
     </div>
