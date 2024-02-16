@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Messaging.Base;
-using Solid.Domain.Messaging.Corretor;
 using Solid.Domain.Messaging.PartesEnvolvidas;
 using Solid.Infra.Enums;
 using Solid.Infra.Exceptions;

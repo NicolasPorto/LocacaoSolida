@@ -13,6 +13,7 @@ namespace Solid.Crosscutting.DependencyInjection
             services.AddTransient<ICorretorRepository, CorretorRepository>();
             services.AddTransient<ICorretorApplicationService, CorretorApplicationService>();
             services.AddTransient<IAutenticacaoApplicationService, AutenticacaoApplicationService>();
+            services.AddTransient<IPartesEnvolvidasApplicationService, PartesEnvolvidasApplicationService>();
         }
     }
 }
