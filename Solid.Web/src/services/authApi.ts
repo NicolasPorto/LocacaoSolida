@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: 'https://localhost:44327'
+    baseURL: import.meta.env.VITE_BASE_URL
 });
 
 export const autenticar = async (user: { email: string, senha: string }): Promise<any> => {
@@ -23,7 +23,6 @@ export const recuperarInfoUsuario = async (token: string): Promise<any> => {
         const response = await api.get(`/Autenticacao/RecuperarInfoUsuario?token=${token}`);
         return response.data;
     } catch (error: any) {
-        console.log(error)
         throw error.response.data.message;
     }
 }

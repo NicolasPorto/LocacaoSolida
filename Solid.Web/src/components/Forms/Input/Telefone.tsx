@@ -31,6 +31,7 @@ const Telefone = ({ register, className, id, name, value: parentValue, required:
         className={inputClass}
         maxLength={15}
         required={required}
+        autoComplete="on"
       />
     </div>
   );

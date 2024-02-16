@@ -37,6 +37,7 @@ const DocumentoFederal = ({ register, className, id, name, value: parentValue, o
         maxLength={18}
         disabled={disabled}
         required
+        autoComplete="on"
       />
     </div>
   );

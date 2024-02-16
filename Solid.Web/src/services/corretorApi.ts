@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: 'https://localhost:44327'
+    baseURL: import.meta.env.VITE_BASE_URL
 });
 
 export const buscar = async (): Promise<any> => {
@@ -18,7 +18,6 @@ export const criar = async (request : any): Promise<any> => {
         const response = await api.post('/Corretor', request);
         return response.data;
     } catch (error: any) {
-        console.log(error)
         throw error.response.data.message;
     }
 }

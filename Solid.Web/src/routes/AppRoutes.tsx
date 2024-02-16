@@ -4,10 +4,13 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 import PageTitle from '../components/PageTitle';
-import Corretores from '../pages/Admin/Corretores';
 import Login from '../pages/Authentication/Login';
 import Dashboard from '../pages/Dashboard/dashboard';
 import Settings from '../pages/Settings';
+import Corretores from '../pages/Admin/Corretores';
+import Locadores from '../pages/Cadastro/Locadores';
+import Locatarios from '../pages/Cadastro/Locatarios';
+import Fiadores from '../pages/Cadastro/Fiadores';
 
 
 const AppRoutes = () => {
@@ -48,6 +51,33 @@ const AppRoutes = () => {
                     <Private>
                         <PageTitle title="LocaçãoSólida | Corretores" />
                         <Corretores />
+                    </Private>
+                }
+            />
+            <Route
+                path="/cadastro/locadores"
+                element={
+                    <Private>
+                        <PageTitle title="LocaçãoSólida | Locadores" />
+                        <Locadores />
+                    </Private>
+                }
+            />
+            <Route
+                path="/cadastro/locatarios"
+                element={
+                    <Private>
+                        <PageTitle title="LocaçãoSólida | Locatarios" />
+                        <Locatarios />
+                    </Private>
+                }
+            />
+            <Route
+                path="/cadastro/fiadores"
+                element={
+                    <Private>
+                        <PageTitle title="LocaçãoSólida | Fiadores" />
+                        <Fiadores />
                     </Private>
                 }
             />
