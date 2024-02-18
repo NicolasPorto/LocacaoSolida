@@ -6,5 +6,6 @@ namespace Solid.Domain.Models
     {
         [Key]
         public int? Id { get; set; }
-    }
+		public Guid Codigo { get; set; }
+	}
 }

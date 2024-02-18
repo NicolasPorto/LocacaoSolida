@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Solid.Domain.Entities;
 using Solid.Domain.Messaging.Corretor;
+using Solid.Domain.Messaging.Imovel;
 using Solid.Infra.Extensions;
 
 namespace Solid.Crosscutting.Mappings
@@ -16,6 +17,10 @@ namespace Solid.Crosscutting.Mappings
             CreateMap<CorretorRequest, Corretor>()
                 .ForMember(dest => dest.NumeroCelular, opt => opt.Condition(src => !string.IsNullOrEmpty(src.NumeroCelular)))
                 .ForMember(dest => dest.NumeroCelular, opt => opt.MapFrom(src => src.NumeroCelular.SomenteNumeros()));
-        }
+
+
+			CreateMap<AtualizarImovelRequest, Imovel>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+		}
     }
 }

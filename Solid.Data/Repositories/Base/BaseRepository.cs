@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Solid.Data.Context;
 using Solid.Domain.Interfaces.Repositories.Base;
+using Solid.Domain.Models;
 
 namespace Solid.Data.Repositories.Base
 {
-    public abstract class BaseRepository<TEntity, TIdType> : IBaseRepository<TEntity, TIdType> where TEntity : class
-    {
+    public abstract class BaseRepository<TEntity, TIdType> : IBaseRepository<TEntity, TIdType> where TEntity : EntityBase
+	{
         private readonly DbContext _dbContext;
 
         protected BaseRepository(DbContextOptions<ConnectDbContext> options)
@@ -30,6 +31,14 @@ namespace Solid.Data.Repositories.Base
             _dbContext.SaveChanges();
         }
 
+		public List<TEntity> BuscarTodos()
+		{
+			return _dbContext.Set<TEntity>().ToList();
+		}
 
-    }
+		public TEntity? ObterPorCodigo(Guid codigo)
+		{
+			return _dbContext.Set<TEntity>().Where(e => e.Codigo == codigo).SingleOrDefault();
+		}
+	}
 }

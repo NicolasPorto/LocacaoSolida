@@ -22,7 +22,7 @@ namespace Solid.API.Controllers
 
         [HttpPost]
         public ActionResult<AutenticacaoResponse> Autenticar(AutenticacaoRequest request)
-        {
+           {
             try
             {
                 var response = _autenticacaoApplicationService.Autenticar(request);

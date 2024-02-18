@@ -12,7 +12,8 @@ namespace Solid.Crosscutting.DependencyInjection
             services.AddFluentValidation(fv =>
             {
                 fv.RegisterValidatorsFromAssemblyContaining<CorretorValidation>();
-                fv.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
+				fv.RegisterValidatorsFromAssemblyContaining<ImovelValidation>();
+				fv.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
             });
         }
     }
