@@ -5,7 +5,6 @@ using Solid.Domain.Interfaces.Repositories;
 using Solid.Domain.Messaging.Imovel;
 using Solid.Domain.Validations;
 using Solid.Infra.Exceptions;
-using System.Linq;
 
 namespace Solid.Application.ApplicationServices
 {

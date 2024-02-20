@@ -10,12 +10,14 @@ namespace Solid.Crosscutting.DependencyInjection
     {
         public static void ConfigureDependencies(this IServiceCollection services)
         {
-            services.AddTransient<ICorretorRepository, CorretorRepository>();
-			services.AddTransient<IImovelRepository, ImovelRepository>();
 			services.AddTransient<ICorretorApplicationService, CorretorApplicationService>();
             services.AddTransient<IAutenticacaoApplicationService, AutenticacaoApplicationService>();
-            services.AddTransient<IPartesEnvolvidasApplicationService, PartesEnvolvidasApplicationService>();
+            services.AddTransient<IParteEnvolvidaApplicationService, ParteEnvolvidaApplicationService>();
 			services.AddTransient<IImovelApplicationService, ImovelApplicationService>();
-		}
+
+            services.AddTransient<ICorretorRepository, CorretorRepository>();
+            services.AddTransient<IImovelRepository, ImovelRepository>();
+            services.AddTransient<IParteEnvolvidaRepository, ParteEnvolvidaRepository>();
+        }
     }
 }

@@ -1,11 +1,9 @@
-﻿using Solid.Domain.Models;
+﻿using Solid.Domain.Messaging.Base;
 using Solid.Infra.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Solid.Domain.Entities
+namespace Solid.Domain.Messaging.ParteEnvolvida
 {
-    [Table("PartesEnvolvidas", Schema = "cad")]
-    public class PartesEnvolvidas : EntityBase
+    public class ParteEnvolvidaResponse : ResponseBase
     {
         public Guid Codigo { get; set; }
         public Guid CodigoCorretor { get; set; }

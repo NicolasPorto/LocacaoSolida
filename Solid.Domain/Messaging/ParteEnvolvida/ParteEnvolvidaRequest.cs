@@ -1,9 +1,8 @@
-﻿using Solid.Domain.Messaging.Base;
-using Solid.Infra.Enums;
+﻿using Solid.Infra.Enums;
 
-namespace Solid.Domain.Messaging.PartesEnvolvidas
+namespace Solid.Domain.Messaging.ParteEnvolvida
 {
-    public class PartesEnvolvidasResponse : ResponseBase
+    public class ParteEnvolvidaRequest
     {
         public Guid Codigo { get; set; }
         public Guid CodigoCorretor { get; set; }
@@ -23,6 +22,5 @@ namespace Solid.Domain.Messaging.PartesEnvolvidas
         public bool PossuiConjuge { get; set; } = false;
         public string? Conjuge { get; set; }
         public string? CPFConjuge { get; set; }
-        public DateTime DtInclusao { get; set; }
     }
 }

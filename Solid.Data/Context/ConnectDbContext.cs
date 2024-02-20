@@ -8,7 +8,6 @@ namespace Solid.Data.Context
         public DbSet<Corretor> Corretor { get; set; }
 		public DbSet<Imovel> Imovel { get; set; }
 
-
 		public ConnectDbContext(DbContextOptions<ConnectDbContext> options) : base(options)
         {
         }
@@ -17,6 +16,7 @@ namespace Solid.Data.Context
 		{
 			modelBuilder.Entity<Corretor>().HasKey(c => c.Id);
 			modelBuilder.Entity<Imovel>().HasKey(c => c.Id);
+            modelBuilder.Entity<ParteEnvolvida>().HasKey(c => c.Id);
 
             base.OnModelCreating(modelBuilder);
         }

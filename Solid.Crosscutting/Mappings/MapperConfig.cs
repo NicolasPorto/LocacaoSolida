@@ -2,6 +2,7 @@
 using Solid.Domain.Entities;
 using Solid.Domain.Messaging.Corretor;
 using Solid.Domain.Messaging.Imovel;
+using Solid.Domain.Messaging.ParteEnvolvida;
 using Solid.Infra.Extensions;
 
 namespace Solid.Crosscutting.Mappings
@@ -21,6 +22,9 @@ namespace Solid.Crosscutting.Mappings
 
 			CreateMap<AtualizarImovelRequest, Imovel>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-		}
+
+
+            CreateMap<ParteEnvolvida, ParteEnvolvidaResponse>();
+        }
     }
 }

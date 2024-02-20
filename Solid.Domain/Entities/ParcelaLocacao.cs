@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Solid.Domain.Entities
 {
-    internal class ParcelasLocacao
+    internal class ParcelaLocacao
     {
     }
 }
