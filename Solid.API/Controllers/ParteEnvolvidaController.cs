@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Solid.API.Controllers.Base;
 using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Messaging.Base;
 using Solid.Domain.Messaging.ParteEnvolvida;
@@ -7,13 +9,16 @@ using Solid.Infra.Exceptions;
 
 namespace Solid.API.Controllers
 {
-    public class ParteEnvolvidaController : ControllerBase
+    [Authorize]
+    [ApiController]
+    [Route("[controller]")]
+    public class ParteEnvolvidaController : ControllerBaseConfig
     {
         private readonly ILogger<ParteEnvolvidaController> _logger;
         private readonly IParteEnvolvidaApplicationService _parteEnvolvidaApplicationService;
 
         public ParteEnvolvidaController(
-            ILogger<ParteEnvolvidaController> logger, 
+            ILogger<ParteEnvolvidaController> logger,
             IParteEnvolvidaApplicationService parteEnvolvidaApplicationService)
         {
             _logger = logger;
@@ -21,16 +26,13 @@ namespace Solid.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<ParteEnvolvidaResponse>> BuscarPartesEnvolvidasPorTipoParte([FromQuery] TipoParte? tipo)
+        public ActionResult<List<ParteEnvolvidaResponse>> BuscarPartesEnvolvidasPorTipoParte([FromQuery] TipoParte? tipoParte)
         {
             try
             {
-                var response = _parteEnvolvidaApplicationService.BuscarPartesEnvolvidasPorTipoParte(tipo);
+                var response = _parteEnvolvidaApplicationService.BuscarPartesEnvolvidasPorTipoParte(tipoParte, ObterCodigoCorretorLogado());
 
-                if (response.Any())
-                    return Ok(response);
-
-                return BadRequest(response);
+                return Ok(response);
             }
             catch (SolidException ex)
             {

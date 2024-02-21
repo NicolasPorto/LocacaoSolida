@@ -24,9 +24,9 @@ namespace Solid.Application.ApplicationServices
             _parteEnvolvidaValidation = parteEnvolvidaValidation;
         }
 
-        public List<ParteEnvolvidaResponse> BuscarPartesEnvolvidasPorTipoParte(TipoParte? tipo)
+        public List<ParteEnvolvidaResponse> BuscarPartesEnvolvidasPorTipoParte(TipoParte? tipo, Guid codigoCorretor)
         {
-            var partes = _parteEnvolvidaRepository.BuscarPartesEnvolvidasPorTipoParte(tipo);
+            var partes = _parteEnvolvidaRepository.BuscarPartesEnvolvidasPorTipoParte(tipo, codigoCorretor);
 
             return _mapper.Map<List<ParteEnvolvidaResponse>>(partes);
         }

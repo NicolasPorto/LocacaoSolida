@@ -1,4 +1,5 @@
-﻿using Solid.Domain.Messaging.Corretor;
+﻿using Microsoft.AspNetCore.Http;
+using Solid.Domain.Messaging.Corretor;
 using Solid.Domain.Models;
 using Solid.Infra.Enums;
 using Solid.Infra.Extensions;
@@ -20,6 +21,7 @@ namespace Solid.Domain.Entities
         public required string Empresa { get; set; }
         public TipoCorretor TipoCorretor { get; set; }
         public DateTime DtInclusao { get; set; }
+        public IFormFile? FotoPerfil {  get; set; }
 
         public static Corretor ConverterParaEntidade(CorretorRequest request)
         {

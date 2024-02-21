@@ -9,13 +9,16 @@ import 'flatpickr/dist/flatpickr.min.css';
 
 import { AuthProvider } from './context/AuthContext';
 import { CorretorProvider } from './context/CorretorContext';
+import { ParteEnvolvidaProvider } from './context/ParteEnvolvidaContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Router>
       <AuthProvider>
         <CorretorProvider>
-          <App />
+          <ParteEnvolvidaProvider>
+            <App />
+          </ParteEnvolvidaProvider>
         </CorretorProvider>
       </AuthProvider>
     </Router>

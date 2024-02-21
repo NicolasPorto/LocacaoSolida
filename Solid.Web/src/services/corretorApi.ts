@@ -6,9 +6,11 @@ export const api = axios.create({
 
 export const buscar = async (): Promise<any> => {
     try {
+        console.log(api)
         const response = await api.get('/Corretor');
         return response.data;
     } catch (error: any) {
+        console.log(error)
         throw error.response.data.message;
     }
 }

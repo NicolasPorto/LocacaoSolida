@@ -4,6 +4,8 @@ using Solid.Data.Repositories.Base;
 using Solid.Domain.Entities;
 using Solid.Domain.Interfaces.Repositories;
 using Solid.Infra.Enums;
+using Solid.Infra.Extensions;
+using Solid.Infra.Helpers;
 
 namespace Solid.Data.Repositories
 {
@@ -18,16 +20,22 @@ namespace Solid.Data.Repositories
             base.Insert(parteEnvolvida);
         }
 
-        public List<ParteEnvolvida> BuscarPartesEnvolvidasPorTipoParte(TipoParte? tipo)
+        public List<ParteEnvolvida> BuscarPartesEnvolvidasPorTipoParte(TipoParte? tipo, Guid codigoCorretor)
         {
-            var sql = @"DECLARE @tipoParte INT = @p0
+            const string sql = @"DECLARE @tipoParte INT = @p0,
+                                         @codigoCorretor UNIQUEIDENTIFIER = @p1
 
-                        SELECT * FROM cad.ParteEnvolvida";
+                                 SELECT * FROM cad.ParteEnvolvida";
+
+            var query = new SQLQueryBuilder(sql);
 
             if (tipo != null)
-                sql += " WHERE TipoParte = @tipoParte";
+                query.AddCondition(" TipoParte = @tipoParte");
 
-            return SqlQuery<ParteEnvolvida>(sql, tipo).ToList();
+            if (!codigoCorretor.GuidIsNullOrEmpty())
+                query.AddCondition(" CodigoCorretor = @codigoCorretor");
+
+            return SqlQuery<ParteEnvolvida>(query.ToString(), tipo, codigoCorretor).ToList();
         }
     }
 }

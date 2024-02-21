@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Solid.Application.ApplicationServices;
+using Solid.API.Controllers.Base;
 using Solid.Domain.Entities;
 using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Messaging.Base;
@@ -9,11 +9,11 @@ using Solid.Infra.Exceptions;
 
 namespace Solid.API.Controllers
 {
-	//[Authorize]
+    [Authorize]
 	[ApiController]
 	[Route("[controller]")]
-	public class ImoveisController : ControllerBase
-	{
+	public class ImoveisController : ControllerBaseConfig
+    {
 		private ILogger<ImoveisController> _logger;
 		private readonly IImovelApplicationService _imovelApplicationService;
 

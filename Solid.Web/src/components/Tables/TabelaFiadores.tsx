@@ -1,18 +1,19 @@
 import { useState, useEffect, useContext } from "react";
-import { CorretorContext } from '../../context/CorretorContext';
+import { ParteEnvolvidaContext } from '../../context/ParteEnvolvidaContext';
 import { ToSituacaoEnum } from "../../extensions/EnumExtension";
+import { TipoParte } from "../../constants/enums";
 import { FormatarDocumentoFederal, FormatarData } from "../../extensions/FormatacaoExtension";
 
-import ModalCorretores from '../../components/Modal/ModalCorretores'
+import ModalFiadores from '../../components/Modal/ModalFiadores'
 
-const TabelaCorretores = ({ data }: any) => {
-    const [corretores, setCorretores] = useState([])
+const TabelaFiadores = ({ data }: any) => {
+    const [fiadores, setFiadores] = useState([])
     const [show, setShowModal] = useState(false)
-    const [selectedCorretor, setSelectedCorretor] = useState()
-    const { buscarCorretores } = useContext(CorretorContext)
+    const [selectedFiador, setSelectedFiador] = useState()
+    const { buscarPartesEnvolvidas } = useContext(ParteEnvolvidaContext)
 
     useEffect(() => {
-        setCorretores(data)
+        setFiadores(data)
     }, [data])
 
     const mostrarModal = () => {
@@ -20,18 +21,18 @@ const TabelaCorretores = ({ data }: any) => {
     }
 
     const fecharModal = () => {
-        setSelectedCorretor(undefined);
+        setSelectedFiador(undefined);
         setShowModal(false);
     };
 
-    const handleSelecaoCorretor = (corretor: any) => {
-        setSelectedCorretor(corretor);
+    const handleSelecaoFiador = (fiador: any) => {
+        setSelectedFiador(fiador);
         mostrarModal();
     };
 
-    const atualizarCorretores = async () => {
-        const response = await buscarCorretores();
-        setCorretores(response);
+    const atualizarFiadores = async () => {
+        const response = await buscarPartesEnvolvidas(TipoParte.Fiador);
+        setFiadores(response);
     };
 
     return (
@@ -55,13 +56,13 @@ const TabelaCorretores = ({ data }: any) => {
                                 Email
                             </th>
                             <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                Empresa
+                                CPF
                             </th>
                             <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                Documento Federal
+                                Número Celular
                             </th>
                             <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                Situação
+                                Cidade
                             </th>
                             <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                                 Data Inclusão
@@ -71,45 +72,39 @@ const TabelaCorretores = ({ data }: any) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {corretores.map((corretor: any, key) => (
+                        {fiadores.map((fiador: any, key) => (
                             <tr key={key}>
                                 <td className="hidden">
-                                    {corretor.codigo}
+                                    {fiador.codigo}
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                     <h5 className="font-medium text-black dark:text-white">
-                                        {corretor.nome}
+                                        {fiador.nome}
                                     </h5>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        {corretor.email}
+                                        {fiador.email}
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        {corretor.empresa}
+                                        {FormatarDocumentoFederal(fiador.documentoFederal)}
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        {FormatarDocumentoFederal(corretor.documentoFederal)}
-                                    </p>
-                                </td>
-
-                                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                    <p className="text-black dark:text-white">
-                                        {ToSituacaoEnum(corretor.situacao)}
+                                        {fiador.cidade}
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        {FormatarData(corretor.dtInclusao)}
+                                        {FormatarData(fiador.dtInclusao)}
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <div className="flex items-center space-x-3.5">
-                                        <button onClick={() => handleSelecaoCorretor(corretor)} className="hover:text-primary">
+                                        <button onClick={() => handleSelecaoFiador(fiador)} className="hover:text-primary">
                                             Editar
                                         </button>
                                     </div>
@@ -119,12 +114,12 @@ const TabelaCorretores = ({ data }: any) => {
                     </tbody>
                 </table>
             </div>
-            <ModalCorretores visivel={show} corretor={selectedCorretor} onClose={() => {
+            <ModalFiadores visivel={show} corretor={selectedFiador} onClose={() => {
                 fecharModal();
-                atualizarCorretores();
+                atualizarFiadores();
             }} />
         </div>
     );
 };
 
-export default TabelaCorretores;
+export default TabelaFiadores;

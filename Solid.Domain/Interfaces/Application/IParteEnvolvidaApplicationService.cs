@@ -5,7 +5,7 @@ namespace Solid.Domain.Interfaces.Application
 {
     public interface IParteEnvolvidaApplicationService
     {
-        List<ParteEnvolvidaResponse> BuscarPartesEnvolvidasPorTipoParte(TipoParte? tipo);
+        List<ParteEnvolvidaResponse> BuscarPartesEnvolvidasPorTipoParte(TipoParte? tipo, Guid codigoOperador);
         ParteEnvolvidaResponse Inserir(ParteEnvolvidaRequest request);
     }
 }

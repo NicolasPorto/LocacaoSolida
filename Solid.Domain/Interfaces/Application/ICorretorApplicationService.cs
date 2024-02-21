@@ -1,4 +1,5 @@
-﻿using Solid.Domain.Messaging.Corretor;
+﻿using Microsoft.AspNetCore.Http;
+using Solid.Domain.Messaging.Corretor;
 
 namespace Solid.Domain.Interfaces.Application
 {
@@ -7,5 +8,6 @@ namespace Solid.Domain.Interfaces.Application
         List<CorretorResponse> BuscarCorretores();
         CorretorResponse InserirCorretor(CorretorRequest request);
         CorretorResponse AtualizarCorretor(CorretorRequest request);
+        Task SalvarImagemPerfilAsync(IFormFileCollection file, Guid codigoCorretor);
     }
 }

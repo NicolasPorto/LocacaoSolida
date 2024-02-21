@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Solid.API.Controllers.Base;
 using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Messaging.Base;
 using Solid.Domain.Messaging.Corretor;
@@ -10,7 +12,7 @@ namespace Solid.API.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class CorretorController : ControllerBase
+    public class CorretorController : ControllerBaseConfig
     {
         private readonly ICorretorApplicationService _corretorApplicationService;
         private readonly ILogger<CorretorController> _logger;
@@ -28,10 +30,7 @@ namespace Solid.API.Controllers
             {
                 var response = _corretorApplicationService.BuscarCorretores();
 
-                if (response.Any())
-                    return Ok(response);
-
-                return BadRequest(response);
+                return Ok(response);
             }
             catch (SolidException ex)
             {
@@ -78,6 +77,26 @@ namespace Solid.API.Controllers
                     return Ok(response);
 
                 return BadRequest(response);
+            }
+            catch (SolidException ex)
+            {
+                return BadRequest(ResponseBase.ErrorHandled(ex));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SalvarImagemPerfil()
+        {
+            try
+            {
+                await _corretorApplicationService.SalvarImagemPerfilAsync(Request.Form.Files, ObterCodigoCorretorLogado());
+
+                return Ok();
             }
             catch (SolidException ex)
             {

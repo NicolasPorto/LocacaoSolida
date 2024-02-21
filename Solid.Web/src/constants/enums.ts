@@ -12,3 +12,9 @@ export const TipoPessoa = {
     Fisica: 1,
     Juridica: 2
 };
+
+export const TipoParte = {
+    Locador: 1,
+    Locatario: 2,
+    Fiador: 3
+};

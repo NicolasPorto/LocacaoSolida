@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Solid.Domain.Entities;
 using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Interfaces.Repositories;
@@ -50,6 +51,25 @@ namespace Solid.Application.ApplicationServices
             _corretorRepository.AtualizarCorretor(corretor);
 
             return _mapper.Map<CorretorResponse>(corretor);
+        }
+
+        public async Task SalvarImagemPerfilAsync(IFormFileCollection file, Guid codigoCorretor)
+        {
+            var corretor = _corretorRepository.ObterCorretorPorCodigo(codigoCorretor) ?? throw new SolidException("Não foi possível encontrar o corretor informado.");
+
+            if (file.Count == 0)
+                throw new SolidException("Nenhuma foto enviada.");
+
+            var imagem = file[0];
+
+            if (imagem.Length == 0)
+                throw new SolidException("Foto vazia.");
+
+            using var memoryStream = new MemoryStream();
+            await imagem.CopyToAsync(memoryStream);
+
+            corretor.FotoPerfil = imagem;
+            _corretorRepository.AtualizarCorretor(corretor);
         }
     }
 }
