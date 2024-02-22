@@ -31,11 +31,11 @@ namespace Solid.Application.ApplicationServices
             return _mapper.Map<List<ParteEnvolvidaResponse>>(partes);
         }
 
-        public ParteEnvolvidaResponse Inserir(ParteEnvolvidaRequest request)
+        public ParteEnvolvidaResponse Inserir(ParteEnvolvidaRequest request, Guid codigoCorretor)
         {
             _parteEnvolvidaValidation.ValidateAsync(request);
 
-            var parteEnvolvida = ParteEnvolvida.ConverterParaEntidade(request);
+            var parteEnvolvida = ParteEnvolvida.ConverterParaEntidade(request, codigoCorretor);
 
             _parteEnvolvidaRepository.Inserir(parteEnvolvida);
 

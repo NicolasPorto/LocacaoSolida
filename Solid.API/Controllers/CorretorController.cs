@@ -89,7 +89,7 @@ namespace Solid.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("ImagemPerfil")]
         public async Task<IActionResult> SalvarImagemPerfil()
         {
             try

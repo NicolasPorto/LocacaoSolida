@@ -1,14 +1,12 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using Solid.Domain.Entities;
-using Solid.Domain.Messaging.Corretor;
-using Solid.Domain.Messaging.Imovel;
 using Solid.Domain.Validations.Base;
 using Solid.Infra.Enums;
 
 namespace Solid.Domain.Validations
 {
-	public class ImovelValidation : AbstractValidatorBase<Imovel>
+    public class ImovelValidation : AbstractValidatorBase<Imovel>
 	{
 		public override Task<ValidationResult> ValidateAsync(ValidationContext<Imovel> request, CancellationToken cancellation = default)
 		{

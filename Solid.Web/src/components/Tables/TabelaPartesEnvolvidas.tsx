@@ -1,19 +1,18 @@
 import { useState, useEffect, useContext } from "react";
 import { ParteEnvolvidaContext } from '../../context/ParteEnvolvidaContext';
-import { ToSituacaoEnum } from "../../extensions/EnumExtension";
-import { TipoParte } from "../../constants/enums";
-import { FormatarDocumentoFederal, FormatarData } from "../../extensions/FormatacaoExtension";
+import { FormatarDocumentoFederal, FormatarData, FormatarNumeroCelular } from "../../extensions/FormatacaoExtension";
 
-import ModalFiadores from '../../components/Modal/ModalFiadores'
+import ModalFiadores from '../Modal/ModalPartesEnvolvidas'
 
-const TabelaFiadores = ({ data }: any) => {
-    const [fiadores, setFiadores] = useState([])
+const TabelaPartesEnvolvidas = ({ data, tipoParte, nomeParte }: any) => {
+    const [partesEnvolvidas, setParteEnvolvida] = useState([])
     const [show, setShowModal] = useState(false)
-    const [selectedFiador, setSelectedFiador] = useState()
+    const [selectedParteEnvolvida, setSelectedParteEnvolvida] = useState()
     const { buscarPartesEnvolvidas } = useContext(ParteEnvolvidaContext)
 
     useEffect(() => {
-        setFiadores(data)
+        setParteEnvolvida(data)
+        console.log(data)
     }, [data])
 
     const mostrarModal = () => {
@@ -21,22 +20,22 @@ const TabelaFiadores = ({ data }: any) => {
     }
 
     const fecharModal = () => {
-        setSelectedFiador(undefined);
+        setSelectedParteEnvolvida(undefined);
         setShowModal(false);
     };
 
     const handleSelecaoFiador = (fiador: any) => {
-        setSelectedFiador(fiador);
+        setSelectedParteEnvolvida(fiador);
         mostrarModal();
     };
 
-    const atualizarFiadores = async () => {
-        const response = await buscarPartesEnvolvidas(TipoParte.Fiador);
-        setFiadores(response);
+    const atualizarParte = async () => {
+        const response = await buscarPartesEnvolvidas(tipoParte);
+        setParteEnvolvida(response);
     };
 
     return (
-        <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <div className="overflow-x-auto rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
             <div className="pb-4">
                 <button type="button" onClick={mostrarModal} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                     Criar
@@ -72,39 +71,44 @@ const TabelaFiadores = ({ data }: any) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {fiadores.map((fiador: any, key) => (
+                        {partesEnvolvidas.map((parteEnvolvida: any, key) => (
                             <tr key={key}>
                                 <td className="hidden">
-                                    {fiador.codigo}
+                                    {parteEnvolvida.codigo}
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                     <h5 className="font-medium text-black dark:text-white">
-                                        {fiador.nome}
+                                        {parteEnvolvida.nome}
                                     </h5>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        {fiador.email}
+                                        {parteEnvolvida.email}
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        {FormatarDocumentoFederal(fiador.documentoFederal)}
+                                        {FormatarDocumentoFederal(parteEnvolvida.cpf)}
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        {fiador.cidade}
+                                        {FormatarNumeroCelular(parteEnvolvida.numeroCelular)}
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        {FormatarData(fiador.dtInclusao)}
+                                        {parteEnvolvida.cidade}
+                                    </p>
+                                </td>
+                                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                                    <p className="text-black dark:text-white">
+                                        {FormatarData(parteEnvolvida.dtInclusao)}
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <div className="flex items-center space-x-3.5">
-                                        <button onClick={() => handleSelecaoFiador(fiador)} className="hover:text-primary">
+                                        <button onClick={() => handleSelecaoFiador(parteEnvolvida)} className="hover:text-primary">
                                             Editar
                                         </button>
                                     </div>
@@ -114,12 +118,12 @@ const TabelaFiadores = ({ data }: any) => {
                     </tbody>
                 </table>
             </div>
-            <ModalFiadores visivel={show} corretor={selectedFiador} onClose={() => {
+            <ModalFiadores visivel={show} corretor={selectedParteEnvolvida} nomeParte={nomeParte} tipoParte={tipoParte} onClose={() => {
                 fecharModal();
-                atualizarFiadores();
+                atualizarParte();
             }} />
         </div>
     );
 };
 
-export default TabelaFiadores;
+export default TabelaPartesEnvolvidas;

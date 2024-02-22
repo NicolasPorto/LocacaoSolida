@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { cpfCnpjMask } from 'util-mask';
 
-const DocumentoFederal = ({ register, className, id, name, value: parentValue, onChange, placeholder, disabled }: any) => {
+const DocumentoFederal = ({ register, className, id, name, value: parentValue, onChange, placeholder, disabled, maxLength }: any) => {
   const [doc, setDoc] = useState('');
 
   useEffect(() => {
     if (parentValue) {
-      const teste = cpfCnpjMask(parentValue)
-      setDoc(teste)
+      const value = cpfCnpjMask(parentValue)
+      setDoc(value)
     }
   }, [parentValue]);
 
@@ -21,20 +21,18 @@ const DocumentoFederal = ({ register, className, id, name, value: parentValue, o
     }
   };
 
-  const inputClass = className ? className : '';
-
   return (
     <div>
       <input
-        {...register(name, { defaultValue: "21323" })}
+        {...register(name)}
         type="text"
         id={id}
         name={name}
         value={doc}
         onChange={handleChange}
         placeholder={placeholder}
-        className={inputClass}
-        maxLength={18}
+        className={className}
+        maxLength={maxLength}
         disabled={disabled}
         required
         autoComplete="on"

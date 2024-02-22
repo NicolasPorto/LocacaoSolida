@@ -1,8 +1,12 @@
-import { cpfCnpjMask } from 'util-mask';
+import { cpfCnpjMask, phoneMask } from 'util-mask';
 import { formatInTimeZone } from 'date-fns-tz'
 
 export function FormatarDocumentoFederal(documento: any) {
     return cpfCnpjMask(documento)
+}
+
+export function FormatarNumeroCelular(documento: any) {
+    return phoneMask(documento)
 }
 
 export function FormatarData(data: any) {

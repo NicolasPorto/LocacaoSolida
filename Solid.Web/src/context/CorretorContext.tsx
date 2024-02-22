@@ -1,6 +1,5 @@
-import { createContext, ReactNode, useState, useEffect } from "react";
-import { buscar, criar, editar, api } from "../services/corretorApi"
-import Cookies from 'js-cookie';
+import { createContext, ReactNode, useState } from "react";
+import { buscar, criar, editar } from "../services/corretorApi"
 
 type CorretorProviderProps = {
     children: ReactNode
@@ -17,11 +16,6 @@ export const CorretorContext = createContext({} as CorretorContextType);
 
 export function CorretorProvider({ children }: CorretorProviderProps) {
     const [error, setError] = useState<string | undefined>(undefined);
-
-    useEffect(() => {
-        const token = Cookies.get('token');
-        api.defaults.headers.Authorization = `Bearer ${token}`;
-    }, []);
 
     async function buscarCorretores() {
         try {

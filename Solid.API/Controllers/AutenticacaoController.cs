@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Solid.API.Controllers.Base;
 using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Messaging.Autenticacao;
 using Solid.Domain.Messaging.Base;
@@ -9,7 +10,7 @@ namespace Solid.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AutenticacaoController : ControllerBase
+    public class AutenticacaoController : ControllerBaseConfig
     {
         private readonly IAutenticacaoApplicationService _autenticacaoApplicationService;
         private readonly ILogger<CorretorController> _logger;

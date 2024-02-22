@@ -13,11 +13,13 @@ namespace Solid.Domain.Entities
 		public Guid CodigoCorretor { get; set; }
 		public SituacaoImovel Situacao { get; set; }
 		public TipoImovel TipoImovel { get; set; }
-		public string Logradouro { get; set; }
-		public int NumeroLogradouro { get; set; }
-		public string Bairro { get; set; }
-		public string? Complemento { get; set; }
-		public string InscricaoImobiliaria { get; set; }
+        public string? CEP { get; set; }
+        public string? Logradouro { get; set; }
+        public int? NumeroLogradouro { get; set; }
+        public string? Cidade { get; set; }
+        public string? Bairro { get; set; }
+        public string? Complemento { get; set; }
+		public string? InscricaoImobiliaria { get; set; }
 		public DateTime DtInclusao { get; set; }
 
         public Imovel() {}
@@ -29,8 +31,10 @@ namespace Solid.Domain.Entities
 			CodigoCorretor = request.CodigoCorretor;
 			Situacao = request.Situacao;
 			TipoImovel = request.TipoImovel;
+			CEP = request.CEP;
 			Logradouro = request.Logradouro;
 			NumeroLogradouro = request.NumeroLogradouro;
+			Cidade = request.Cidade;
 			Bairro = request.Bairro;
 			Complemento = request.Complemento;
 			InscricaoImobiliaria = request.InscricaoImobiliaria;

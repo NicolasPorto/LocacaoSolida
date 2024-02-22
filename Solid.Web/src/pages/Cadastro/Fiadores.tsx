@@ -1,6 +1,6 @@
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
-import TabelaFiadores from '../../components/Tables/TabelaFiadores';
+import TabelaPartesEnvolvidas from '../../components/Tables/TabelaPartesEnvolvidas';
 
 import { useContext, useEffect, useState } from 'react';
 import { ParteEnvolvidaContext } from '../../context/ParteEnvolvidaContext';
@@ -19,8 +19,8 @@ const Fiadores = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Fiadores" />
-      <div className="flex flex-col gap-10">
-        <TabelaFiadores data={fiadores} />
+      <div className="flex flex-col gap-10 overflow-y-auto">
+        <TabelaPartesEnvolvidas data={fiadores} tipoParte={TipoParte.Fiador} nomeParte={"Fiador"} />
       </div>
     </DefaultLayout>
   );

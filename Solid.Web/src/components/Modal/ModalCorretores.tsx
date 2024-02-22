@@ -159,6 +159,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                             value={docFederal}
                                             onChange={setDocFederal}
                                             disabled={isEdit}
+                                            maxLength={18}
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">

@@ -18,3 +18,8 @@ export const TipoParte = {
     Locatario: 2,
     Fiador: 3
 };
+
+export const EstadoCivil = {
+    Solteiro: 1,
+    Casado: 2
+};

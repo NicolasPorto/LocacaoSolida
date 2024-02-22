@@ -50,7 +50,7 @@ namespace Solid.API.Controllers
         {
             try
             {
-                var response = _parteEnvolvidaApplicationService.Inserir(request);
+                var response = _parteEnvolvidaApplicationService.Inserir(request, ObterCodigoCorretorLogado());
 
                 if (response.Success)
                     return Ok(response);

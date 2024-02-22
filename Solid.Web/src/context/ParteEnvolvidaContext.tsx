@@ -1,6 +1,5 @@
-import { createContext, ReactNode, useState, useEffect } from "react";
-import { buscar, criar, api } from "../services/parteEnvolvidaApi"
-import Cookies from 'js-cookie';
+import { createContext, ReactNode, useState } from "react";
+import { buscar, criar } from "../services/parteEnvolvidaApi"
 
 type ParteEnvolvidaProviderProps = {
     children: ReactNode
@@ -17,11 +16,6 @@ export const ParteEnvolvidaContext = createContext({} as ParteEnvolvidaContextTy
 
 export function ParteEnvolvidaProvider({ children }: ParteEnvolvidaProviderProps) {
     const [error, setError] = useState<string | undefined>(undefined);
-    
-    useEffect(() => {
-        const token = Cookies.get('token');
-        api.defaults.headers.Authorization = `Bearer ${token}`;
-    }, []);
 
     async function buscarPartesEnvolvidas(tipoParte: number) {
         try {
@@ -33,6 +27,8 @@ export function ParteEnvolvidaProvider({ children }: ParteEnvolvidaProviderProps
 
     async function inserirParteEnvolvida(parteEnvolvida: any) {
         try {
+            parteEnvolvida.numeroLogradouro = parseInt(parteEnvolvida.numeroLogradouro)
+            parteEnvolvida.estadoCivil = parseInt(parteEnvolvida.estadoCivil)
             return await criar(parteEnvolvida);
         } catch (err: any) {
             setError(err);

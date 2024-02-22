@@ -1,4 +1,4 @@
-import { TipoPessoa, Situacao, TipoCorretor } from "../constants/enums"
+import { TipoPessoa, Situacao, TipoCorretor, EstadoCivil } from "../constants/enums"
 
 export function ToTipoPessoaEnum(tipoPessoa: any) {
     switch (tipoPessoa) {
@@ -17,6 +17,17 @@ export function ToSituacaoEnum(situacao: any) {
             return 'Ativo'
         case Situacao.Inativo:
             return 'Inativo'
+        default:
+            return 'Desconhecida'
+    }
+}
+
+export function ToEstadoCivilEnum(estado: any) {
+    switch (estado) {
+        case EstadoCivil.Solteiro:
+            return 'Solteiro'
+        case EstadoCivil.Casado:
+            return 'Casado'
         default:
             return 'Desconhecida'
     }
