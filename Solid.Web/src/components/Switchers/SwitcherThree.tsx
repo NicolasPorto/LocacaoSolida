@@ -1,7 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const SwitcherThree = () => {
+const SwitcherThree = ({ ativo, onToggle }: any) => {
   const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    setEnabled(ativo)
+  }, [ativo])
+
+  const handleChange = () => {
+    setEnabled(!enabled);
+    onToggle();
+  }
 
   return (
     <div>
@@ -15,14 +24,13 @@ const SwitcherThree = () => {
             id="toggle3"
             className="sr-only"
             onChange={() => {
-              setEnabled(!enabled);
+              handleChange();
             }}
           />
           <div className="block h-8 w-14 rounded-full bg-meta-9 dark:bg-[#5A616B]"></div>
           <div
-            className={`dot absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white transition ${
-              enabled && '!right-1 !translate-x-full !bg-primary dark:!bg-white'
-            }`}
+            className={`dot absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white transition ${enabled && '!right-1 !translate-x-full !bg-primary dark:!bg-white'
+              }`}
           >
             <span className={`hidden ${enabled && '!block'}`}>
               <svg

@@ -12,7 +12,6 @@ const TabelaPartesEnvolvidas = ({ data, tipoParte, nomeParte }: any) => {
 
     useEffect(() => {
         setParteEnvolvida(data)
-        console.log(data)
     }, [data])
 
     const mostrarModal = () => {

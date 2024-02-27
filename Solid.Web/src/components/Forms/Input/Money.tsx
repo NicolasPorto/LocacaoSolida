@@ -23,7 +23,7 @@ const Money = ({ register, className, id, name, onChange, value: parentValue, pl
   return (
     <div>
       <NumericFormat
-        {...register(name, { defaultValue: "21323" })}
+        {...register(name, { value: money })}
         type="text"
         id={id}
         name={name}

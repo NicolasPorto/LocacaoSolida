@@ -21,7 +21,7 @@ const Telefone = ({ register, className, id, name, value: parentValue, required:
   return (
     <div>
       <input
-        {...register(name)}
+        {...register(name, { value: telefone })}
         type="tel"
         id={id}
         name={name}

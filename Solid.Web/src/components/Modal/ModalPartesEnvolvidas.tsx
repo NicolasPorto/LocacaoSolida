@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { ToEstadoCivilEnum } from "../../extensions/EnumExtension";
 import { ParteEnvolvidaContext } from '../../context/ParteEnvolvidaContext';
 
+import { buscarEnderecoPorCep } from '../../services/viaCep';
+import SwitcherThree from '../Switchers/SwitcherThree';
 import DocumentoFederal from '../Forms/Input/DocumentoFederal';
 import Telefone from '../Forms/Input/Telefone';
 import Money from '../Forms/Input/Money';
@@ -14,8 +16,10 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
     const [errorBack, setErrorBack] = useState<string | undefined>(undefined)
     const [isEdit, setIsEdit] = useState(false)
     const [docFederal, setDocFederal] = useState('');
+    const [docConjuge, setDocConjuge] = useState('');
     const [telefone, setTelefone] = useState('');
     const [valor, setValorRenda] = useState('');
+    const [possuiConjuge, setPossuiConjuge] = useState(false);
     const { register, handleSubmit, reset } = useForm()
 
     useEffect(() => {
@@ -75,6 +79,32 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
         return await editarParteEnvolvida(data)
     }
 
+    function possuiConjugeChange() {
+        setPossuiConjuge(!possuiConjuge)
+    }
+
+    const [cep, setCep] = useState("");
+    const [endereco, setEndereco] = useState({ uf: '', localidade: '', bairro: '', logradouro: '', cep: '', complemento: '' });
+
+    const buscarEndereco = async () => {
+        try {
+            const data = await buscarEnderecoPorCep(cep.replace(/\D/g, ''));
+            setEndereco(data);
+        } catch (error) {
+            console.error('Erro ao buscar endereço:', error);
+        }
+    };
+
+    useEffect(() => {
+        if (cep.length === 8 && endereco && endereco.cep !== cep) {
+            buscarEndereco();
+        }
+    }, [cep]);
+
+    const handleCepChange = (e: any) => {
+        setCep(e.target.value);
+    };
+
     return (
         <>
             {show &&
@@ -86,7 +116,6 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                 <h3 className="text-xl font-semibold text-gray-900">
                                     {!isEdit ? `Criar ${nomeParte}` : `Editar ${nomeParte}`}
                                 </h3>
-
                                 <button type="button" onClick={handleCloseModal} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
                                     <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -192,6 +221,8 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             type="text"
                                             name="cep"
                                             id="cep"
+                                            value={cep}
+                                            onChange={handleCepChange}
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                             placeholder="_____-___"
                                         />
@@ -199,10 +230,11 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                     <div className="col-span-2 sm:col-span-1">
                                         <label htmlFor="cidade" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
                                         <input
-                                            {...register('cidade')}
+                                            {...register('cidade', { value: endereco.localidade })}
                                             defaultValue={parteEnvolvida && parteEnvolvida.cidade}
                                             type="text"
                                             name="cidade"
+                                            value={endereco.localidade}
                                             id="cidade"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                             disabled
@@ -211,11 +243,13 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                     <div className="col-span-2 sm:col-span-1">
                                         <label htmlFor="bairro" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bairro</label>
                                         <input
-                                            {...register('bairro')}
+                                            {...register('bairro', { value: endereco.bairro })}
                                             defaultValue={parteEnvolvida && parteEnvolvida.bairro}
                                             type="text"
                                             name="bairro"
+                                            value={endereco.bairro}
                                             id="bairro"
+                                            disabled
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         />
                                     </div>
@@ -234,11 +268,12 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                     <div className="col-span-2">
                                         <label htmlFor="logradouro" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logradouro</label>
                                         <input
-                                            {...register('cep')}
+                                            {...register('logradouro', { value: endereco.logradouro })}
                                             defaultValue={parteEnvolvida && parteEnvolvida.logradouro}
                                             type="text"
                                             name="logradouro"
                                             id="logradouro"
+                                            value={endereco.logradouro}
                                             disabled
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         />
@@ -306,6 +341,41 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             onChange={setValorRenda}
                                         />
                                     </div>
+                                    <div className="col-span-2 sm:col-span-1">
+                                        <label htmlFor="valorRenda" className="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Possui cônjuge?</label>
+                                        <SwitcherThree ativo={possuiConjuge} onToggle={possuiConjugeChange} />
+                                    </div>
+                                    {possuiConjuge &&
+                                        <>
+                                            <div className="col-span-2 sm:col-span-1">
+                                                <label htmlFor="conjuge" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cônjuge <span style={{ color: 'red' }}>*</span></label>
+                                                <input
+                                                    {...register('conjuge')}
+                                                    defaultValue={parteEnvolvida && parteEnvolvida.nome}
+                                                    type="text"
+                                                    name="conjuge"
+                                                    id="conjuge"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="Digite o nome"
+                                                    autoComplete="on"
+                                                />
+                                            </div>
+                                            <div className="col-span-2 sm:col-span-1">
+                                                <label htmlFor="cpfconjuge" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CPF Cônjuge <span style={{ color: 'red' }}>*</span></label>
+                                                <DocumentoFederal
+                                                    register={register}
+                                                    name="cpfconjuge"
+                                                    id="cpfconjuge"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="___.___.___-__"
+                                                    value={docConjuge}
+                                                    onChange={setDocConjuge}
+                                                    disabled={false}
+                                                    maxLength={14}
+                                                />
+                                            </div>
+                                        </>
+                                    }
                                 </div>
                                 {errorBack && <div className="text-red-500 text-center">{errorBack}</div>}
                                 <div className='flex justify-end'>
