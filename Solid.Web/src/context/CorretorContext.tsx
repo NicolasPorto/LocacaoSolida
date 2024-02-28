@@ -7,7 +7,7 @@ type CorretorProviderProps = {
 
 type CorretorContextType = {
     error: string | undefined
-    imagemByte: any
+    imagemTratada: any
     buscarCorretores: () => Promise<any>
     inserirCorretor: (corretor: any) => Promise<any>
     editarCorretor: (corretor: any) => Promise<any>
@@ -18,7 +18,7 @@ export const CorretorContext = createContext({} as CorretorContextType);
 
 export function CorretorProvider({ children }: CorretorProviderProps) {
     const [error, setError] = useState<string | undefined>(undefined);
-    const [imagemByte, setImagemByte] = useState(undefined);
+    const [imagemTratada, setImagemTratada] = useState<string | undefined>(undefined);
 
     async function buscarCorretores() {
         try {
@@ -52,16 +52,16 @@ export function CorretorProvider({ children }: CorretorProviderProps) {
 
     async function obterImagemPerfil() {
         try {
-            const imagemByte = await obterImagem();
-            setImagemByte(imagemByte);
-            return imagemByte;
+            const imagemBase64 = await obterImagem();
+            setImagemTratada(`data:image/jpeg;base64,${imagemBase64}`);
+            return imagemBase64;
         } catch (err: any) {
             setError(err);
         }
     }
 
     return (
-        <CorretorContext.Provider value={{ error, imagemByte, buscarCorretores, inserirCorretor, editarCorretor, obterImagemPerfil }}>
+        <CorretorContext.Provider value={{ error, imagemTratada, buscarCorretores, inserirCorretor, editarCorretor, obterImagemPerfil }}>
             {children}
         </CorretorContext.Provider>
     )

@@ -1,17 +1,16 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import UserOne from '../../images/user/user-01.png';
+import UserOne from '../../images/user/user.png';
 import { AuthContext } from '../../context/AuthContext';
 import { CorretorContext } from '../../context/CorretorContext';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { logout, user } = useContext(AuthContext)
-  const { obterImagemPerfil, imagemByte } = useContext(CorretorContext)
+  const { obterImagemPerfil, imagemTratada } = useContext(CorretorContext)
 
   const [nomeUser, setNomeUser] = useState("")
-  const [imagemPerfil, setImagemPerfil] = useState<string | undefined>(undefined);
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
@@ -50,20 +49,14 @@ const DropdownUser = () => {
   }
 
   useEffect(() => {
-    if (imagemByte === undefined) {
+    if (!imagemTratada) {
       fetchImagemPerfil();
     }
-    
+
     async function fetchImagemPerfil() {
-      const bytes = await obterImagemPerfil();
-      console.log(bytes)
-      if (bytes) {
-        const blob = new Blob([bytes]);
-        const url = URL.createObjectURL(blob);
-        setImagemPerfil(url);
-      }
+      await obterImagemPerfil();
     }
-  }, [obterImagemPerfil]);
+  }, [obterImagemPerfil, imagemTratada]);
 
   return (
     <div className="relative">
@@ -80,7 +73,7 @@ const DropdownUser = () => {
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          {imagemPerfil ? <img src={imagemPerfil} alt="User" /> : <img src={UserOne} alt="User" />}
+          {imagemTratada ? <img src={imagemTratada} alt="User" className="rounded-full" /> : <img src={UserOne} alt="User" className="rounded-full" />}
         </span>
 
         <svg

@@ -76,9 +76,11 @@ namespace Solid.Application.ApplicationServices
             _corretorRepository.AtualizarCorretor(corretor);
         }
 
-        public byte[]? ObterImagemCorretorPorCodigo(Guid codigoCorreor)
+        public string ObterImagemCorretorPorCodigo(Guid codigoCorreor)
         {
-            return _corretorRepository.ObterImagemCorretorPorCodigo(codigoCorreor)?.FotoPerfil;
+            var bytes = _corretorRepository.ObterImagemCorretorPorCodigo(codigoCorreor)?.FotoPerfil;
+
+            return Convert.ToBase64String(bytes);
         }
     }
 }
