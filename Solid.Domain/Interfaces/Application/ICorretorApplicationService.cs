@@ -9,5 +9,6 @@ namespace Solid.Domain.Interfaces.Application
         CorretorResponse InserirCorretor(CorretorRequest request);
         CorretorResponse AtualizarCorretor(CorretorRequest request);
         Task SalvarImagemPerfilAsync(IFormFileCollection file, Guid codigoCorretor);
+        byte[]? ObterImagemCorretorPorCodigo(Guid codigoCorreor);
     }
 }

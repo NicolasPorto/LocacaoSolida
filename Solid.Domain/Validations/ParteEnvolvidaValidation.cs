@@ -1,15 +1,15 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using Solid.Domain.Messaging.ParteEnvolvida;
+using Solid.Domain.Entities;
 using Solid.Domain.Validations.Base;
 using Solid.Infra.Enums;
 using Solid.Infra.Extensions;
 
 namespace Solid.Domain.Validations
 {
-    public class ParteEnvolvidaValidation : AbstractValidatorBase<ParteEnvolvidaRequest>
+    public class ParteEnvolvidaValidation : AbstractValidatorBase<ParteEnvolvida>
     {
-        public override Task<ValidationResult> ValidateAsync(ValidationContext<ParteEnvolvidaRequest> request, CancellationToken cancellation = default)
+        public override Task<ValidationResult> ValidateAsync(ValidationContext<ParteEnvolvida> request, CancellationToken cancellation = default)
         {
             RuleFor(x => x.Nome)
                 .NotEmpty()

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { NumericFormat } from 'react-number-format';
 
-const Money = ({ register, className, id, name, onChange, value: parentValue, placeholder, disabled }: any) => {
+const Money = ({ className, id, name, onChange, value: parentValue, placeholder, disabled }: any) => {
   const [money, setMoney] = useState<string | undefined>('')
 
   useEffect(() => {
@@ -11,19 +11,18 @@ const Money = ({ register, className, id, name, onChange, value: parentValue, pl
     }
   }, [parentValue]);
 
-  const handleChange = (event: any) => {
-    const value = event.value;
+  const handleChange = (values: any) => {
+    const { value } = values;
     setMoney(value);
 
     if (onChange) {
-      onChange(money);
+      onChange(value);
     }
   };
 
   return (
     <div>
       <NumericFormat
-        {...register(name, { value: money })}
         type="text"
         id={id}
         name={name}

@@ -13,11 +13,9 @@ api.interceptors.request.use((config) => {
 
 export const buscar = async (): Promise<any> => {
     try {
-        console.log(api)
         const response = await api.get('/Corretor');
         return response.data;
     } catch (error: any) {
-        console.log(error)
         throw error.response.data.message;
     }
 }
@@ -34,6 +32,24 @@ export const criar = async (request : any): Promise<any> => {
 export const editar = async (request : any): Promise<any> => {
     try {
         const response = await api.put('/Corretor', request);
+        return response.data;
+    } catch (error: any) {
+        throw error.response.data.message;
+    }
+}
+
+export const salvarImagem = async (imagemData: FormData): Promise<any> => {
+    try {
+        const response = await api.post('/Corretor/ImagemPerfil', imagemData);
+        return response.data;
+    } catch (error: any) {
+        throw error.response.data.message;
+    }
+}
+
+export const obterImagem = async (): Promise<any> => {
+    try {
+        const response = await api.get('/Corretor/ImagemPerfil');
         return response.data;
     } catch (error: any) {
         throw error.response.data.message;

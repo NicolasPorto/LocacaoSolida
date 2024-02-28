@@ -31,7 +31,7 @@ namespace Solid.Domain.Entities
         public string? CPFConjuge { get; set; }
         public DateTime DtInclusao { get; set; }
 
-        public static ParteEnvolvida ConverterParaEntidade(ParteEnvolvidaRequest request, Guid codigoCorretor)
+        public static ParteEnvolvida ConverterParaEntidade(RegistrarParteEnvolvidaRequest request, Guid codigoCorretor)
         {
             return new ParteEnvolvida()
             {
@@ -55,7 +55,7 @@ namespace Solid.Domain.Entities
                 ValorRenda = request.ValorRenda,
                 PossuiConjuge = request.PossuiConjuge,
                 Conjuge = request.Conjuge,
-                CPFConjuge = request.Conjuge
+                CPFConjuge = request.CPFConjuge
             };
         }
     }

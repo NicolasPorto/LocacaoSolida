@@ -6,6 +6,7 @@ namespace Solid.Domain.Interfaces.Application
     public interface IParteEnvolvidaApplicationService
     {
         List<ParteEnvolvidaResponse> BuscarPartesEnvolvidasPorTipoParte(TipoParte? tipo, Guid codigoCorretor);
-        ParteEnvolvidaResponse Inserir(ParteEnvolvidaRequest request, Guid codigoCorretor);
+        ParteEnvolvidaResponse Inserir(RegistrarParteEnvolvidaRequest request, Guid codigoCorretor);
+        ParteEnvolvidaResponse Atualizar(AtualizarParteEnvolvidaRequest request);
     }
 }

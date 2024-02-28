@@ -7,6 +7,8 @@ namespace Solid.Domain.Interfaces.Repositories
     public interface IParteEnvolvidaRepository : IBaseRepository<ParteEnvolvida, int>
     {
         void Inserir(ParteEnvolvida parteEnvolvida);
+        void Atualizar(ParteEnvolvida parteEnvolvida);
         List<ParteEnvolvida> BuscarPartesEnvolvidasPorTipoParte(TipoParte? tipo, Guid codigoCorretor);
+        ParteEnvolvida? ObterParteEnvolvidaPorCodigo(Guid codigo);
     }
 }

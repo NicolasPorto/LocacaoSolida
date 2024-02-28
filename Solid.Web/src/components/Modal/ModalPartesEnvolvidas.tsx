@@ -3,6 +3,8 @@ import { useState, useEffect, useContext } from "react";
 import { useForm } from 'react-hook-form';
 import { ToEstadoCivilEnum } from "../../extensions/EnumExtension";
 import { ParteEnvolvidaContext } from '../../context/ParteEnvolvidaContext';
+import { FormatarDocumentoFederal } from '../../extensions/FormatacaoExtension';
+import { FormatarNumeroCelular } from '../../extensions/FormatacaoExtension';
 
 import { buscarEnderecoPorCep } from '../../services/viaCep';
 import SwitcherThree from '../Switchers/SwitcherThree';
@@ -18,9 +20,31 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
     const [docFederal, setDocFederal] = useState('');
     const [docConjuge, setDocConjuge] = useState('');
     const [telefone, setTelefone] = useState('');
-    const [valor, setValorRenda] = useState('');
+    const [valorRenda, setValorRenda] = useState('');
     const [possuiConjuge, setPossuiConjuge] = useState(false);
-    const { register, handleSubmit, reset } = useForm()
+    const { register, handleSubmit, reset, setValue } = useForm({
+        defaultValues: {
+            codigo: parteEnvolvida?.codigo || '',
+            nome: parteEnvolvida?.nome || '',
+            email: parteEnvolvida?.email || '',
+            cpf: parteEnvolvida?.cpf || '',
+            numeroCelular: parteEnvolvida?.numeroCelular || '',
+            cep: parteEnvolvida?.cep || '',
+            cidade: parteEnvolvida?.endereco?.localidade || '',
+            bairro: parteEnvolvida?.endereco?.bairro || '',
+            logradouro: parteEnvolvida?.endereco?.logradouro || '',
+            numeroLogradouro: parteEnvolvida?.numeroLogradouro || '',
+            nacionalidade: parteEnvolvida?.nacionalidade || '',
+            estadoCivil: parteEnvolvida?.estadoCivil || '',
+            profissao: parteEnvolvida?.profissao || '',
+            empresa: parteEnvolvida?.empresa || '',
+            valorRenda: parteEnvolvida?.valorRenda || 0,
+            conjuge: parteEnvolvida?.conjuge || '',
+            cpfConjuge: parteEnvolvida?.cpfConjuge || '',
+            tipoParte: parteEnvolvida?.tipoParte || '',
+            possuiConjuge: parteEnvolvida?.possuiConjuge || false,
+        }
+    });
 
     useEffect(() => {
         setShowModal(visivel);
@@ -33,25 +57,64 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
         setErrorBack(error);
     }, [error]);
 
-    const handleCloseModal = () => {
-        setShowModal(false);
-        setTelefone('')
-        setDocFederal('')
-        setValorRenda('')
-        reset();
-        onClose();
-    }
-
     useEffect(() => {
         if (parteEnvolvida !== undefined) {
             setIsEdit(true);
-            setDocFederal(parteEnvolvida.cpf)
-            setTelefone(parteEnvolvida.numeroCelular)
-            setValorRenda(parteEnvolvida.valorRenda)
+            reset(parteEnvolvida);
+            setValue('cpf', FormatarDocumentoFederal(parteEnvolvida?.cpf));
+            setValue('numeroCelular', FormatarNumeroCelular(parteEnvolvida?.numeroCelular));
+            setPossuiConjuge(parteEnvolvida.possuiConjuge);
+            setValorRenda(parteEnvolvida.valorRenda);
+            setDocFederal(parteEnvolvida.cpf);
+            setTelefone(parteEnvolvida.numeroCelular);
+            setCep(parteEnvolvida.cep);
+
+            if (parteEnvolvida.possuiConjuge) {
+                setDocConjuge(parteEnvolvida?.cpfConjuge)
+                setValue('cpfConjuge', FormatarDocumentoFederal(parteEnvolvida?.cpfConjuge));
+            }
         } else {
+            limparValores();
             setIsEdit(false);
         }
-    }, [parteEnvolvida]);
+    }, [parteEnvolvida, reset]);
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        limparValores();
+        onClose();
+    };
+
+    const limparValores = () => {
+        setTelefone('');
+        setDocFederal('');
+        setDocConjuge('');
+        setValorRenda('');
+        setPossuiConjuge(false);
+        setCep('');
+        setEndereco({ uf: '', localidade: '', bairro: '', logradouro: '', cep: '', complemento: '' });
+        reset({
+            codigo: '',
+            nome: '',
+            email: '',
+            cpf: '',
+            numeroCelular: '',
+            cep: '',
+            cidade: '',
+            bairro: '',
+            logradouro: '',
+            numeroLogradouro: '',
+            nacionalidade: '',
+            estadoCivil: '',
+            profissao: '',
+            empresa: '',
+            valorRenda: 0,
+            conjuge: '',
+            cpfConjuge: '',
+            tipoParte: '',
+            possuiConjuge: false,
+        });
+    };
 
     async function confirmarRegistro(data: any) {
         if (!isEdit) {
@@ -68,19 +131,17 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
     }
 
     async function criarParte(data: any) {
-        data.valorRenda = valor
         data.tipoParte = tipoParte
         return await inserirParteEnvolvida(data)
     }
 
     async function alterarParte(data: any) {
-        data.documentoFederal = docFederal
-        data.email = parteEnvolvida.email
         return await editarParteEnvolvida(data)
     }
 
     function possuiConjugeChange() {
         setPossuiConjuge(!possuiConjuge)
+        setValue('possuiConjuge', !possuiConjuge);
     }
 
     const [cep, setCep] = useState("");
@@ -90,20 +151,28 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
         try {
             const data = await buscarEnderecoPorCep(cep.replace(/\D/g, ''));
             setEndereco(data);
+            setValue('cidade', data.localidade);
+            setValue('bairro', data.bairro);
+            setValue('logradouro', data.logradouro);
         } catch (error) {
-            console.error('Erro ao buscar endereço:', error);
+            console.log(error)
+            setErrorBack("Endereço não encontrado.")
         }
     };
 
     useEffect(() => {
-        if (cep.length === 8 && endereco && endereco.cep !== cep) {
+        if (cep.length === 8 && endereco && endereco.cep !== cep && parteEnvolvida?.cep !== cep) {
             buscarEndereco();
         }
-    }, [cep]);
+    }, [cep, endereco, setValue]);
 
     const handleCepChange = (e: any) => {
         setCep(e.target.value);
     };
+
+    useEffect(() => {
+        setValue('valorRenda', valorRenda);
+    }, [valorRenda, setValue]);
 
     return (
         <>
@@ -127,41 +196,22 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                 <div className="grid gap-4 mb-4 grid-cols-2 pb-4">
                                     {isEdit &&
                                         <>
-                                            <div className="hidden">
-                                                <input
-                                                    {...register('codigo')}
-                                                    defaultValue={parteEnvolvida && parteEnvolvida.codigo}
-                                                    type="text"
-                                                    name="codigo"
-                                                    id="codigo"
-                                                />
-                                            </div>
-
-                                            <div className="hidden">
-                                                <input
-                                                    {...register('dtInclusao')}
-                                                    defaultValue={parteEnvolvida && parteEnvolvida.dtInclusao}
-                                                    type="text"
-                                                    name="dtInclusao"
-                                                    id="dtInclusao"
-                                                />
-                                            </div>
+                                            <input
+                                                {...register('codigo')}
+                                                defaultValue={parteEnvolvida && parteEnvolvida.codigo}
+                                                type="hidden"
+                                            />
                                         </>
                                     }
-                                    <div className="hidden">
-                                        <input
-                                            {...register('tipoParte')}
-                                            defaultValue={tipoParte}
-                                            type="number"
-                                            name="tipoParte"
-                                            id="tipoParte"
-                                        />
-                                    </div>
+                                    <input
+                                        {...register('tipoParte')}
+                                        defaultValue={tipoParte}
+                                        type="hidden"
+                                    />
                                     <div className="col-span-2">
                                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome <span style={{ color: 'red' }}>*</span></label>
                                         <input
                                             {...register('nome')}
-                                            defaultValue={parteEnvolvida && parteEnvolvida.nome}
                                             type="text"
                                             name="nome"
                                             id="nome"
@@ -175,7 +225,6 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email <span style={{ color: 'red' }}>*</span></label>
                                         <input
                                             {...register('email')}
-                                            defaultValue={parteEnvolvida && parteEnvolvida.email}
                                             type="email"
                                             name="email"
                                             id="email"
@@ -217,7 +266,6 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                         <input
                                             {...register('cep')}
                                             maxLength={8}
-                                            defaultValue={parteEnvolvida && parteEnvolvida.cep}
                                             type="text"
                                             name="cep"
                                             id="cep"
@@ -230,11 +278,9 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                     <div className="col-span-2 sm:col-span-1">
                                         <label htmlFor="cidade" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
                                         <input
-                                            {...register('cidade', { value: endereco.localidade })}
-                                            defaultValue={parteEnvolvida && parteEnvolvida.cidade}
+                                            {...register('cidade')}
                                             type="text"
                                             name="cidade"
-                                            value={endereco.localidade}
                                             id="cidade"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                             disabled
@@ -243,11 +289,9 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                     <div className="col-span-2 sm:col-span-1">
                                         <label htmlFor="bairro" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bairro</label>
                                         <input
-                                            {...register('bairro', { value: endereco.bairro })}
-                                            defaultValue={parteEnvolvida && parteEnvolvida.bairro}
+                                            {...register('bairro')}
                                             type="text"
                                             name="bairro"
-                                            value={endereco.bairro}
                                             id="bairro"
                                             disabled
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -257,7 +301,6 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                         <label htmlFor="numeroLogradouro" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
                                         <input
                                             {...register('numeroLogradouro')}
-                                            defaultValue={parteEnvolvida && parteEnvolvida.numeroLogradouro}
                                             type="number"
                                             name="numeroLogradouro"
                                             id="numeroLogradouro"
@@ -268,12 +311,10 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                     <div className="col-span-2">
                                         <label htmlFor="logradouro" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logradouro</label>
                                         <input
-                                            {...register('logradouro', { value: endereco.logradouro })}
-                                            defaultValue={parteEnvolvida && parteEnvolvida.logradouro}
+                                            {...register('logradouro')}
                                             type="text"
                                             name="logradouro"
                                             id="logradouro"
-                                            value={endereco.logradouro}
                                             disabled
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         />
@@ -282,7 +323,6 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                         <label htmlFor="nacionalidade" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nacionalidade <span style={{ color: 'red' }}>*</span></label>
                                         <input
                                             {...register('nacionalidade')}
-                                            defaultValue={parteEnvolvida && parteEnvolvida.nacionalidade}
                                             type="text"
                                             name="nacionalidade"
                                             id="nacionalidade"
@@ -309,7 +349,6 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                         <label htmlFor="profissao" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profissão</label>
                                         <input
                                             {...register('profissao')}
-                                            defaultValue={parteEnvolvida && parteEnvolvida.profissao}
                                             type="text"
                                             name="profissao"
                                             id="profissao"
@@ -321,7 +360,6 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                         <label htmlFor="empresa" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Empresa</label>
                                         <input
                                             {...register('empresa')}
-                                            defaultValue={parteEnvolvida && parteEnvolvida.empresa}
                                             type="text"
                                             name="empresa"
                                             id="empresa"
@@ -332,17 +370,16 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                     <div className="col-span-2 sm:col-span-1">
                                         <label htmlFor="valorRenda" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor Renda </label>
                                         <Money
-                                            register={register}
                                             name="valorRenda"
                                             id="valorRenda"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                             placeholder="R$ 0,00"
-                                            value={valor}
+                                            value={valorRenda}
                                             onChange={setValorRenda}
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
-                                        <label htmlFor="valorRenda" className="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Possui cônjuge?</label>
+                                        <label htmlFor="possuiConjuge" className="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Possui cônjuge?</label>
                                         <SwitcherThree ativo={possuiConjuge} onToggle={possuiConjugeChange} />
                                     </div>
                                     {possuiConjuge &&
@@ -351,13 +388,13 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                                 <label htmlFor="conjuge" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cônjuge <span style={{ color: 'red' }}>*</span></label>
                                                 <input
                                                     {...register('conjuge')}
-                                                    defaultValue={parteEnvolvida && parteEnvolvida.nome}
                                                     type="text"
                                                     name="conjuge"
                                                     id="conjuge"
                                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                     placeholder="Digite o nome"
                                                     autoComplete="on"
+                                                    required={possuiConjuge}
                                                 />
                                             </div>
                                             <div className="col-span-2 sm:col-span-1">
@@ -371,6 +408,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                                     value={docConjuge}
                                                     onChange={setDocConjuge}
                                                     disabled={false}
+                                                    required={possuiConjuge}
                                                     maxLength={14}
                                                 />
                                             </div>
@@ -379,6 +417,9 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                 </div>
                                 {errorBack && <div className="text-red-500 text-center">{errorBack}</div>}
                                 <div className='flex justify-end'>
+                                    <button type="button" onClick={handleCloseModal} className="mr-2 bg-gray-100 border border-gray-300 text-gray-700 font-semibold rounded-md py-2 px-4 transition duration-500 ease select-none hover:bg-gray-200 focus:outline-none focus:shadow-outline">
+                                        Cancelar
+                                    </button>
                                     <button type="submit" className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                         <svg className="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" /></svg>
                                         Confirmar
@@ -387,10 +428,10 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                             </form>
                         </div>
                     </div>
-                </div >
+                </div>
             }
         </>
-    );
-};
+    )
+}
 
 export default ModalPartesEnvolvidas;

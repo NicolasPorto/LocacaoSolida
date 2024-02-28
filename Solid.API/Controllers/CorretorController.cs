@@ -108,5 +108,23 @@ namespace Solid.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
             }
         }
+
+        [HttpGet("ImagemPerfil")]
+        public IActionResult ObterImagemPerfil()
+        {
+            try
+            {
+                return Ok(_corretorApplicationService.ObterImagemCorretorPorCodigo(ObterCodigoCorretorLogado()));
+            }
+            catch (SolidException ex)
+            {
+                return BadRequest(ResponseBase.ErrorHandled(ex));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
+            }
+        }
     }
 }

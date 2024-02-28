@@ -24,7 +24,7 @@ const DocumentoFederal = ({ register, className, id, name, value: parentValue, o
   return (
     <div>
       <input
-        {...register(name, { value: doc })}
+        {...register(name)}
         type="text"
         id={id}
         name={name}

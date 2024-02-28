@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 
 import UserOne from '../../images/user/user-01.png';
 import { AuthContext } from '../../context/AuthContext';
+import { CorretorContext } from '../../context/CorretorContext';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { logout, user } = useContext(AuthContext)
+  const { obterImagemPerfil, imagemByte } = useContext(CorretorContext)
 
   const [nomeUser, setNomeUser] = useState("")
+  const [imagemPerfil, setImagemPerfil] = useState<string | undefined>(undefined);
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
@@ -46,6 +49,22 @@ const DropdownUser = () => {
     await logout()
   }
 
+  useEffect(() => {
+    if (imagemByte === undefined) {
+      fetchImagemPerfil();
+    }
+    
+    async function fetchImagemPerfil() {
+      const bytes = await obterImagemPerfil();
+      console.log(bytes)
+      if (bytes) {
+        const blob = new Blob([bytes]);
+        const url = URL.createObjectURL(blob);
+        setImagemPerfil(url);
+      }
+    }
+  }, [obterImagemPerfil]);
+
   return (
     <div className="relative">
       <div
@@ -61,7 +80,7 @@ const DropdownUser = () => {
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <img src={UserOne} alt="User" />
+          {imagemPerfil ? <img src={imagemPerfil} alt="User" /> : <img src={UserOne} alt="User" />}
         </span>
 
         <svg

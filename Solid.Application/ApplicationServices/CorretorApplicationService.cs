@@ -60,16 +60,25 @@ namespace Solid.Application.ApplicationServices
             if (file.Count == 0)
                 throw new SolidException("Nenhuma foto enviada.");
 
+            byte[] dadosImagem;
             var imagem = file[0];
 
             if (imagem.Length == 0)
                 throw new SolidException("Foto vazia.");
 
-            using var memoryStream = new MemoryStream();
-            await imagem.CopyToAsync(memoryStream);
+            using (var memoryStream = new MemoryStream())
+            {
+                await imagem.CopyToAsync(memoryStream);
+                dadosImagem = memoryStream.ToArray();
+            }
 
-            corretor.FotoPerfil = imagem;
+            corretor.FotoPerfil = dadosImagem;
             _corretorRepository.AtualizarCorretor(corretor);
+        }
+
+        public byte[]? ObterImagemCorretorPorCodigo(Guid codigoCorreor)
+        {
+            return _corretorRepository.ObterImagemCorretorPorCodigo(codigoCorreor)?.FotoPerfil;
         }
     }
 }

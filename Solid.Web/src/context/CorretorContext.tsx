@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-import { buscar, criar, editar } from "../services/corretorApi"
+import { buscar, criar, editar, obterImagem } from "../services/corretorApi"
 
 type CorretorProviderProps = {
     children: ReactNode
@@ -7,15 +7,18 @@ type CorretorProviderProps = {
 
 type CorretorContextType = {
     error: string | undefined
+    imagemByte: any
     buscarCorretores: () => Promise<any>
     inserirCorretor: (corretor: any) => Promise<any>
     editarCorretor: (corretor: any) => Promise<any>
+    obterImagemPerfil: () => Promise<any>
 }
 
 export const CorretorContext = createContext({} as CorretorContextType);
 
 export function CorretorProvider({ children }: CorretorProviderProps) {
     const [error, setError] = useState<string | undefined>(undefined);
+    const [imagemByte, setImagemByte] = useState(undefined);
 
     async function buscarCorretores() {
         try {
@@ -47,8 +50,18 @@ export function CorretorProvider({ children }: CorretorProviderProps) {
         }
     }
 
+    async function obterImagemPerfil() {
+        try {
+            const imagemByte = await obterImagem();
+            setImagemByte(imagemByte);
+            return imagemByte;
+        } catch (err: any) {
+            setError(err);
+        }
+    }
+
     return (
-        <CorretorContext.Provider value={{ error, buscarCorretores, inserirCorretor, editarCorretor }}>
+        <CorretorContext.Provider value={{ error, imagemByte, buscarCorretores, inserirCorretor, editarCorretor, obterImagemPerfil }}>
             {children}
         </CorretorContext.Provider>
     )

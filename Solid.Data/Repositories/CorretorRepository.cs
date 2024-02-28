@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Solid.Data.Context;
 using Solid.Data.Repositories.Base;
 using Solid.Domain.Entities;
 using Solid.Domain.Interfaces.Repositories;
+using Solid.Domain.RawQuery;
 
 namespace Solid.Data.Repositories
 {
@@ -28,6 +28,18 @@ namespace Solid.Data.Repositories
                                  WHERE Codigo = @codigoCorretor";
 
             return SqlQuery<Corretor>(sql, codigo).ToList().FirstOrDefault();
+        }
+
+        public ImagemPerfilRawQueryResult? ObterImagemCorretorPorCodigo(Guid codigo)
+        {
+            const string sql = @"DECLARE @codigoCorretor UNIQUEIDENTIFIER = @p0
+
+                                 SELECT FotoPerfil 
+                                 FROM cad.Corretor
+                                 WHERE Codigo = @codigoCorretor"
+            ;
+
+            return SqlQuery<ImagemPerfilRawQueryResult>(sql, codigo)?.ToList()?.FirstOrDefault();
         }
 
         public void AtualizarCorretor(Corretor corretor)

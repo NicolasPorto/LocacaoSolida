@@ -17,7 +17,12 @@ namespace Solid.Data.Repositories
 
         public void Inserir(ParteEnvolvida parteEnvolvida)
         {
-            base.Insert(parteEnvolvida);
+            Insert(parteEnvolvida);
+        }
+
+        public void Atualizar(ParteEnvolvida parteEnvolvida)
+        {
+            Update(parteEnvolvida);
         }
 
         public List<ParteEnvolvida> BuscarPartesEnvolvidasPorTipoParte(TipoParte? tipo, Guid codigoCorretor)
@@ -36,6 +41,16 @@ namespace Solid.Data.Repositories
                 query.AddCondition(" CodigoCorretor = @codigoCorretor");
 
             return SqlQuery<ParteEnvolvida>(query.ToString(), tipo, codigoCorretor).ToList();
+        }
+
+        public ParteEnvolvida? ObterParteEnvolvidaPorCodigo(Guid codigo)
+        {
+            const string sql = @"DECLARE @codigo UNIQUEIDENTIFIER = @p0
+
+                                 SELECT * FROM cad.ParteEnvolvida
+                                 WHERE Codigo = @codigo";
+
+            return SqlQuery<ParteEnvolvida>(sql, codigo).ToList().FirstOrDefault();
         }
     }
 }

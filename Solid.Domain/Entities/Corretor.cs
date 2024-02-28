@@ -21,8 +21,7 @@ namespace Solid.Domain.Entities
         public required string Empresa { get; set; }
         public TipoCorretor TipoCorretor { get; set; }
         public DateTime DtInclusao { get; set; }
-        [NotMapped]
-        public IFormFile? FotoPerfil {  get; set; }
+        public byte[]? FotoPerfil {  get; set; }
 
         public static Corretor ConverterParaEntidade(CorretorRequest request)
         {

@@ -46,11 +46,34 @@ namespace Solid.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ParteEnvolvidaResponse> InserirParteEnvolvida(ParteEnvolvidaRequest request)
+        public ActionResult<ParteEnvolvidaResponse> InserirParteEnvolvida(RegistrarParteEnvolvidaRequest request)
         {
             try
             {
                 var response = _parteEnvolvidaApplicationService.Inserir(request, ObterCodigoCorretorLogado());
+
+                if (response.Success)
+                    return Ok(response);
+
+                return BadRequest(response);
+            }
+            catch (SolidException ex)
+            {
+                return BadRequest(ResponseBase.ErrorHandled(ex));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
+            }
+        }
+
+        [HttpPut]
+        public ActionResult<ParteEnvolvidaResponse> AtualizarParteEnvolvida(AtualizarParteEnvolvidaRequest request)
+        {
+            try
+            {
+                var response = _parteEnvolvidaApplicationService.Atualizar(request);
 
                 if (response.Success)
                     return Ok(response);

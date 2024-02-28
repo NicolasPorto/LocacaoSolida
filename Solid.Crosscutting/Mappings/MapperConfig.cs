@@ -25,6 +25,12 @@ namespace Solid.Crosscutting.Mappings
 
 
             CreateMap<ParteEnvolvida, ParteEnvolvidaResponse>();
+            CreateMap<AtualizarParteEnvolvidaRequest, ParteEnvolvida>()
+                .ForMember(dest => dest.NumeroCelular, opt => opt.MapFrom(src => src.NumeroCelular.SomenteNumeros()))
+                .ForMember(dest => dest.CPF, opt => opt.MapFrom(src => src.CPF.SomenteNumeros()))
+                .ForMember(dest => dest.CPFConjuge, opt => opt.MapFrom(src => src.CPFConjuge.SomenteNumeros()))
+                .ForMember(dest => dest.TelefoneComercial, opt => opt.MapFrom(src => src.TelefoneComercial.SomenteNumeros()))
+                .ForMember(dest => dest.CEP, opt => opt.MapFrom(src => src.CEP.SomenteNumeros()));
         }
     }
 }

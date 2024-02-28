@@ -5,6 +5,7 @@ using Solid.Domain.Interfaces.Repositories;
 using Solid.Domain.Messaging.ParteEnvolvida;
 using Solid.Domain.Validations;
 using Solid.Infra.Enums;
+using Solid.Infra.Exceptions;
 
 namespace Solid.Application.ApplicationServices
 {
@@ -31,13 +32,26 @@ namespace Solid.Application.ApplicationServices
             return _mapper.Map<List<ParteEnvolvidaResponse>>(partes);
         }
 
-        public ParteEnvolvidaResponse Inserir(ParteEnvolvidaRequest request, Guid codigoCorretor)
+        public ParteEnvolvidaResponse Inserir(RegistrarParteEnvolvidaRequest request, Guid codigoCorretor)
         {
-            _parteEnvolvidaValidation.ValidateAsync(request);
-
             var parteEnvolvida = ParteEnvolvida.ConverterParaEntidade(request, codigoCorretor);
 
+            _parteEnvolvidaValidation.ValidateAsync(parteEnvolvida);
+
             _parteEnvolvidaRepository.Inserir(parteEnvolvida);
+
+            return _mapper.Map<ParteEnvolvidaResponse>(parteEnvolvida);
+        }
+
+        public ParteEnvolvidaResponse Atualizar(AtualizarParteEnvolvidaRequest request)
+        {
+            var parteEnvolvida = _parteEnvolvidaRepository.ObterParteEnvolvidaPorCodigo(request.Codigo) ?? throw new SolidException("Não foi possível encontrar a parte envolvida informada.");
+
+            _mapper.Map(request, parteEnvolvida);
+
+            _parteEnvolvidaValidation.ValidateAsync(parteEnvolvida);
+
+            _parteEnvolvidaRepository.Update(parteEnvolvida);
 
             return _mapper.Map<ParteEnvolvidaResponse>(parteEnvolvida);
         }

@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-import { buscar, criar } from "../services/parteEnvolvidaApi"
+import { atualizar, buscar, criar } from "../services/parteEnvolvidaApi"
 
 type ParteEnvolvidaProviderProps = {
     children: ReactNode
@@ -29,6 +29,7 @@ export function ParteEnvolvidaProvider({ children }: ParteEnvolvidaProviderProps
         try {
             parteEnvolvida.numeroLogradouro = parseInt(parteEnvolvida.numeroLogradouro)
             parteEnvolvida.estadoCivil = parseInt(parteEnvolvida.estadoCivil)
+            parteEnvolvida.tipoParte = parseInt(parteEnvolvida.tipoParte)
             return await criar(parteEnvolvida);
         } catch (err: any) {
             setError(err);
@@ -37,7 +38,7 @@ export function ParteEnvolvidaProvider({ children }: ParteEnvolvidaProviderProps
 
     async function editarParteEnvolvida(parteEnvolvida: any) {
         try {
-            return await criar(parteEnvolvida);
+            return await atualizar(parteEnvolvida);
         } catch (err: any) {
             setError(err);
         }

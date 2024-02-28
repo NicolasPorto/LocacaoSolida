@@ -2,9 +2,8 @@
 
 namespace Solid.Domain.Messaging.ParteEnvolvida
 {
-    public class ParteEnvolvidaRequest
+    public class RegistrarParteEnvolvidaRequest
     {
-        public Guid Codigo { get; set; }
         public TipoParte TipoParte { get; set; }
         public required string Nome { get; set; }
         public required string Email { get; set; }
@@ -13,6 +12,7 @@ namespace Solid.Domain.Messaging.ParteEnvolvida
         public string? Logradouro { get; set; }
         public int? NumeroLogradouro { get; set; }
         public string? Cidade { get; set; }
+        public string? Bairro { get; set; }
         public required string Nacionalidade { get; set; }
         public string? Profissao { get; set; }
         public string? Empresa { get; set; }

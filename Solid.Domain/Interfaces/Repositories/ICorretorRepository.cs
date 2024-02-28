@@ -1,5 +1,6 @@
 ﻿using Solid.Domain.Entities;
 using Solid.Domain.Interfaces.Repositories.Base;
+using Solid.Domain.RawQuery;
 
 namespace Solid.Domain.Interfaces.Repositories
 {
@@ -9,5 +10,6 @@ namespace Solid.Domain.Interfaces.Repositories
         Corretor? ObterCorretorPorCodigo(Guid codigo);
         void AtualizarCorretor(Corretor corretor);
         Corretor? ObterCorretorPorEmail(string email);
+        ImagemPerfilRawQueryResult? ObterImagemCorretorPorCodigo(Guid codigo);
     }
 }

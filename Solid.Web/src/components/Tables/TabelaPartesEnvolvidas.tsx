@@ -23,8 +23,8 @@ const TabelaPartesEnvolvidas = ({ data, tipoParte, nomeParte }: any) => {
         setShowModal(false);
     };
 
-    const handleSelecaoFiador = (fiador: any) => {
-        setSelectedParteEnvolvida(fiador);
+    const handleSelecaoParte = (parte: any) => {
+        setSelectedParteEnvolvida(parte);
         mostrarModal();
     };
 
@@ -107,7 +107,7 @@ const TabelaPartesEnvolvidas = ({ data, tipoParte, nomeParte }: any) => {
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <div className="flex items-center space-x-3.5">
-                                        <button onClick={() => handleSelecaoFiador(parteEnvolvida)} className="hover:text-primary">
+                                        <button onClick={() => handleSelecaoParte(parteEnvolvida)} className="hover:text-primary">
                                             Editar
                                         </button>
                                     </div>
@@ -117,7 +117,7 @@ const TabelaPartesEnvolvidas = ({ data, tipoParte, nomeParte }: any) => {
                     </tbody>
                 </table>
             </div>
-            <ModalFiadores visivel={show} corretor={selectedParteEnvolvida} nomeParte={nomeParte} tipoParte={tipoParte} onClose={() => {
+            <ModalFiadores visivel={show} parteEnvolvida={selectedParteEnvolvida} nomeParte={nomeParte} tipoParte={tipoParte} onClose={() => {
                 fecharModal();
                 atualizarParte();
             }} />
