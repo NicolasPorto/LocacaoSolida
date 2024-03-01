@@ -48,6 +48,7 @@ namespace Solid.Domain.Entities
                 CEP = request.CEP?.SomenteNumeros(),
                 Logradouro = request.Logradouro,
                 NumeroLogradouro = request.NumeroLogradouro,
+                Bairro = request.Bairro,
                 Cidade = request.Cidade,
                 Empresa = request.Empresa,
                 NumeroCelular = request.NumeroCelular?.SomenteNumeros(),
@@ -55,7 +56,7 @@ namespace Solid.Domain.Entities
                 ValorRenda = request.ValorRenda,
                 PossuiConjuge = request.PossuiConjuge,
                 Conjuge = request.Conjuge,
-                CPFConjuge = request.CPFConjuge
+                CPFConjuge = request.CPFConjuge?.SomenteNumeros()
             };
         }
     }

@@ -13,7 +13,7 @@ import Telefone from '../Forms/Input/Telefone';
 import Money from '../Forms/Input/Money';
 
 const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, tipoParte }: any) => {
-    const { inserirParteEnvolvida, editarParteEnvolvida, error } = useContext(ParteEnvolvidaContext)
+    const { inserirParteEnvolvida, editarParteEnvolvida, limparErro, error } = useContext(ParteEnvolvidaContext)
     const [show, setShowModal] = useState(false)
     const [errorBack, setErrorBack] = useState<string | undefined>(undefined)
     const [isEdit, setIsEdit] = useState(false)
@@ -50,6 +50,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
         setShowModal(visivel);
         if (visivel) {
             setErrorBack(undefined);
+            limparErro()
         }
     }, [visivel]);
 
@@ -155,7 +156,6 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
             setValue('bairro', data.bairro);
             setValue('logradouro', data.logradouro);
         } catch (error) {
-            console.log(error)
             setErrorBack("Endereço não encontrado.")
         }
     };
@@ -398,11 +398,11 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                                 />
                                             </div>
                                             <div className="col-span-2 sm:col-span-1">
-                                                <label htmlFor="cpfconjuge" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CPF Cônjuge <span style={{ color: 'red' }}>*</span></label>
+                                                <label htmlFor="cpfConjuge" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CPF Cônjuge <span style={{ color: 'red' }}>*</span></label>
                                                 <DocumentoFederal
                                                     register={register}
-                                                    name="cpfconjuge"
-                                                    id="cpfconjuge"
+                                                    name="cpfConjuge"
+                                                    id="cpfConjuge"
                                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                     placeholder="___.___.___-__"
                                                     value={docConjuge}

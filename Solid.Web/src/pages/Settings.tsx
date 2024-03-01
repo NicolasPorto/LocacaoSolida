@@ -14,7 +14,9 @@ const Settings = () => {
 
   const handleImagemChange = (event: any) => {
     const file = event.target.files[0];
+    console.log(file)
     setImagem(file);
+    limparMensagens()
   };
 
   const removerImagem = () => {
@@ -33,6 +35,7 @@ const Settings = () => {
         removerImagem()
         await obterImagemPerfil()
       } else {
+        setSucesso('')
         setError('Nenhuma imagem selecionada.');
       }
     } catch (error) {
@@ -40,10 +43,32 @@ const Settings = () => {
     }
   };
 
+  const apagarImagemPerfil = async (event: any) => {
+    event.preventDefault();
+    try {
+        const formData = new FormData();
+        const userOneFile = await fetch(UserOne).then(res => res.blob()); 
+        const userOneImageFile = new File([userOneFile], 'UserOne.png', { type: 'image/png' });
+        formData.append('file', userOneImageFile);
+        await salvarImagem(formData);
+        setSucesso('Imagem apagada com sucesso!');
+        setError('');
+        removerImagem();
+        await obterImagemPerfil();
+    } catch (error) {
+      setError('Erro ao apagar imagem.');
+    }
+};
+
   useEffect(() => {
     setSucesso('')
     setError('')
   }, [])
+
+  const limparMensagens = () => {
+    setSucesso('')
+    setError('')
+  }
 
   return (
     <DefaultLayout>
@@ -68,7 +93,7 @@ const Settings = () => {
                         Editar sua foto
                       </span>
                       <span className="flex gap-2.5">
-                        <button className="text-sm hover:text-primary">
+                        <button onClick={apagarImagemPerfil} className="text-sm hover:text-primary">
                           Apagar
                         </button>
                       </span>
@@ -91,11 +116,11 @@ const Settings = () => {
                           </svg>
                         </span>
                         <p>
-                          <span className="text-primary">Click to upload</span> or
-                          drag and drop
+                          <span className="text-primary">Click para enviar</span> ou
+                          arraste e solte
                         </p>
-                        <p className="mt-1.5">SVG, PNG, JPG or GIF</p>
-                        <p>(max, 800 X 800px)</p>
+                        <p className="mt-1.5">SVG, PNG, JPG ou GIF</p>
+                        <p>(max, 112 X 112px)</p>
                       </div>
                     }
                     {imagem !== null &&

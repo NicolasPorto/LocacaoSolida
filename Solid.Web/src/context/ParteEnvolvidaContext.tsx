@@ -10,6 +10,7 @@ type ParteEnvolvidaContextType = {
     buscarPartesEnvolvidas: (tipoParte: number) => Promise<any>
     inserirParteEnvolvida: (parteEnvolvida: any) => Promise<any>
     editarParteEnvolvida: (parteEnvolvida: any) => Promise<any>
+    limparErro: () => any
 }
 
 export const ParteEnvolvidaContext = createContext({} as ParteEnvolvidaContextType);
@@ -44,8 +45,12 @@ export function ParteEnvolvidaProvider({ children }: ParteEnvolvidaProviderProps
         }
     }
 
+    const limparErro = () => {
+        setError(undefined);
+    }
+
     return (
-        <ParteEnvolvidaContext.Provider value={{ error, buscarPartesEnvolvidas, inserirParteEnvolvida, editarParteEnvolvida }}>
+        <ParteEnvolvidaContext.Provider value={{ error, limparErro, buscarPartesEnvolvidas, inserirParteEnvolvida, editarParteEnvolvida }}>
             {children}
         </ParteEnvolvidaContext.Provider>
     )
