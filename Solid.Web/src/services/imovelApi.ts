@@ -11,9 +11,9 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-export const buscar = async (tipoParte: number): Promise<any> => {
+export const buscar = async (): Promise<any> => {
     try {
-        const response = await api.get(`/ParteEnvolvida?tipoParte=${tipoParte}`);
+        const response = await api.get(`/Imovel`);
         return response.data;
     } catch (error: any) {
         throw error.response.data.message;
@@ -22,7 +22,7 @@ export const buscar = async (tipoParte: number): Promise<any> => {
 
 export const criar = async (request : any): Promise<any> => {
     try {
-        const response = await api.post('/ParteEnvolvida', request);
+        const response = await api.post('/Imovel', request);
         return response.data;
     } catch (error: any) {
         throw error.response.data.message;
@@ -31,16 +31,7 @@ export const criar = async (request : any): Promise<any> => {
 
 export const atualizar = async (request : any): Promise<any> => {
     try {
-        const response = await api.put('/ParteEnvolvida', request);
-        return response.data;
-    } catch (error: any) {
-        throw error.response.data.message;
-    }
-}
-
-export const obterCombo = async (tipoParte: number): Promise<any> => {
-    try {
-        const response = await api.get(`/ParteEnvolvida/Combo?tipoParte=${tipoParte}`);
+        const response = await api.put('/Imovel', request);
         return response.data;
     } catch (error: any) {
         throw error.response.data.message;

@@ -29,24 +29,24 @@ namespace Solid.Application.ApplicationServices
             return _mapper.Map<List<CorretorResponse>>(corretores);
         }
 
-        public CorretorResponse InserirCorretor(CorretorRequest request)
+        public CorretorResponse InserirCorretor(RegistrarCorretorRequest request)
         {
-            _corretorValidation.ValidateAsync(request);
+            var corretor = new Corretor(request);
 
-            var corretor = Corretor.ConverterParaEntidade(request);
+            _corretorValidation.ValidateAsync(corretor);
 
             _corretorRepository.Insert(corretor);
 
             return _mapper.Map<CorretorResponse>(corretor);
         }
 
-        public CorretorResponse AtualizarCorretor(CorretorRequest request)
+        public CorretorResponse AtualizarCorretor(AtualizarCorretorRequest request)
         {
             var corretor = _corretorRepository.ObterCorretorPorCodigo(request.Codigo) ?? throw new SolidException("Não foi possível encontrar o corretor informado.");
 
-            _corretorValidation.ValidateAsync(request);
-
             _mapper.Map(request, corretor);
+
+            _corretorValidation.ValidateAsync(corretor);
 
             _corretorRepository.AtualizarCorretor(corretor);
 

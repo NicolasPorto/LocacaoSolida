@@ -5,8 +5,8 @@ namespace Solid.Domain.Interfaces.Application
 {
 	public interface IImovelApplicationService
 	{
-		void RegistrarImovel(RegistrarImovelRequest registrarImovelRequest);
-		void AtualizarImovel(AtualizarImovelRequest atualizarImovelRequest);
-		List<Imovel> BuscarTodos();
+		void Inserir(RegistrarImovelRequest registrarImovelRequest, Guid codigoCorretor);
+		void Atualizar(AtualizarImovelRequest atualizarImovelRequest);
+		List<Imovel> BuscarTodos(Guid codigoCorretor);
 	}
 }

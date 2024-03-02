@@ -2,7 +2,7 @@
 
 namespace Solid.Domain.Messaging.Corretor
 {
-    public class CorretorRequest
+    public class AtualizarCorretorRequest
     {
         public Guid Codigo { get; set; }
         public required string Email { get; set; }
@@ -13,6 +13,5 @@ namespace Solid.Domain.Messaging.Corretor
         public required string NumeroCelular { get; set; }
         public required string Empresa { get; set; }
         public TipoCorretor TipoCorretor { get; set; }
-        public DateTime DtInclusao { get; set; }
     }
 }

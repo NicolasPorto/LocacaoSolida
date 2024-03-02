@@ -10,6 +10,7 @@ import 'flatpickr/dist/flatpickr.min.css';
 import { AuthProvider } from './context/AuthContext';
 import { CorretorProvider } from './context/CorretorContext';
 import { ParteEnvolvidaProvider } from './context/ParteEnvolvidaContext';
+import { ImovelProvider } from './context/ImovelContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -17,7 +18,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <AuthProvider>
         <CorretorProvider>
           <ParteEnvolvidaProvider>
-            <App />
+            <ImovelProvider>
+              <App />
+            </ImovelProvider>
           </ParteEnvolvidaProvider>
         </CorretorProvider>
       </AuthProvider>

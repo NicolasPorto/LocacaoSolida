@@ -14,8 +14,8 @@ namespace Solid.Crosscutting.Mappings
         private void MapperConfigure()
         {
             CreateMap<Corretor, CorretorResponse>();
-            CreateMap<Corretor, CorretorRequest>();
-            CreateMap<CorretorRequest, Corretor>()
+            CreateMap<Corretor, AtualizarCorretorRequest>();
+            CreateMap<AtualizarCorretorRequest, Corretor>()
                 .ForMember(dest => dest.NumeroCelular, opt => opt.Condition(src => !string.IsNullOrEmpty(src.NumeroCelular)))
                 .ForMember(dest => dest.NumeroCelular, opt => opt.MapFrom(src => src.NumeroCelular.SomenteNumeros()));
 

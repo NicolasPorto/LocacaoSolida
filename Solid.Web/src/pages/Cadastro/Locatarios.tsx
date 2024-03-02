@@ -18,7 +18,7 @@ const Locatarios = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Locatarios" />
+      <Breadcrumb pageName="Locatários" />
       <div className="flex flex-col gap-10">
         <TabelaPartesEnvolvidas data={locatarios} tipoParte={TipoParte.Locatario} nomeParte={"Locatario"} />
       </div>

@@ -2,9 +2,9 @@
 {
 	public enum SituacaoImovel
 	{
-		Livre,
-		Locado,
-		Reservado,
-		Inativo
+		Livre = 1,
+		Locado = 2,
+		Reservado = 3,
+		Inativo = 4
 	}
 }

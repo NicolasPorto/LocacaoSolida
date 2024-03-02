@@ -11,10 +11,9 @@ import Corretores from '../pages/Admin/Corretores';
 import Locadores from '../pages/Cadastro/Locadores';
 import Locatarios from '../pages/Cadastro/Locatarios';
 import Fiadores from '../pages/Cadastro/Fiadores';
-
+import Imoveis from '../pages/Cadastro/Imoveis';
 
 const AppRoutes = () => {
-
     const Private = ({ children }: { children: ReactNode }) => {
         const { isAuthenticated } = useContext(AuthContext);
 
@@ -78,6 +77,15 @@ const AppRoutes = () => {
                     <Private>
                         <PageTitle title="LocaçãoSólida | Fiadores" />
                         <Fiadores />
+                    </Private>
+                }
+            />
+            <Route
+                path="/cadastro/imoveis"
+                element={
+                    <Private>
+                        <PageTitle title="LocaçãoSólida | Imóveis" />
+                        <Imoveis />
                     </Private>
                 }
             />

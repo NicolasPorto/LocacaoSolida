@@ -21,7 +21,7 @@ namespace Solid.Application.ApplicationServices
 			_mapper = mapper;
 		} 
 
-		public void AtualizarImovel(AtualizarImovelRequest atualizarImovelRequest)
+		public void Atualizar(AtualizarImovelRequest atualizarImovelRequest)
 		{
 			var imovel = _imovelRepository.ObterPorCodigo(atualizarImovelRequest.Codigo) 
 				?? throw new SolidException("Imóvel não encontrado.");
@@ -32,14 +32,14 @@ namespace Solid.Application.ApplicationServices
 			_imovelRepository.Update(imovel);
 		}
 
-		public List<Imovel> BuscarTodos()
+		public List<Imovel> BuscarTodos(Guid codigoCorretor)
 		{
-			return _imovelRepository.BuscarTodos();
+			return _imovelRepository.BuscarPorCodigoCorretor(codigoCorretor);
 		}
 
-		public void RegistrarImovel(RegistrarImovelRequest registrarImovelRequest)
+		public void Inserir(RegistrarImovelRequest registrarImovelRequest, Guid codigoCorretor)
 		{
-			var imovel = new Imovel(registrarImovelRequest);
+			var imovel = new Imovel(registrarImovelRequest, codigoCorretor);
 
 			_imovelValidation.ValidateAsync(imovel);
 			_imovelRepository.Inserir(imovel);

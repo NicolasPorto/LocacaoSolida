@@ -11,15 +11,15 @@ namespace Solid.Domain.Entities
     {
         public Guid CodigoCorretor { get; set; }
         public TipoParte TipoParte { get; set; }
-        public required string Nome { get; set; }
-        public required string Email { get; set; }
-        public required string CPF { get; set; }
+        public string Nome { get; set; }
+        public string Email { get; set; }
+        public string CPF { get; set; }
         public string? CEP { get; set; }
         public string? Logradouro { get; set; }
         public int? NumeroLogradouro { get; set; }
         public string? Cidade { get; set; }
         public string? Bairro { get; set; }
-        public required string Nacionalidade { get; set; }
+        public string Nacionalidade { get; set; }
         public string? Profissao { get; set; }
         public string? Empresa { get; set; }
         public string? NumeroCelular { get; set; }
@@ -31,33 +31,32 @@ namespace Solid.Domain.Entities
         public string? CPFConjuge { get; set; }
         public DateTime DtInclusao { get; set; }
 
-        public static ParteEnvolvida ConverterParaEntidade(RegistrarParteEnvolvidaRequest request, Guid codigoCorretor)
+        public ParteEnvolvida() { }
+
+        public ParteEnvolvida(RegistrarParteEnvolvidaRequest request, Guid codigoCorretor) 
         {
-            return new ParteEnvolvida()
-            {
-                Codigo = Guid.NewGuid(),
-                DtInclusao = DateTime.Now,
-                CodigoCorretor = codigoCorretor,
-                Nome = request.Nome,
-                Email= request.Email,
-                CPF = request.CPF.SomenteNumeros(),
-                TipoParte = request.TipoParte,
-                EstadoCivil = request.EstadoCivil,
-                Profissao = request.Profissao,
-                Nacionalidade = request.Nacionalidade,
-                CEP = request.CEP?.SomenteNumeros(),
-                Logradouro = request.Logradouro,
-                NumeroLogradouro = request.NumeroLogradouro,
-                Bairro = request.Bairro,
-                Cidade = request.Cidade,
-                Empresa = request.Empresa,
-                NumeroCelular = request.NumeroCelular?.SomenteNumeros(),
-                TelefoneComercial = request.TelefoneComercial?.SomenteNumeros(),
-                ValorRenda = request.ValorRenda,
-                PossuiConjuge = request.PossuiConjuge,
-                Conjuge = request.Conjuge,
-                CPFConjuge = request.CPFConjuge?.SomenteNumeros()
-            };
+            Codigo = Guid.NewGuid();
+            DtInclusao = DateTime.Now;
+            CodigoCorretor = codigoCorretor;
+            Nome = request.Nome;
+            Email = request.Email;
+            CPF = request.CPF.SomenteNumeros();
+            TipoParte = request.TipoParte;
+            EstadoCivil = request.EstadoCivil;
+            Profissao = request.Profissao;
+            Nacionalidade = request.Nacionalidade;
+            CEP = request.CEP?.SomenteNumeros();
+            Logradouro = request.Logradouro;
+            NumeroLogradouro = request.NumeroLogradouro;
+            Bairro = request.Bairro;
+            Cidade = request.Cidade;
+            Empresa = request.Empresa;
+            NumeroCelular = request.NumeroCelular?.SomenteNumeros();
+            TelefoneComercial = request.TelefoneComercial?.SomenteNumeros();
+            ValorRenda = request.ValorRenda;
+            PossuiConjuge = request.PossuiConjuge;
+            Conjuge = request.Conjuge;
+            CPFConjuge = request.CPFConjuge?.SomenteNumeros();
         }
     }
 }

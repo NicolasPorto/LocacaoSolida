@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import SidebarLinkGroup from './SidebarLinkGroup';
-import Logo from '../../images/logo/logo-white.svg';
 import { AuthContext } from '../../context/AuthContext';
 import { TipoCorretor } from '../../constants/enums.ts'
+
+import SidebarLinkGroup from './SidebarLinkGroup';
+import Logo from '../../images/logo/logo-white.svg';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -277,7 +278,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                                 }`}
                             >
-                              Locatarios
+                              Locatários
                             </NavLink>
                           </li>
                           <li>
@@ -288,6 +289,16 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 }`}
                             >
                               Fiadores
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              to="/cadastro/imoveis"
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/cadastro/imoveis" &&
+                                "text-white"
+                                }`}
+                            >
+                              Imóveis
                             </NavLink>
                           </li>
                         </ul>

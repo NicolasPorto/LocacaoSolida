@@ -1,15 +1,15 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using Solid.Domain.Messaging.Corretor;
+using Solid.Domain.Entities;
 using Solid.Domain.Validations.Base;
 using Solid.Infra.Enums;
 using Solid.Infra.Extensions;
 
 namespace Solid.Domain.Validations
 {
-    public class CorretorValidation : AbstractValidatorBase<CorretorRequest>
+    public class CorretorValidation : AbstractValidatorBase<Corretor>
     {
-        public override Task<ValidationResult> ValidateAsync(ValidationContext<CorretorRequest> request, CancellationToken cancellation = default)
+        public override Task<ValidationResult> ValidateAsync(ValidationContext<Corretor> request, CancellationToken cancellation = default)
         {
             RuleFor(x => x.Email)
                 .NotEmpty()

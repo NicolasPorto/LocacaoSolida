@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Solid.API.Controllers.Base;
 using Solid.Domain.Interfaces.Application;
@@ -44,7 +43,7 @@ namespace Solid.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<CorretorResponse> InserirCorretor(CorretorRequest request)
+        public ActionResult<CorretorResponse> InserirCorretor(RegistrarCorretorRequest request)
         {
             try
             {
@@ -67,7 +66,7 @@ namespace Solid.API.Controllers
         }
 
         [HttpPut]
-        public ActionResult<CorretorResponse> AtualizarCorretor(CorretorRequest request)
+        public ActionResult<CorretorResponse> AtualizarCorretor(AtualizarCorretorRequest request)
         {
             try
             {

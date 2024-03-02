@@ -6,8 +6,8 @@ namespace Solid.Domain.Interfaces.Application
     public interface ICorretorApplicationService
     {
         List<CorretorResponse> BuscarCorretores();
-        CorretorResponse InserirCorretor(CorretorRequest request);
-        CorretorResponse AtualizarCorretor(CorretorRequest request);
+        CorretorResponse InserirCorretor(RegistrarCorretorRequest request);
+        CorretorResponse AtualizarCorretor(AtualizarCorretorRequest request);
         Task SalvarImagemPerfilAsync(IFormFileCollection file, Guid codigoCorretor);
         string ObterImagemCorretorPorCodigo(Guid codigoCorreor);
     }

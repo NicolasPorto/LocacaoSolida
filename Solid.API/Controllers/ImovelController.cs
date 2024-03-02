@@ -12,43 +12,43 @@ namespace Solid.API.Controllers
     [Authorize]
 	[ApiController]
 	[Route("[controller]")]
-	public class ImoveisController : ControllerBaseConfig
+	public class ImovelController : ControllerBaseConfig
     {
-		private ILogger<ImoveisController> _logger;
+		private ILogger<ImovelController> _logger;
 		private readonly IImovelApplicationService _imovelApplicationService;
 
-		public ImoveisController(IImovelApplicationService imoveisApplicationService, ILogger<ImoveisController> logger)
+		public ImovelController(IImovelApplicationService imoveisApplicationService, ILogger<ImovelController> logger)
 		{
 			_imovelApplicationService = imoveisApplicationService;
 			_logger = logger;
 		}
 
-		[HttpPost]
-		public ActionResult RegistrarImovel(RegistrarImovelRequest registrarImovelRequest)
+        [HttpGet]
+        public ActionResult<List<Imovel>> BuscarTodos()
+        {
+            try
+            {
+                return Ok(_imovelApplicationService.BuscarTodos(ObterCodigoCorretorLogado()));
+            }
+            catch (SolidException ex)
+            {
+                return BadRequest(ResponseBase.ErrorHandled(ex));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
+            }
+        }
+
+        [HttpPost]
+		public ActionResult InserirImovel(RegistrarImovelRequest registrarImovelRequest)
 		{
 			try
 			{
-				_imovelApplicationService.RegistrarImovel(registrarImovelRequest);
+				_imovelApplicationService.Inserir(registrarImovelRequest, ObterCodigoCorretorLogado());
 
 				return Ok();
-			}
-			catch (SolidException ex)
-			{
-				return BadRequest(ResponseBase.ErrorHandled(ex));
-			}
-			catch (Exception ex)
-			{
-				_logger.LogError(ex, ex.Message);
-				return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
-			}
-		}
-
-		[HttpGet]
-		public ActionResult<List<Imovel>> BuscarTodos()
-		{
-			try
-			{
-				return Ok(_imovelApplicationService.BuscarTodos());
 			}
 			catch (SolidException ex)
 			{
@@ -66,7 +66,7 @@ namespace Solid.API.Controllers
 		{
 			try
 			{
-				_imovelApplicationService.AtualizarImovel(atualizarImovelRequest);
+				_imovelApplicationService.Atualizar(atualizarImovelRequest);
 
 				return Ok();
 			}

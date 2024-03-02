@@ -12,6 +12,7 @@ type CorretorContextType = {
     inserirCorretor: (corretor: any) => Promise<any>
     editarCorretor: (corretor: any) => Promise<any>
     obterImagemPerfil: () => Promise<any>
+    limparErro: () => any
 }
 
 export const CorretorContext = createContext({} as CorretorContextType);
@@ -60,8 +61,12 @@ export function CorretorProvider({ children }: CorretorProviderProps) {
         }
     }
 
+    const limparErro = () => {
+        setError(undefined);
+    }
+
     return (
-        <CorretorContext.Provider value={{ error, imagemTratada, buscarCorretores, inserirCorretor, editarCorretor, obterImagemPerfil }}>
+        <CorretorContext.Provider value={{ error, imagemTratada, limparErro, buscarCorretores, inserirCorretor, editarCorretor, obterImagemPerfil }}>
             {children}
         </CorretorContext.Provider>
     )

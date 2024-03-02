@@ -6,5 +6,7 @@ namespace Solid.Domain.Interfaces.Repositories
 	public interface IImovelRepository : IBaseRepository<Imovel, int>
 	{
 		void Inserir(Imovel entidadeImovel);
-	}
+		List<Imovel> BuscarPorCodigoCorretor(Guid codigoCorretor);
+		int ObterDadosDashboard();
+    }
 }

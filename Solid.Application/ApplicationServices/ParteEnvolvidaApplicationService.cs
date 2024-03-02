@@ -3,6 +3,7 @@ using Solid.Domain.Entities;
 using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Interfaces.Repositories;
 using Solid.Domain.Messaging.ParteEnvolvida;
+using Solid.Domain.RawQuery;
 using Solid.Domain.Validations;
 using Solid.Infra.Enums;
 using Solid.Infra.Exceptions;
@@ -16,8 +17,8 @@ namespace Solid.Application.ApplicationServices
         private readonly ParteEnvolvidaValidation _parteEnvolvidaValidation;
 
         public ParteEnvolvidaApplicationService(
-            IParteEnvolvidaRepository parteEnvolvidaRepository, 
-            IMapper mapper, 
+            IParteEnvolvidaRepository parteEnvolvidaRepository,
+            IMapper mapper,
             ParteEnvolvidaValidation parteEnvolvidaValidation)
         {
             _parteEnvolvidaRepository = parteEnvolvidaRepository;
@@ -32,9 +33,14 @@ namespace Solid.Application.ApplicationServices
             return _mapper.Map<List<ParteEnvolvidaResponse>>(partes);
         }
 
+        public List<ComboParteEnvolvidaRawQueryResult> ObterCombo(TipoParte? tipo, Guid codigoCorretor)
+        {
+            return _parteEnvolvidaRepository.ObterCombo(tipo, codigoCorretor);
+        }
+
         public ParteEnvolvidaResponse Inserir(RegistrarParteEnvolvidaRequest request, Guid codigoCorretor)
         {
-            var parteEnvolvida = ParteEnvolvida.ConverterParaEntidade(request, codigoCorretor);
+            var parteEnvolvida = new ParteEnvolvida(request, codigoCorretor);
 
             _parteEnvolvidaValidation.ValidateAsync(parteEnvolvida);
 

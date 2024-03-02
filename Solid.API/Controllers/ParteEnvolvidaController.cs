@@ -4,6 +4,7 @@ using Solid.API.Controllers.Base;
 using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Messaging.Base;
 using Solid.Domain.Messaging.ParteEnvolvida;
+using Solid.Domain.RawQuery;
 using Solid.Infra.Enums;
 using Solid.Infra.Exceptions;
 
@@ -31,6 +32,26 @@ namespace Solid.API.Controllers
             try
             {
                 var response = _parteEnvolvidaApplicationService.BuscarPartesEnvolvidasPorTipoParte(tipoParte, ObterCodigoCorretorLogado());
+
+                return Ok(response);
+            }
+            catch (SolidException ex)
+            {
+                return BadRequest(ResponseBase.ErrorHandled(ex));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
+            }
+        }
+
+        [HttpGet("Combo")]
+        public ActionResult<List<ComboParteEnvolvidaRawQueryResult>> ObterCombo([FromQuery] TipoParte? tipoParte)
+        {
+            try
+            {
+                var response = _parteEnvolvidaApplicationService.ObterCombo(tipoParte, ObterCodigoCorretorLogado());
 
                 return Ok(response);
             }

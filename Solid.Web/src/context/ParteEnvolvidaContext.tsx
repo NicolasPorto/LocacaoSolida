@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-import { atualizar, buscar, criar } from "../services/parteEnvolvidaApi"
+import { atualizar, buscar, criar, obterCombo } from "../services/parteEnvolvidaApi"
 
 type ParteEnvolvidaProviderProps = {
     children: ReactNode
@@ -8,6 +8,7 @@ type ParteEnvolvidaProviderProps = {
 type ParteEnvolvidaContextType = {
     error: string | undefined
     buscarPartesEnvolvidas: (tipoParte: number) => Promise<any>
+    obterComboParteEnvolvida: (tipoParte: number) => Promise<any>
     inserirParteEnvolvida: (parteEnvolvida: any) => Promise<any>
     editarParteEnvolvida: (parteEnvolvida: any) => Promise<any>
     limparErro: () => any
@@ -26,11 +27,17 @@ export function ParteEnvolvidaProvider({ children }: ParteEnvolvidaProviderProps
         }
     }
 
+    async function obterComboParteEnvolvida(tipoParte: number) {
+        try {
+            return await obterCombo(tipoParte);
+        } catch (err: any) {
+            setError(err);
+        }
+    }
+
     async function inserirParteEnvolvida(parteEnvolvida: any) {
         try {
-            parteEnvolvida.numeroLogradouro = parseInt(parteEnvolvida.numeroLogradouro)
             parteEnvolvida.estadoCivil = parseInt(parteEnvolvida.estadoCivil)
-            parteEnvolvida.tipoParte = parseInt(parteEnvolvida.tipoParte)
             return await criar(parteEnvolvida);
         } catch (err: any) {
             setError(err);
@@ -39,6 +46,7 @@ export function ParteEnvolvidaProvider({ children }: ParteEnvolvidaProviderProps
 
     async function editarParteEnvolvida(parteEnvolvida: any) {
         try {
+            parteEnvolvida.estadoCivil = parseInt(parteEnvolvida.estadoCivil)
             return await atualizar(parteEnvolvida);
         } catch (err: any) {
             setError(err);
@@ -50,7 +58,7 @@ export function ParteEnvolvidaProvider({ children }: ParteEnvolvidaProviderProps
     }
 
     return (
-        <ParteEnvolvidaContext.Provider value={{ error, limparErro, buscarPartesEnvolvidas, inserirParteEnvolvida, editarParteEnvolvida }}>
+        <ParteEnvolvidaContext.Provider value={{ error, limparErro, buscarPartesEnvolvidas, inserirParteEnvolvida, editarParteEnvolvida, obterComboParteEnvolvida }}>
             {children}
         </ParteEnvolvidaContext.Provider>
     )

@@ -14,7 +14,6 @@ const Settings = () => {
 
   const handleImagemChange = (event: any) => {
     const file = event.target.files[0];
-    console.log(file)
     setImagem(file);
     limparMensagens()
   };

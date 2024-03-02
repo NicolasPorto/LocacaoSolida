@@ -14,6 +14,7 @@ namespace Solid.Crosscutting.DependencyInjection
             services.AddTransient<IAutenticacaoApplicationService, AutenticacaoApplicationService>();
             services.AddTransient<IParteEnvolvidaApplicationService, ParteEnvolvidaApplicationService>();
 			services.AddTransient<IImovelApplicationService, ImovelApplicationService>();
+            services.AddTransient<IDashboardApplicationService, DashboardApplicationService>();
 
             services.AddTransient<ICorretorRepository, CorretorRepository>();
             services.AddTransient<IImovelRepository, ImovelRepository>();
