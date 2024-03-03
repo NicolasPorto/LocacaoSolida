@@ -15,10 +15,12 @@ namespace Solid.Crosscutting.DependencyInjection
             services.AddTransient<IParteEnvolvidaApplicationService, ParteEnvolvidaApplicationService>();
 			services.AddTransient<IImovelApplicationService, ImovelApplicationService>();
             services.AddTransient<IDashboardApplicationService, DashboardApplicationService>();
+            services.AddTransient<IValorFixoApplicationService, ValorFixoApplicationService>();
 
             services.AddTransient<ICorretorRepository, CorretorRepository>();
             services.AddTransient<IImovelRepository, ImovelRepository>();
             services.AddTransient<IParteEnvolvidaRepository, ParteEnvolvidaRepository>();
+            services.AddTransient<IValorFixoRepository, ValorFixoRepository>();
         }
     }
 }

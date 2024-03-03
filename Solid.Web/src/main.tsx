@@ -11,19 +11,26 @@ import { AuthProvider } from './context/AuthContext';
 import { CorretorProvider } from './context/CorretorContext';
 import { ParteEnvolvidaProvider } from './context/ParteEnvolvidaContext';
 import { ImovelProvider } from './context/ImovelContext';
+import { ValorFixoProvider } from './context/ValorFixoContext';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Router>
-      <AuthProvider>
-        <CorretorProvider>
-          <ParteEnvolvidaProvider>
-            <ImovelProvider>
-              <App />
-            </ImovelProvider>
-          </ParteEnvolvidaProvider>
-        </CorretorProvider>
-      </AuthProvider>
+      <ErrorBoundary>
+        <AuthProvider>
+          <CorretorProvider>
+            <ParteEnvolvidaProvider>
+              <ImovelProvider>
+                <ValorFixoProvider>
+                  <App />
+                </ValorFixoProvider>
+              </ImovelProvider>
+            </ParteEnvolvidaProvider>
+          </CorretorProvider>
+        </AuthProvider>
+      </ErrorBoundary>
     </Router>
   </React.StrictMode>,
 );

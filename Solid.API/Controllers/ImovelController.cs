@@ -62,7 +62,7 @@ namespace Solid.API.Controllers
 		}
 
 		[HttpPut]
-		public ActionResult  AtualizarImovel(AtualizarImovelRequest atualizarImovelRequest)
+		public ActionResult AtualizarImovel(AtualizarImovelRequest atualizarImovelRequest)
 		{
 			try
 			{

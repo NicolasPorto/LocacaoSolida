@@ -1,18 +1,18 @@
 import { useState, useEffect, useContext } from "react";
-import { CorretorContext } from '../../context/CorretorContext';
-import { ToSituacaoEnum } from "../../extensions/EnumExtension";
-import { FormatarDocumentoFederal, FormatarData } from "../../extensions/FormatacaoExtension";
+import { ValorFixoContext } from "../../context/ValorFixoContext";
+import { FormatarValor } from "../../extensions/FormatacaoExtension";
+import { ToTipoValorEnum } from "../../extensions/EnumExtension";
 
-import ModalCorretores from '../../components/Modal/ModalCorretores'
+import ModalValorFixo from "../Modal/ModalValorFixo";
 
-const TabelaCorretores = ({ data }: any) => {
-    const [corretores, setCorretores] = useState([])
+const TabelaValorFixo = ({ data }: any) => {
+    const [valores, setValores] = useState([])
     const [show, setShowModal] = useState(false)
-    const [selectedCorretor, setSelectedCorretor] = useState()
-    const { buscarCorretores } = useContext(CorretorContext)
+    const [selectedValorFixo, setSelectedValorFixo] = useState()
+    const { buscarValorFixo } = useContext(ValorFixoContext)
 
     useEffect(() => {
-        setCorretores(data)
+        setValores(data)
     }, [data])
 
     const mostrarModal = () => {
@@ -20,18 +20,18 @@ const TabelaCorretores = ({ data }: any) => {
     }
 
     const fecharModal = () => {
-        setSelectedCorretor(undefined);
+        setSelectedValorFixo(undefined);
         setShowModal(false);
     };
 
-    const handleSelecaoCorretor = (corretor: any) => {
-        setSelectedCorretor(corretor);
+    const handleSelecaoValorFixo = (valor: any) => {
+        setSelectedValorFixo(valor);
         mostrarModal();
     };
 
-    const atualizarCorretores = async () => {
-        const response = await buscarCorretores();
-        setCorretores(response);
+    const atualizarValores = async () => {
+        const response = await buscarValorFixo();
+        setValores(response);
     };
 
     return (
@@ -52,64 +52,47 @@ const TabelaCorretores = ({ data }: any) => {
                                 Nome
                             </th>
                             <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                Email
+                                Valor
                             </th>
-                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                Empresa
+                            <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                                Porcentagem
                             </th>
-                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                Documento Federal
-                            </th>
-                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                Situação
-                            </th>
-                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                Data Inclusão
+                            <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                                Tipo
                             </th>
                             <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {corretores.map((corretor: any, key) => (
+                        {valores.map((valor: any, key) => (
                             <tr key={key}>
                                 <td className="hidden">
-                                    {corretor.codigo}
+                                    {valor.codigo}
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                     <h5 className="font-medium text-black dark:text-white">
-                                        {corretor.nome}
+                                        {valor.nome}
                                     </h5>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        {corretor.email}
+                                        R$ {FormatarValor(valor.valor)}
+                                    </p>
+                                </td>
+                                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                                    <p className="font-medium text-black dark:text-white">
+                                        {valor.porcentagemValor}%
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        {corretor.empresa}
-                                    </p>
-                                </td>
-                                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                    <p className="text-black dark:text-white">
-                                        {FormatarDocumentoFederal(corretor.documentoFederal)}
-                                    </p>
-                                </td>
-
-                                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                    <p className="text-black dark:text-white">
-                                        {ToSituacaoEnum(corretor.situacao)}
-                                    </p>
-                                </td>
-                                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                    <p className="text-black dark:text-white">
-                                        {FormatarData(corretor.dtInclusao)}
+                                        {ToTipoValorEnum(valor.tipoValor)}
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <div className="flex items-center space-x-3.5">
-                                        <button onClick={() => handleSelecaoCorretor(corretor)} className="hover:text-primary">
+                                        <button onClick={() => handleSelecaoValorFixo(valor)} className="hover:text-primary">
                                             Editar
                                         </button>
                                     </div>
@@ -119,12 +102,12 @@ const TabelaCorretores = ({ data }: any) => {
                     </tbody>
                 </table>
             </div>
-            <ModalCorretores visivel={show} corretor={selectedCorretor} onClose={() => {
+            <ModalValorFixo visivel={show} valorFixo={selectedValorFixo} onClose={() => {
                 fecharModal();
-                atualizarCorretores();
+                atualizarValores();
             }} />
         </div>
     );
 };
 
-export default TabelaCorretores;
+export default TabelaValorFixo;

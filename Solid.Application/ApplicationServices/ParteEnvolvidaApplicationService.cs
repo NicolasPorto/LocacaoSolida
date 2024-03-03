@@ -57,7 +57,7 @@ namespace Solid.Application.ApplicationServices
 
             _parteEnvolvidaValidation.ValidateAsync(parteEnvolvida);
 
-            _parteEnvolvidaRepository.Update(parteEnvolvida);
+            _parteEnvolvidaRepository.Atualizar(parteEnvolvida);
 
             return _mapper.Map<ParteEnvolvidaResponse>(parteEnvolvida);
         }

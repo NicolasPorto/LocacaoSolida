@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import CardDataStats from '../../components/CardDataStats';
+import CardDataStats from '../../components/Dashboard/CardDataStats';
 import ChartOne from '../../components/Charts/ChartOne';
 import ChartThree from '../../components/Charts/ChartThree';
 import ChartTwo from '../../components/Charts/ChartTwo';

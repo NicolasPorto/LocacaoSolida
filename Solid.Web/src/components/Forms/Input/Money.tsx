@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { NumericFormat } from 'react-number-format';
 
-const Money = ({ className, id, name, onChange, value: parentValue, placeholder, disabled }: any) => {
+const Money = ({ required, className, id, name, onChange, value: parentValue, placeholder, disabled }: any) => {
   const [money, setMoney] = useState<string | undefined>('')
 
   useEffect(() => {
@@ -38,6 +38,7 @@ const Money = ({ className, id, name, onChange, value: parentValue, placeholder,
         fixedDecimalScale={true}
         allowNegative={false}
         autoComplete="on"
+        required={required}
       />
     </div>
   );

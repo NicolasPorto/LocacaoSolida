@@ -3,7 +3,8 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 
 import { AuthContext } from '../context/AuthContext';
 
-import PageTitle from '../components/PageTitle';
+import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
+import PageTitle from '../components/Dashboard/PageTitle';
 import Login from '../pages/Authentication/Login';
 import Dashboard from '../pages/Dashboard/dashboard';
 import Settings from '../pages/Settings';
@@ -12,6 +13,8 @@ import Locadores from '../pages/Cadastro/Locadores';
 import Locatarios from '../pages/Cadastro/Locatarios';
 import Fiadores from '../pages/Cadastro/Fiadores';
 import Imoveis from '../pages/Cadastro/Imoveis';
+import ValorFixo from "../pages/Financeiro/ValorFixo";
+import PageNotFound from "../components/ErrorBoundary/PageNotFound";
 
 const AppRoutes = () => {
     const Private = ({ children }: { children: ReactNode }) => {
@@ -26,6 +29,8 @@ const AppRoutes = () => {
 
     return (
         <Routes>
+            <Route path="*" element={<ErrorBoundary><PageNotFound /></ErrorBoundary>} />
+
             <Route
                 path="/login"
                 element={
@@ -86,6 +91,15 @@ const AppRoutes = () => {
                     <Private>
                         <PageTitle title="LocaçãoSólida | Imóveis" />
                         <Imoveis />
+                    </Private>
+                }
+            />
+            <Route
+                path="/financeiro/valorfixo"
+                element={
+                    <Private>
+                        <PageTitle title="LocaçãoSólida | Valor Fixo" />
+                        <ValorFixo />
                     </Private>
                 }
             />

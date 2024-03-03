@@ -126,10 +126,10 @@ const ModalImoveis = ({ visivel, imovel, onClose, comboParte }: any) => {
                 <div className="fixed inset-0 overflow-y-auto z-999">
                     <div className="fixed inset-0 flex md:items-center justify-center z-50 ">
                         <div className="absolute inset-0 bg-black opacity-50"></div>
-                        <div className="relative bg-white rounded-lg shadow-lg max-w-3xl md:w-full mx-2 my-2">
+                        <div className="relative bg-white rounded-lg shadow-lg max-w-3xl md:w-full mx-2 my-2 dark:border-strokedark dark:bg-boxdark">
                             <div className="flex items-center justify-between p-4 border-b">
                                 <h3 className="text-xl font-semibold text-gray-900">
-                                    {!isEdit ? 'Criar Imóvel' : 'Editar Imóvel'}
+                                    {!isEdit ? 'Cadastrar Imóvel' : 'Editar Imóvel'}
                                 </h3>
                                 <button type="button" onClick={handleCloseModal} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
                                     <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">

@@ -1,4 +1,4 @@
-import { TipoPessoa, Situacao, TipoCorretor, EstadoCivil, TipoImovel, SituacaoImovel } from "../constants/enums"
+import { TipoPessoa, Situacao, TipoCorretor, EstadoCivil, TipoImovel, SituacaoImovel, TipoValor } from "../constants/enums"
 
 export function ToTipoPessoaEnum(tipoPessoa: any) {
     switch (tipoPessoa) {
@@ -65,6 +65,17 @@ export function ToTipoSituacaoImovelEnum(tipo: any) {
             return 'Reservado'
         case SituacaoImovel.Inativo:
             return 'Inativo'
+        default:
+            return 'Desconhecido'
+    }
+}
+
+export function ToTipoValorEnum(tipo: any) {
+    switch (tipo) {
+        case TipoValor.Taxa:
+            return 'Taxa'
+        case TipoValor.Desconto:
+            return 'Desconto'
         default:
             return 'Desconhecido'
     }

@@ -35,3 +35,8 @@ export const SituacaoImovel = {
     Reservado: 3,
     Inativo: 4
 };
+
+export const TipoValor = {
+    Taxa: 1,
+    Desconto: 2
+};
