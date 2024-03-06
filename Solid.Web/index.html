@@ -2,12 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon-white.ico" />
+    <link rel="icon" type="image/svg+xml" href="/logo-black.ico" id="favicon"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LocaçãoSólida</title>
   </head>
   <body>
     <div id="root"></div>
+    <script type="module">
+      const favicon = document.getElementById('favicon');
+      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+      if (prefersDarkMode) {
+        favicon.href = "/logo-white.ico";
+      } else {
+        favicon.href = "/logo-black.ico";
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

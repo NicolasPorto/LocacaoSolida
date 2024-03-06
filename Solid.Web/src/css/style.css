@@ -157,13 +157,13 @@ span.flatpickr-weekday,
 .flatpickr-day.selected.nextMonthDay,
 .flatpickr-day.startRange.nextMonthDay,
 .flatpickr-day.endRange.nextMonthDay {
-  background: #3c50e0;
+  background: #103260;
   @apply !border-primary !bg-primary hover:!border-primary hover:!bg-primary;
 }
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n + 1)) {
-  box-shadow: -10px 0 0 #3c50e0;
+  box-shadow: -10px 0 0 #103260;
 }
 
 .map-btn .jvm-zoom-btn {
@@ -212,4 +212,28 @@ span.flatpickr-weekday,
 
 [x-cloak] {
   display: none !important;
+}
+
+.bg-primary{
+  background-color: #103260;
+  border-color: #103260;
+}
+
+.bg-primary:hover{
+  background-color: #19498d;
+  border-color: rgb(25, 74, 143);
+}
+
+.bg-disabled{
+  background-color: #35465f;
+  border-color: #35465f;
+}
+
+:is(.dark .dark\:bg-primary) {
+  background-color: #194a8f;
+}
+
+:is(.dark .dark\:hover\:bg-primary:hover) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(25, 74, 143 / var(--tw-bg-opacity));
 }

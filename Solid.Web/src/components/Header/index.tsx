@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import DropdownUser from './DropdownUser';
-import LogoIcon from '../../images/logo/logo-icon.svg';
+import LogoIcon from '../../images/logo/logo-black.svg';
 import DarkModeSwitcher from './DarkModeSwitcher';
 
 const Header = (props: {

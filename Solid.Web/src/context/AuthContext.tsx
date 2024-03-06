@@ -21,6 +21,7 @@ type AuthContextType = {
     error: string | undefined
     login: (data: SignInData) => Promise<void>
     logout: () => Promise<void>
+    limparErro: () => any
 }
 
 type SignInData = {
@@ -85,8 +86,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return null;
     };
 
+    const limparErro = () => {
+        setError(undefined);
+    }
+
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, user, error, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, user, error, login, logout, limparErro }}>
             {children}
         </AuthContext.Provider>
     )

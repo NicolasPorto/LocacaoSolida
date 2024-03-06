@@ -17,8 +17,9 @@ namespace Solid.Domain.Entities
 
         public ValorFixo() { }
 
-        public ValorFixo(RegistrarValorFixoRequest request, Guid codigoCorretor) 
-        { 
+        public ValorFixo(RegistrarValorFixoRequest request, Guid codigoCorretor)
+        {
+            Codigo = Guid.NewGuid();
             CodigoCorretor = codigoCorretor;
             Nome = request.Nome;
             Valor = request.Valor;
