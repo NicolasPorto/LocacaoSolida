@@ -1,0 +1,112 @@
+
+CREATE SCHEMA cad;
+CREATE SCHEMA mov;
+
+CREATE TABLE cad.Corretor (
+	ID INT IDENTITY(1,1) PRIMARY KEY,
+    Codigo UNIQUEIDENTIFIER NOT NULL UNIQUE,
+    Email VARCHAR(200) NOT NULL UNIQUE,
+    Senha VARCHAR(20) NOT NULL,
+    DocumentoFederal VARCHAR(14) NOT NULL UNIQUE,
+    Nome VARCHAR(200) NOT NULL,
+    TipoPessoa INT NOT NULL,
+    Situacao INT NOT NULL,
+    NumeroCelular VARCHAR(11) NULL,
+    Empresa VARCHAR(200) NOT NULL,
+    TipoCorretor INT NOT NULL,
+    DtInclusao DATETIME NOT NULL,
+	FotoPerfil VARBINARY(MAX) NULL
+);
+
+CREATE TABLE cad.ParteEnvolvida (
+	ID INT IDENTITY(1,1) PRIMARY KEY,
+    Codigo UNIQUEIDENTIFIER NOT NULL UNIQUE,
+    CodigoCorretor UNIQUEIDENTIFIER NOT NULL,
+    TipoParte INT NOT NULL,
+    Nome VARCHAR(200) NOT NULL,
+    Email VARCHAR(200) NOT NULL,
+    CPF VARCHAR(11) NOT NULL UNIQUE,
+    CEP VARCHAR(8) NULL,
+    Logradouro VARCHAR(200) NULL,
+    NumeroLogradouro INT NULL,
+    Cidade VARCHAR(200) NULL,
+    Bairro VARCHAR(200) NULL,
+    Nacionalidade VARCHAR(200) NOT NULL,
+    Profissao VARCHAR(200) NULL,
+    Empresa VARCHAR(200) NULL,
+    NumeroCelular VARCHAR(11) NULL,
+    TelefoneComercial VARCHAR(11) NULL,
+    ValorRenda DECIMAL NULL,
+    EstadoCivil INT NOT NULL,
+    PossuiConjuge BIT NOT NULL,
+    Conjuge VARCHAR(200) NULL,
+    CPFConjuge VARCHAR(11) NULL,
+    DtInclusao DATETIME NOT NULL
+);
+
+CREATE TABLE cad.Imovel (
+	ID INT IDENTITY(1,1) PRIMARY KEY,
+    Codigo UNIQUEIDENTIFIER NOT NULL UNIQUE,
+    CodigoLocador UNIQUEIDENTIFIER NOT NULL,
+    CodigoCorretor UNIQUEIDENTIFIER NOT NULL,
+    Situacao INT NOT NULL,
+    TipoImovel INT NOT NULL,
+    CEP VARCHAR(8) NOT NULL,
+    Logradouro VARCHAR(200) NOT NULL,
+    NumeroLogradouro INT NOT NULL,
+    Cidade VARCHAR(200) NOT NULL,
+    Bairro VARCHAR(200) NOT NULL,
+    Complemento VARCHAR(200) NULL,
+    InscricaoImobiliaria VARCHAR(16) NULL,
+    DtInclusao DATETIME NOT NULL
+);
+
+CREATE TABLE cad.ValorFixo (
+	ID INT IDENTITY(1,1) PRIMARY KEY,
+    Codigo UNIQUEIDENTIFIER NOT NULL UNIQUE,
+    CodigoCorretor UNIQUEIDENTIFIER NOT NULL,
+    Nome VARCHAR(200) NOT NULL,
+    Valor DECIMAL NOT NULL,
+    PorcentagemValor INT NOT NULL,
+    TipoValor INT NOT NULL,
+    DtInclusao DATETIME NOT NULL
+);
+
+CREATE TABLE cad.ContratoLocacao (
+	ID INT IDENTITY(1,1) PRIMARY KEY,
+    Codigo UNIQUEIDENTIFIER NOT NULL UNIQUE,
+    CodigoLocador UNIQUEIDENTIFIER NOT NULL,
+    CodigoLocatario UNIQUEIDENTIFIER NOT NULL,
+    CodigoCorretor UNIQUEIDENTIFIER NOT NULL,
+    CodigoImovel UNIQUEIDENTIFIER NOT NULL,
+    DataInicio DATE NOT NULL,
+    DataFim DATE NOT NULL,
+    QuantidadeParcelas INT NOT NULL,
+    TipoFinsImovel INT NOT NULL,
+    ValorAluguel DECIMAL NOT NULL,
+    DiaPrazoPagamento INT NOT NULL,
+    MultaAtraso INT NOT NULL,
+    DtInclusao DATETIME NOT NULL,
+    Situacao INT NOT NULL
+);
+
+CREATE TABLE cad.ParcelaValorFixo (
+	ID INT IDENTITY(1,1) PRIMARY KEY,
+    Codigo UNIQUEIDENTIFIER NOT NULL UNIQUE,
+    CodigoParcelaLocacao UNIQUEIDENTIFIER NOT NULL,
+    CodigoValorFixo UNIQUEIDENTIFIER NOT NULL,
+    Situacao UNIQUEIDENTIFIER NOT NULL
+);
+
+CREATE TABLE mov.ParcelaLocacao (
+	ID INT IDENTITY(1,1) PRIMARY KEY,
+    Codigo UNIQUEIDENTIFIER NOT NULL UNIQUE,
+    CodigoContratoLocacao UNIQUEIDENTIFIER NOT NULL,
+    NumeroParcela INT NOT NULL,
+    ValorTotal DECIMAL NOT NULL,
+    DataInicio DATE NOT NULL,
+    DataFim DATE NOT NULL,
+    DtVencimento DATE NOT NULL,
+    DtInclusao DATETIME NOT NULL,
+    Observacao VARCHAR(500) NULL
+);
