@@ -37,7 +37,7 @@ const TabelaCorretores = ({ data }: any) => {
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
             <div className="pb-4">
-                <button type="button" onClick={mostrarModal} className="text-white bg-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-primary dark:hover:bg-primary focus:outline-none dark:focus:ring-blue-800">
+                <button type="button" onClick={mostrarModal} className="text-white bg-primary border-perso focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                     Cadastrar
                 </button>
             </div>

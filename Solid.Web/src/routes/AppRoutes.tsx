@@ -14,6 +14,8 @@ import Locatarios from '../pages/Cadastro/Locatarios';
 import Fiadores from '../pages/Cadastro/Fiadores';
 import Imoveis from '../pages/Cadastro/Imoveis';
 import ValorFixo from "../pages/Financeiro/ValorFixo";
+import Contratos from "../pages/Contrato/Contratos";
+import Parcelas from "../pages/Contrato/Parcelas";
 import PageNotFound from "../components/ErrorBoundary/PageNotFound";
 
 const AppRoutes = () => {
@@ -91,6 +93,24 @@ const AppRoutes = () => {
                     <Private>
                         <PageTitle title="LocaçãoSólida | Imóveis" />
                         <Imoveis />
+                    </Private>
+                }
+            />
+            <Route
+                path="/contratos/cadastrar"
+                element={
+                    <Private>
+                        <PageTitle title="LocaçãoSólida | Contratos" />
+                        <Contratos />
+                    </Private>
+                }
+            />
+            <Route
+                path="/contratos/parcelas"
+                element={
+                    <Private>
+                        <PageTitle title="LocaçãoSólida | Parcelas" />
+                        <Parcelas />
                     </Private>
                 }
             />
