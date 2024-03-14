@@ -3,6 +3,7 @@ using Solid.Domain.Entities;
 using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Interfaces.Repositories;
 using Solid.Domain.Messaging.Imovel;
+using Solid.Domain.RawQuery;
 using Solid.Domain.Validations;
 using Solid.Infra.Exceptions;
 
@@ -37,7 +38,12 @@ namespace Solid.Application.ApplicationServices
 			return _imovelRepository.BuscarPorCodigoCorretor(codigoCorretor);
 		}
 
-		public void Inserir(RegistrarImovelRequest registrarImovelRequest, Guid codigoCorretor)
+        public List<ComboImoveisRawQueryResult> ObterCombo(Guid codigoCorretor)
+        {
+            return _imovelRepository.ObterCombo(codigoCorretor);
+        }
+
+        public void Inserir(RegistrarImovelRequest registrarImovelRequest, Guid codigoCorretor)
 		{
 			var imovel = new Imovel(registrarImovelRequest, codigoCorretor);
 

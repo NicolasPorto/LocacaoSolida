@@ -156,7 +156,7 @@ const ModalImoveis = ({ visivel, imovel, onClose, comboParte }: any) => {
                                             defaultValue={imovel !== undefined ? imovel.codigoLocador : ""}
                                             id="codigoLocador"
                                             name="codigoLocador"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         >
                                             <option value="" disabled>Selecione </option>
                                             {comboParte.map((parte: any, index: any) => (
@@ -171,7 +171,7 @@ const ModalImoveis = ({ visivel, imovel, onClose, comboParte }: any) => {
                                             defaultValue={imovel !== undefined ? imovel.tipoImovel : 0}
                                             id="tipoImovel"
                                             name="tipoImovel"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         >
                                             <option value={0}>Selecione</option>
                                             {Object.values(TipoImovel).map((tipo, index) => (
@@ -189,7 +189,7 @@ const ModalImoveis = ({ visivel, imovel, onClose, comboParte }: any) => {
                                             id="cep"
                                             value={cep}
                                             onChange={handleCepChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                             placeholder="_____-___"
                                         />
                                     </div>
@@ -200,7 +200,7 @@ const ModalImoveis = ({ visivel, imovel, onClose, comboParte }: any) => {
                                             type="text"
                                             name="cidade"
                                             id="cidade"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
@@ -210,7 +210,7 @@ const ModalImoveis = ({ visivel, imovel, onClose, comboParte }: any) => {
                                             type="text"
                                             name="bairro"
                                             id="bairro"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
@@ -220,7 +220,7 @@ const ModalImoveis = ({ visivel, imovel, onClose, comboParte }: any) => {
                                             type="number"
                                             name="numeroLogradouro"
                                             id="numeroLogradouro"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
@@ -230,7 +230,7 @@ const ModalImoveis = ({ visivel, imovel, onClose, comboParte }: any) => {
                                             type="text"
                                             name="logradouro"
                                             id="logradouro"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
@@ -240,7 +240,7 @@ const ModalImoveis = ({ visivel, imovel, onClose, comboParte }: any) => {
                                             type="text"
                                             name="inscricaoImobiliaria"
                                             id="inscricaoImobiliaria"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
@@ -250,7 +250,7 @@ const ModalImoveis = ({ visivel, imovel, onClose, comboParte }: any) => {
                                             defaultValue={imovel !== undefined ? imovel.situacao : 0}
                                             id="situacao"
                                             name="situacao"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         >
                                             <option value={0} disabled>Selecione</option>
                                             {Object.values(SituacaoImovel).map((tipo, index) => (
@@ -265,7 +265,7 @@ const ModalImoveis = ({ visivel, imovel, onClose, comboParte }: any) => {
                                             type="text"
                                             name="complemento"
                                             id="complemento"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         />
                                     </div>
                                 </div>

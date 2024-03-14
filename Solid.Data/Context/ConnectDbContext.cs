@@ -19,6 +19,7 @@ namespace Solid.Data.Context
 
             modelBuilder.Entity<ImagemPerfilRawQueryResult>().HasNoKey();
             modelBuilder.Entity<ComboParteEnvolvidaRawQueryResult>().HasNoKey();
+            modelBuilder.Entity<ComboImoveisRawQueryResult>().HasNoKey();
             modelBuilder.Entity<ObterQtdPartesRawQueryResult>().HasNoKey();
             modelBuilder.Entity<CountRawQueryResult>().HasNoKey();
 

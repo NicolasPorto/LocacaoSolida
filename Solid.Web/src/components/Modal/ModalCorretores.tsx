@@ -143,7 +143,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                             type="text"
                                             name="nome"
                                             id="nome"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
                                             placeholder="Digite o nome"
                                             required
                                             autoComplete="on"
@@ -157,7 +157,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                             type="email"
                                             name="email"
                                             id="email"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
                                             placeholder="Digite o e-mail"
                                             required
                                             disabled={isEdit}
@@ -170,7 +170,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                             register={register}
                                             name="documentoFederal"
                                             id="documentoFederal"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
                                             placeholder="Digite o CPF/CNPJ"
                                             value={docFederal}
                                             onChange={setDocFederal}
@@ -184,7 +184,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                             register={register}
                                             name="numeroCelular"
                                             id="numeroCelular"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
                                             required={false}
                                             value={telefone}
                                             onChange={setTelefone}
@@ -196,7 +196,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                             {...register('tipoPessoa')}
                                             defaultValue={corretor !== undefined ? corretor.tipoPessoa : "0"}
                                             id="tipoPessoa"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
                                         >
                                             <option value={0}>Selecione</option>
                                             {Object.values(TipoPessoa).map((tipo, index) => (
@@ -211,7 +211,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                             defaultValue={corretor !== undefined ? corretor.tipoCorretor : "0"}
                                             id="tipoCorretor"
                                             name="tipoCorretor"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
                                         >
                                             <option value={0}>Selecione</option>
                                             {Object.values(TipoCorretor).map((tipo, index) => (
@@ -226,7 +226,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                             defaultValue={corretor !== undefined ? corretor.situacao : 0}
                                             id="situacao"
                                             name="situacao"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
                                         >
                                             <option value={0}>Selecione</option>
                                             {Object.values(Situacao).map((tipo, index) => (
@@ -242,7 +242,7 @@ const ModalCorretores = ({ visivel, corretor, onClose }: any) => {
                                             type="text"
                                             name="empresa"
                                             id="empresa"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
                                             placeholder="Digite a empresa"
                                         />
                                     </div>

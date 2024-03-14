@@ -125,7 +125,7 @@ const ModalValorFixo = ({ visivel, valorFixo, onClose }: any) => {
                                             type="text"
                                             name="nome"
                                             id="nome"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 border-perso block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-50"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 border-perso block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-50"
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
@@ -133,7 +133,7 @@ const ModalValorFixo = ({ visivel, valorFixo, onClose }: any) => {
                                         <Money
                                             name="valor"
                                             id="valor"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
                                             placeholder="R$ 0,00"
                                             value={valor}
                                             onChange={setValor}
@@ -147,7 +147,7 @@ const ModalValorFixo = ({ visivel, valorFixo, onClose }: any) => {
                                             type="number"
                                             name="porcentagemValor"
                                             id="porcentagemValor"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
@@ -157,7 +157,7 @@ const ModalValorFixo = ({ visivel, valorFixo, onClose }: any) => {
                                             defaultValue={valorFixo !== undefined ? valorFixo.tipoValor : 0}
                                             id="tipoValor"
                                             name="tipoValor"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso"
                                         >
                                             <option value={0} disabled>Selecione</option>
                                             {Object.values(TipoValor).map((tipo, index) => (

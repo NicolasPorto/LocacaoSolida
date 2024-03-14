@@ -5,6 +5,7 @@ using Solid.Domain.Entities;
 using Solid.Domain.Interfaces.Application;
 using Solid.Domain.Messaging.Base;
 using Solid.Domain.Messaging.Imovel;
+using Solid.Domain.RawQuery;
 using Solid.Infra.Exceptions;
 
 namespace Solid.API.Controllers
@@ -80,5 +81,26 @@ namespace Solid.API.Controllers
 				return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
 			}
 		}
-	}
+
+        [HttpGet("Combo")]
+        public ActionResult<List<ComboParteEnvolvidaRawQueryResult>> ObterCombo()
+        {
+            try
+            {
+                var response = _imovelApplicationService.ObterCombo(ObterCodigoCorretorLogado());
+
+                return Ok(response);
+            }
+
+            catch (SolidException ex)
+            {
+                return BadRequest(ResponseBase.ErrorHandled(ex));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseBase.GenericError());
+            }
+        }
+    }
 }

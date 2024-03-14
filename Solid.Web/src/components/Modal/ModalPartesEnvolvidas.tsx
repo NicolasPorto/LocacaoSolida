@@ -215,7 +215,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             type="text"
                                             name="nome"
                                             id="nome"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                             placeholder="Digite o nome"
                                             required
                                             autoComplete="on"
@@ -228,7 +228,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             type="email"
                                             name="email"
                                             id="email"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                             placeholder="Digite o e-mail"
                                             required
                                             disabled={isEdit}
@@ -241,7 +241,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             register={register}
                                             name="cpf"
                                             id="cpf"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                             placeholder="___.___.___-__"
                                             value={docFederal}
                                             onChange={setDocFederal}
@@ -255,7 +255,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             register={register}
                                             name="numeroCelular"
                                             id="numeroCelular"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                             required={false}
                                             value={telefone}
                                             onChange={setTelefone}
@@ -271,7 +271,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             id="cep"
                                             value={cep}
                                             onChange={handleCepChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                             placeholder="_____-___"
                                         />
                                     </div>
@@ -282,7 +282,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             type="text"
                                             name="cidade"
                                             id="cidade"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                             disabled
                                         />
                                     </div>
@@ -294,7 +294,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             name="bairro"
                                             id="bairro"
                                             disabled
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
@@ -304,7 +304,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             type="number"
                                             name="numeroLogradouro"
                                             id="numeroLogradouro"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                             placeholder='Digite o número do logradouro'
                                         />
                                     </div>
@@ -316,7 +316,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             name="logradouro"
                                             id="logradouro"
                                             disabled
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
@@ -328,7 +328,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             id="nacionalidade"
                                             maxLength={50}
                                             required
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
@@ -337,7 +337,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             {...register('estadoCivil')}
                                             defaultValue={parteEnvolvida !== undefined ? parteEnvolvida.estadoCivil : 0}
                                             id="estadoCivil"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 border-perso-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         >
                                             <option value={0} disabled>Selecione</option>
                                             {Object.values(EstadoCivil).map((tipo, index) => (
@@ -353,7 +353,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             name="profissao"
                                             id="profissao"
                                             maxLength={200}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
@@ -364,7 +364,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                             name="empresa"
                                             id="empresa"
                                             maxLength={200}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                         />
                                     </div>
                                     <div className="col-span-2 sm:col-span-1">
@@ -372,7 +372,7 @@ const ModalPartesEnvolvidas = ({ visivel, parteEnvolvida, onClose, nomeParte, ti
                                         <Money
                                             name="valorRenda"
                                             id="valorRenda"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
+                                            className="dark:bg-form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 border-perso block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:border-perso-500"
                                             placeholder="R$ 0,00"
                                             value={valorRenda}
                                             onChange={setValorRenda}

@@ -1,5 +1,6 @@
 ﻿using Solid.Domain.Entities;
 using Solid.Domain.Messaging.Imovel;
+using Solid.Domain.RawQuery;
 
 namespace Solid.Domain.Interfaces.Application
 {
@@ -8,5 +9,7 @@ namespace Solid.Domain.Interfaces.Application
 		void Inserir(RegistrarImovelRequest registrarImovelRequest, Guid codigoCorretor);
 		void Atualizar(AtualizarImovelRequest atualizarImovelRequest);
 		List<Imovel> BuscarTodos(Guid codigoCorretor);
-	}
+		List<ComboImoveisRawQueryResult> ObterCombo(Guid codigoCorretor);
+
+    }
 }

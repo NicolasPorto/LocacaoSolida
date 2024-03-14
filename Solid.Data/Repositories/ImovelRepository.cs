@@ -4,7 +4,6 @@ using Solid.Data.Repositories.Base;
 using Solid.Domain.Entities;
 using Solid.Domain.Interfaces.Repositories;
 using Solid.Domain.RawQuery;
-using Solid.Infra.Enums;
 
 namespace Solid.Data.Repositories
 {
@@ -23,10 +22,27 @@ namespace Solid.Data.Repositories
         {
             const string sql = @"DECLARE @codigoCorretor UNIQUEIDENTIFIER = @p0
 
-                                 SELECT * FROM cad.Imovel WITH(NOLOCK)
+                                 SELECT * 
+                                 FROM cad.Imovel WITH(NOLOCK)
                                  WHERE CodigoCorretor = @codigoCorretor";
 
             return SqlQuery<Imovel>(sql.ToString(), codigoCorretor).ToList();
+        }
+
+        public List<ComboImoveisRawQueryResult> ObterCombo(Guid codigoCorretor)
+        {
+            const string sql = @"DECLARE @codigoCorretor UNIQUEIDENTIFIER = @p0
+
+                                 SELECT Codigo,
+                                        CEP,
+                                        Logradouro,
+                                        NumeroLogradouro,
+                                        Bairro,
+                                        Cidade
+                                 FROM cad.Imovel WITH(NOLOCK)
+                                 WHERE CodigoCorretor = @codigoCorretor";
+
+            return SqlQuery<ComboImoveisRawQueryResult>(sql.ToString(), codigoCorretor).ToList();
         }
 
         public int ObterDadosDashboard()

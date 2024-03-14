@@ -37,3 +37,12 @@ export const atualizar = async (request : any): Promise<any> => {
         throw error.response.data.message;
     }
 }
+
+export const obterCombo = async (): Promise<any> => {
+    try {
+        const response = await api.get('/Imovel/Combo');
+        return response.data;
+    } catch (error: any) {
+        throw error.response.data.message;
+    }
+}

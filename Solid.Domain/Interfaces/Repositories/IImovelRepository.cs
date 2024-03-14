@@ -1,5 +1,6 @@
 ﻿using Solid.Domain.Entities;
 using Solid.Domain.Interfaces.Repositories.Base;
+using Solid.Domain.RawQuery;
 
 namespace Solid.Domain.Interfaces.Repositories
 {
@@ -8,5 +9,6 @@ namespace Solid.Domain.Interfaces.Repositories
 		void Inserir(Imovel entidadeImovel);
 		List<Imovel> BuscarPorCodigoCorretor(Guid codigoCorretor);
 		int ObterDadosDashboard();
+		List<ComboImoveisRawQueryResult> ObterCombo(Guid codigoCorretor);
     }
 }

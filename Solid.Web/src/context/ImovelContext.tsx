@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-import { buscar, criar, atualizar } from "../services/imovelApi"
+import { buscar, criar, atualizar, obterCombo } from "../services/imovelApi"
 
 type ImovelProviderProps = {
     children: ReactNode
@@ -10,6 +10,7 @@ type ImovelContextType = {
     buscarImoveis: () => Promise<any>
     inserirImovel: (imovel: any) => Promise<any>
     editarImovel: (imovel: any) => Promise<any>
+    obterComboImoveis: () => Promise<any>
     limparErro: () => any
 }
 
@@ -46,12 +47,20 @@ export function ImovelProvider({ children }: ImovelProviderProps) {
         }
     }
 
+    async function obterComboImoveis() {
+        try {
+            return await obterCombo();
+        } catch (err: any) {
+            setError(err);
+        }
+    }
+
     const limparErro = () => {
         setError(undefined);
     }
 
     return (
-        <ImovelContext.Provider value={{ error, limparErro, buscarImoveis, inserirImovel, editarImovel }}>
+        <ImovelContext.Provider value={{ error, limparErro, buscarImoveis, inserirImovel, editarImovel, obterComboImoveis }}>
             {children}
         </ImovelContext.Provider>
     )

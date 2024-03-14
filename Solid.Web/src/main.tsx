@@ -12,6 +12,7 @@ import { CorretorProvider } from './context/CorretorContext';
 import { ParteEnvolvidaProvider } from './context/ParteEnvolvidaContext';
 import { ImovelProvider } from './context/ImovelContext';
 import { ValorFixoProvider } from './context/ValorFixoContext';
+import { ContratoProvider } from './context/ContratoContext';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 
@@ -24,7 +25,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <ParteEnvolvidaProvider>
               <ImovelProvider>
                 <ValorFixoProvider>
-                  <App />
+                  <ContratoProvider>
+                    <App />
+                  </ContratoProvider>
                 </ValorFixoProvider>
               </ImovelProvider>
             </ParteEnvolvidaProvider>
