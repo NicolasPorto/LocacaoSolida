@@ -1,27 +1,18 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { TipoParte } from "../../../constants/enums";
-import { ParteEnvolvidaContext } from "../../../context/ParteEnvolvidaContext";
+import React, { useState } from 'react';
+import { TipoFinsImovel } from "../../../constants/enums";
+import { ToTipoFinsImovelEnum } from "../../../extensions/EnumExtension";
 
-const ComboLocatario: React.FC = () => {
+const FinsImovelSelect: React.FC = () => {
     const [selectedOption, setSelectedOption] = useState<string>('');
     const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
-    const [comboLocatarios, setComboLocatarios] = useState([])
-    const { obterComboParteEnvolvida } = useContext(ParteEnvolvidaContext)
 
     const changeTextColor = () => {
         setIsOptionSelected(true);
     };
 
-    useEffect(() => {
-        obterComboParteEnvolvida(TipoParte.Locatario).then(response => {
-            setComboLocatarios(response)
-        })
-    }, [])
-
     return (
         <div className="w-full xl:w-1/2">
-            <label htmlFor="codigoLocatario" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Locatário <span style={{ color: 'red' }}>*</span></label>
-
+            <label htmlFor="tipoFins" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fins do imóvel <span style={{ color: 'red' }}>*</span></label>
             <div className="relative z-20 bg-transparent dark:bg-form-input">
                 <select
                     value={selectedOption}
@@ -35,8 +26,8 @@ const ComboLocatario: React.FC = () => {
                     <option value="" disabled className="text-body dark:text-bodydark">
                         Selecione
                     </option>
-                    {comboLocatarios.map((locatario: any, index: any) => (
-                        <option className="text-body dark:text-bodydark" key={index} value={locatario.codigo}>{locatario.nome}</option>
+                    {Object.values(TipoFinsImovel).map((tipo, index) => (
+                        <option key={index} value={tipo} className="text-body text-black dark:text-white dark:text-bodydark">{ToTipoFinsImovelEnum(tipo)}</option>
                     ))}
                 </select>
             </div>
@@ -44,4 +35,4 @@ const ComboLocatario: React.FC = () => {
     );
 };
 
-export default ComboLocatario;
+export default FinsImovelSelect;

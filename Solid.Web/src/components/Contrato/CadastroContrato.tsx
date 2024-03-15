@@ -33,7 +33,7 @@ const CadastroContrato = ({ retrocederEtapa }: any) => {
                 </div>
             }
             {etapa === 2 &&
-                <EditorContrato initialValue={contractText} onChange={handleContractChange} />
+                <EditorContrato onChange={handleContractChange} />
             }
             <div className='flex justify-end'>
                 <button type="button" onClick={retrocederEtapaCadastro} className="text-white bg-primary border-perso w-28 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">

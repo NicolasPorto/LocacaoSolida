@@ -1,7 +1,9 @@
-import { useState, useEffect, useContext } from "react";
 import ComboLocadores from "../Combos/ComboLocadores";
 import ComboLocatarios from "../Combos/ComboLocatarios";
 import ComboImoveis from "../Combos/ComboImoveis";
+import ComboFiadores from "../Combos/ComboFiadores";
+import DatePickerOne from "../DatePicker/DatePickerOne";
+import FinsImovelSelect from "../SelectGroup/FinsImovelSelect";
 
 const FormContrato = () => {
     return (
@@ -20,30 +22,18 @@ const FormContrato = () => {
                                 <ComboLocatarios />
                             </div>
 
-                            <div className="mb-4.5">
-                                <ComboImoveis/>
+                            <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                                <ComboImoveis />
+                                <ComboFiadores />
                             </div>
-
-                            <div className="mb-4.5">
-                                <label className="mb-2.5 block text-black dark:text-white">
-                                    Subject
-                                </label>
-                                <input
-                                    type="text"
-                                    placeholder="Select subject"
-                                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                />
-                            </div>
-
-                            <div className="mb-6">
-                                <label className="mb-2.5 block text-black dark:text-white">
-                                    Message
-                                </label>
-                                <textarea
-                                    rows={6}
-                                    placeholder="Type your message"
-                                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                ></textarea>
+                            <div className="mb-4.5 flex flex-col gap-6 xl:flex-row w-full">
+                                <div className="w-full gap-6 flex">
+                                    <DatePickerOne label={'Data Início'} />
+                                    <DatePickerOne label={'Data Fim'} />
+                                </div>
+                                <div className="w-full">
+                                    <FinsImovelSelect />
+                                </div>
                             </div>
                         </div>
                     </form>

@@ -77,6 +77,7 @@ CREATE TABLE cad.ContratoLocacao (
     Codigo UNIQUEIDENTIFIER NOT NULL UNIQUE,
     CodigoLocador UNIQUEIDENTIFIER NOT NULL,
     CodigoLocatario UNIQUEIDENTIFIER NOT NULL,
+    CodigoFiador UNIQUEIDENTIFIER NULL,
     CodigoCorretor UNIQUEIDENTIFIER NOT NULL,
     CodigoImovel UNIQUEIDENTIFIER NOT NULL,
     DataInicio DATE NOT NULL,
@@ -86,6 +87,7 @@ CREATE TABLE cad.ContratoLocacao (
     ValorAluguel DECIMAL NOT NULL,
     DiaPrazoPagamento INT NOT NULL,
     MultaAtraso INT NOT NULL,
+    ContratoHTML VARCHAR(MAX) NOT NULL,
     DtInclusao DATETIME NOT NULL,
     Situacao INT NOT NULL
 );

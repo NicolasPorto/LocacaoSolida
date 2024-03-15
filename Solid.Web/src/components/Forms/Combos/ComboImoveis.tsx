@@ -23,7 +23,7 @@ const ComboImoveis: React.FC = () => {
 
     return (
         <div className="w-full xl:w-1/2">
-            <label htmlFor="codigoLocador" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imóvel <span style={{ color: 'red' }}>*</span></label>
+            <label htmlFor="codigoImovel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imóvel <span style={{ color: 'red' }}>*</span></label>
             <div className="relative z-20 bg-transparent dark:bg-form-input">
                 <select
                     value={selectedOption}

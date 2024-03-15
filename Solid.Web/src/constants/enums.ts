@@ -40,3 +40,8 @@ export const TipoValor = {
     Taxa: 1,
     Desconto: 2
 };
+
+export const TipoFinsImovel = {
+    Residencial: 1,
+    Comercial: 2
+};
