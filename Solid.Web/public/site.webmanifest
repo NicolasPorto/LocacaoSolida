@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "LocaçãoSólida",
+  "short_name": "LocaçãoSólida",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#F53838",
+  "description": "Locação Sólida",
+  "icons": [
+    {
+      "src": "/favicon/favicon-white.png",
+      "sizes": "50x50",
+      "type": "image/png",
+      "density": "1.0"
+    },
+    {
+      "src": "/favicon/favicon-black.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "density": "1.0"
+    }
+  ]
+}
