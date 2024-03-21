@@ -1,9 +1,13 @@
-import SeoHead from "../../components/Home/SeoHead";
+import HeadPagina from "../../components/Home/HeadPagina";
+import FormContrato from "../../components/Contrato/FormContrato";
+import Editor from "../../components/Contrato/Editor";
 
 export default function GerarContrato() {
     return (
         <>
-            <SeoHead title='LocaçãoSólida | Gerar' />
+            <HeadPagina title='LocaçãoSólida | Gerar' />
+            <FormContrato/>
+            <Editor/>
         </>
     );
 }

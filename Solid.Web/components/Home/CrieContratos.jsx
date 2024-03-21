@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import getScrollAnimation from "../../utils/getScrollAnimation";

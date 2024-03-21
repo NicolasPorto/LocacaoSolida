@@ -1,12 +1,12 @@
 import CrieContratos from "../../components/Home/CrieContratos";
 import Pricing from "../../components/Home/Pricing";
 import Sobre from "../../components/Home/Sobre";
-import SeoHead from "../../components/Home/SeoHead";
+import HeadPagina from "../../components/Home/HeadPagina";
 
 export default function Home() {
     return (
         <>
-            <SeoHead title='LocaçãoSólida | Home' />
+            <HeadPagina title='LocaçãoSólida | Home' />
             <Sobre />
             <CrieContratos />
             <Pricing />

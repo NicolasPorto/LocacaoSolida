@@ -33,9 +33,8 @@ const defaultMeta = {
  * - templateTitle
  * all field are optional (default value defined on defaultMeta)
  * @example
- * <SeoHead title="Page's Title" />
  */
-const SeoHead = (props) => {
+const HeadPagina = (props) => {
   const router = useRouter();
   const meta = {
     ...defaultMeta,
@@ -124,4 +123,4 @@ const SeoHead = (props) => {
   );
 };
 
-export default SeoHead;
+export default HeadPagina;
