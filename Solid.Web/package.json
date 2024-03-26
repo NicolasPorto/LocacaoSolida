@@ -24,7 +24,8 @@
     "react-slick": "^0.27.13",
     "slick-carousel": "^1.8.1",
     "tailwindcss": "^3.1.8",
-    "tinymce": "^7.0.0"
+    "tinymce": "^7.0.0",
+    "util-mask": "^1.0.2"
   },
   "devDependencies": {
     "babel-plugin-inline-react-svg": "^1.1.2"

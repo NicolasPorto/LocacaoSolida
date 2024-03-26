@@ -27,6 +27,9 @@ const CheckboxGroup = ({ options }) => {
         const initialState = {};
         options.forEach(option => {
             initialState[option.id] = option.checked || false;
+
+            if (option.id === 'pessoaF')
+                initialState[option.id] = true
         });
         return initialState;
     });
