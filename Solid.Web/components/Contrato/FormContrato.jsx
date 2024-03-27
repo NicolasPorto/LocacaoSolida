@@ -6,17 +6,14 @@ import ButtonStepBack from "../misc/ButtonStepBack";
 import CPFInput from "../Form/CPFInput";
 import { EstadoCivil } from "../../constants/enums";
 import { ToEstadoCivilEnum } from "../../extensions/EnumExtension";
-
-const optionsCheckBox = [
-    { id: 'pessoaF', label: 'Pessoa Física' },
-    { id: 'pessoaJ', label: 'Pessoa Jurídica' }
-];
+import { TipoPessoa } from "../../constants/enums";
 
 const progressValues = [4, 8, 12, 16];
 
 const FormContrato = ({ handleSalvarForm }) => {
     const [step, setStep] = useState(1);
     const [progressBar, setProgressBar] = useState(4);
+    const [tipoProprietario, setTipoProprietario] = useState(TipoPessoa.Fisica);
     const [formData, setFormData] = useState({
         locador: {
             nome: '',
@@ -35,11 +32,41 @@ const FormContrato = ({ handleSalvarForm }) => {
     }, [formData]);
 
     const nextStep = () => {
+        if (step === 1 && tipoProprietario === TipoPessoa.Fisica) {
+            setStep(step + 1);
+            setProgressBar(progressValues[step]);
+            return;
+        }
+
+        if (step === 1 && tipoProprietario === TipoPessoa.Juridica) {
+            setStep(step + 2);
+            setProgressBar(progressValues[step]);
+            return;
+        }
+
+        if (step === 2) {
+            setStep(step + 2);
+            setProgressBar(progressValues[step]);
+            return;
+        }
+        
         setStep(step + 1);
         setProgressBar(progressValues[step]);
     }
 
     const previousStep = () => {
+        if (step === 4 && tipoProprietario === TipoPessoa.Fisica) {
+            setStep(step - 2);
+            setProgressBar(progressValues[step - 3]);
+            return;
+        }
+
+        if (step === 3) {
+            setStep(step - 2);
+            setProgressBar(progressValues[step - 3]);
+            return;
+        }
+
         setStep(step - 1);
         setProgressBar(progressValues[step - 2]);
     }
@@ -60,15 +87,19 @@ const FormContrato = ({ handleSalvarForm }) => {
         console.log(formData);
     }
 
+    const handleTipoProprietario = (tipoPessoa) => {
+        setTipoProprietario(tipoPessoa)
+    }
+
     return (
         <>
             <div className="mt-24 mx-auto w-full bg-white sm:p-8 shadow-person-md">
                 <div className="max-w-screen-xl px-8 mx-auto">
                     <ProgressBar valor={progressBar} />
                     <div className="mt-8 mb-8">
-                        {step === 1 && <StepUm />}
-                        {step === 2 && <StepPessoaFisica handleInputChange={handleInputChange} formData={formData} />}
-                        {step === 3 && <StepPessoaJuridica />}
+                        {step === 1 && <StepUm handleTipoProprietario={handleTipoProprietario} />}
+                        {step === 2 && <StepLocadorFisico handleInputChange={handleInputChange} formData={formData} />}
+                        {step === 3 && <StepLocadorJuridico />}
                     </div>
                     <div className="flex justify-end">
                         {step > 1 && <ButtonStepBack onClick={previousStep}>Voltar</ButtonStepBack>}
@@ -81,7 +112,22 @@ const FormContrato = ({ handleSalvarForm }) => {
     )
 }
 
-const StepUm = () => {
+const StepUm = ({ handleTipoProprietario }) => {
+    const [isPFPicked, setIsPFPicked] = useState(true);
+    const [isPJPicked, setIsPJPicked] = useState(false);
+
+    const handlePFPick = () => {
+        setIsPFPicked(true);
+        setIsPJPicked(false);
+        handleTipoProprietario(TipoPessoa.Fisica);
+    };
+
+    const handlePJPick = () => {
+        setIsPFPicked(false);
+        setIsPJPicked(true);
+        handleTipoProprietario(TipoPessoa.Juridica);
+    };
+
     return (
         <>
             <label className="text-2xl sm:text-3xl font-medium text-black-600 leading-normal mx-auto">
@@ -91,13 +137,46 @@ const StepUm = () => {
                 Pessoa física possui CPF, um ser humano, e Pessoa jurídica é toda entidade com CNPJ.
             </p>
             <div className="flex flex-col gap-5.5 p-6.5">
-                <CheckBoxGroup options={optionsCheckBox} />
+                <div>
+                    <label className="flex cursor-pointer select-none items-center mt-2">
+                        <div className="relative">
+                            <input
+                                type="checkbox"
+                                className="sr-only"
+                                onChange={handlePFPick}
+                                checked={isPFPicked}
+                            />
+                            <div className={`mr-4 flex h-5 w-5 items-center justify-center rounded-full border ${isPFPicked && 'border-person-500'}`}>
+                                <span className={`h-2.5 w-2.5 rounded-full bg-transparent ${isPFPicked && '!bg-person-500'}`} />
+                            </div>
+                        </div>
+                        Pessoa Física
+                    </label>
+                </div>
+
+                <div>
+                    <label className="flex cursor-pointer select-none items-center mt-2 text-gray-400">
+                        <div className="relative">
+                            <input
+                                disabled
+                                type="checkbox"
+                                className="sr-only"
+                                onChange={handlePJPick}
+                                checked={isPJPicked}
+                            />
+                            <div className={`mr-4 flex h-5 w-5 items-center justify-center rounded-full border ${isPJPicked && 'border-person-500'}`}>
+                                <span className={`h-2.5 w-2.5 rounded-full bg-transparent ${isPJPicked && '!bg-gray-500'}`} />
+                            </div>
+                        </div>
+                        Pessoa Jurídica <label className="ml-2 text-person-500"> Em breve </label>
+                    </label>
+                </div>
             </div>
         </>
     )
 }
 
-const StepPessoaFisica = ({ handleInputChange, formData }) => {
+const StepLocadorFisico = ({ handleInputChange, formData }) => {
     return (
         <>
             <label className="text-2xl sm:text-3xl font-medium text-black-600 leading-normal mx-auto">
@@ -169,8 +248,7 @@ const StepPessoaFisica = ({ handleInputChange, formData }) => {
     )
 }
 
-
-const StepPessoaJuridica = () => {
+const StepLocadorJuridico = () => {
     return (
         <>
             <label className="text-2xl sm:text-3xl font-medium text-black-600 leading-normal mx-auto">
