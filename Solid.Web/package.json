@@ -9,7 +9,6 @@
     "export": "next build && next export"
   },
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^3.0.0",
     "@tinymce/tinymce-react": "^4.3.2",
     "autoprefixer": "^10.4.12",
     "draft-js": "^0.11.7",
@@ -28,6 +27,7 @@
     "util-mask": "^1.0.2"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "babel-plugin-inline-react-svg": "^1.1.2"
   }
 }
