@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run build:css && next build",
     "start": "next start",
-    "export": "next build && next export"
+    "export": "next build && next export",
+    "build:css": "npm postcss styles/tailwind.css -o public/styles.css"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^3.0.0",
@@ -15,7 +16,7 @@
     "draft-js": "^0.11.7",
     "framer-motion": "6.0.0",
     "next": "^12.3.1",
-    "postcss": "^8.4.17",
+    "postcss": "^8.4.38",
     "postcss-import": "^13.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
