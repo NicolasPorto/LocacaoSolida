@@ -34,3 +34,8 @@ export const TipoFinsImovel = {
     Residencial: 1,
     Comercial: 2
 };
+
+export const TipoPessoa = {
+    Fisica: 1,
+    Juridica: 2
+};
