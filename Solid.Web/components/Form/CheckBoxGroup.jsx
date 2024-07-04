@@ -13,7 +13,7 @@ const Checkbox = ({ id, label, isChecked, onCheckboxChange }) => {
                         checked={isChecked}
                     />
                     <div className={`mr-4 flex h-5 w-5 items-center justify-center rounded-full border ${isChecked && 'border-person-500'}`}>
-                        <span className={`h-2.5 w-2.5 rounded-full bg-transparent ${isChecked && '!bg-person-500'}`} />
+                        <span className={`h-2.5 w-2.5 rounded-full bg-transparent ${isChecked && 'bg-person-500'}`} />
                     </div>
                 </div>
                 {label}
