@@ -147,7 +147,7 @@ const StepUm = ({ handleTipoProprietario }) => {
                                 checked={isPFPicked}
                             />
                             <div className={`mr-4 flex h-5 w-5 items-center justify-center rounded-full border ${isPFPicked && 'border-person-500'}`}>
-                                <span className={`h-2.5 w-2.5 rounded-full bg-transparent ${isPFPicked && 'bg-person-500'}`} />
+                                <span className={`h-2.5 w-2.5 rounded-full bg-person-500`} />
                             </div>
                         </div>
                         Pessoa Física
