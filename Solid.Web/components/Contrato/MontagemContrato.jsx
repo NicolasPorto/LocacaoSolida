@@ -1,6 +1,7 @@
 import React from 'react';
 
 function MontagemContrato({ data }) {
+    console.log(data)
     const containerStyle = {
         display: 'flex',
         flexDirection: 'column',
@@ -72,12 +73,12 @@ function MontagemContrato({ data }) {
                     <p>
                         Neste instrumento denominado <b>LOCADOR</b>, tem justo e contratado com: <br />
                         <br />
-                        <b>NOME:</b> EDNA MARIA CARVALHO PRATO <br />
-                        <b>ESTADO CIVIL:</b> CASADA <br />
-                        <b>PROFISSÃO:</b> TÉCNICA EM ELETRÔNICA <br />
-                        <b>CPF:</b> 583.133.542-91 <br />
-                        <b>NACIONALIDADE:</b> BRASILEIRA <br />
-                        <b>CIDADE:</b> JOINVILLE – SC
+                        <b>NOME:</b> {data?.locatario?.nome ? data.locatario?.nome : <div style={blueRectStyle}></div>} <br />
+                        <b>PROFISSÃO:</b> {data?.locatario?.profissao ? data.locatario?.profissao : <div style={blueRectStyle}></div>} <br />
+                        <b>CPF:</b> {data?.locatario?.cpf ? data.locatario.cpf : <div style={blueRectStyle}></div>} <br />
+                        <b>NACIONALIDADE:</b> {data?.locatario?.nacionalidade ? data.locatario.nacionalidade : <div style={blueRectStyle}></div>} <br />
+                        <b>ENDEREÇO:</b> {data?.locatario?.endereco ? data.locatario.endereco : <div style={blueRectStyle}></div>} <br />
+                        <b>CIDADE:</b> {data?.locatario?.cidade ? data.locatario.cidade : <div style={blueRectStyle}></div>}
                     </p>
                     <br />
                     <div>
@@ -90,8 +91,8 @@ function MontagemContrato({ data }) {
                         <p>
                             Mediante as cláusulas seguintes, as quais as partes contratantes se obrigam mutuamente: <br />
                             <br />
-                            <b>CLÁUSULA PRIMEIRA:</b> O prazo de locação é de <b>24 (Vinte e quatro) meses</b>, a iniciar em
-                            <b>01/03/2023</b>, com término
+                            <b>CLÁUSULA PRIMEIRA:</b> O prazo de locação é de <b>24 (Vinte e quatro) meses</b>, a iniciar em 
+                            <b> 01/03/2023</b>, com término
                             em <b>28/02/2025.</b> <br />
                             <br />
                             <b>CLÁUSULA SEGUNDA:</b> O <b>LOCATÁRIO</b> destinará o imóvel unicamente para fins <b>RESIDENCIAIS.</b>
