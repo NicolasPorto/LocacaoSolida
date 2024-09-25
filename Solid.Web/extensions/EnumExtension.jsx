@@ -1,4 +1,4 @@
-import { Situacao, TipoCorretor, EstadoCivil, TipoImovel, SituacaoImovel, TipoValor, TipoFinsImovel } from "../constants/enums"
+import { Situacao, EstadoCivil, TipoLocacao } from "../constants/enums"
 
 
 export function ToSituacaoEnum(situacao) {
@@ -22,3 +22,26 @@ export function ToEstadoCivilEnum(estado) {
             return 'Desconhecida'
     }
 }
+
+export function ToTipoLocacaoEnum(estado) {
+    switch (estado) {
+        case TipoLocacao.Apartamento:
+            return 'Apartamento'
+        case TipoLocacao.Casa:
+            return 'Casa'
+        default:
+            return 'Desconhecida'
+    }
+}
+
+export function ToTipoLocacaoEnumComPrefixo(estado) {
+    switch (estado) {
+        case '1':
+            return 'um apartamento'
+        case '2':
+            return 'uma casa'
+        default:
+            return 'Desconhecida'
+    }
+}
+

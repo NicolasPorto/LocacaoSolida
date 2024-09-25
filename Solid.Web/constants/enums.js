@@ -39,3 +39,8 @@ export const TipoPessoa = {
     Fisica: 1,
     Juridica: 2
 };
+
+export const TipoLocacao = {
+    Apartamento: 1,
+    Casa: 2
+};

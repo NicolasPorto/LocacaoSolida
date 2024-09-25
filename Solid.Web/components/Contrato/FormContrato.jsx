@@ -6,10 +6,12 @@ import StepLocadorFisico from "./Etapas/StepLocadorFisico";
 import StepLocadorJuridico from "./Etapas/StepLocadorJuridico";
 import StepLocatario from "./Etapas/StepLocatario";
 import StepLocatarioFisico from "./Etapas/StepLocatarioFisico";
+import StepEndereco from "./Etapas/StepEndereco";
+import StepPeriodo from "./Etapas/StepPeriodo";
 import ButtonStep from "../Form/ButtonStep";
 import ButtonStepBack from "../Form/ButtonStepBack";
 
-const progressValues = [4, 8, 12, 16, 21];
+const progressValues = [4, 8, 12, 16, 21, 27, 36];
 
 const FormContrato = ({ handleSalvarForm }) => {
     const [step, setStep] = useState(1);
@@ -36,6 +38,14 @@ const FormContrato = ({ handleSalvarForm }) => {
             profissao: '',
             endereco: '',
             cidade: ''
+        },
+        locacao: {
+            tipoLocacao: 0,
+            rua: '',
+            numero: '',
+            bairro: '',
+            cidade: '',
+            estado: ''
         }
     });
 
@@ -119,6 +129,8 @@ const FormContrato = ({ handleSalvarForm }) => {
 
                         {step === 4 && <StepLocatario handleTipoLocatario={handleTipoLocatario} />}
                         {step === 5 && <StepLocatarioFisico handleInputChange={handleInputChange} formData={formData} />}
+                        {step === 6 && <StepEndereco handleInputChange={handleInputChange} formData={formData} />}
+                        {step === 7 && <StepPeriodo handleInputChange={handleInputChange} formData={formData} />}
                     </div>
                     <div className="flex justify-end">
                         {step > 1 && <ButtonStepBack onClick={previousStep}>Voltar</ButtonStepBack>}
